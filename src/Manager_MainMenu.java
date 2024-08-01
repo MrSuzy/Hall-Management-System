@@ -1,3 +1,6 @@
+
+import java.awt.Color;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +17,8 @@ public class Manager_MainMenu extends javax.swing.JFrame {
      */
     public Manager_MainMenu() {
         initComponents();
+        Color col = new Color(227, 242, 253);
+        getContentPane().setBackground(col);
     }
 
     /**
@@ -43,17 +48,18 @@ public class Manager_MainMenu extends javax.swing.JFrame {
         jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(213, 248, 249));
 
-        lblCompanyName.setFont(new java.awt.Font("HeadLineA", 0, 48)); // NOI18N
+        lblCompanyName.setFont(new java.awt.Font("Bradley Hand", 0, 36)); // NOI18N
         lblCompanyName.setText("Hall Symphony Inc.");
 
-        btnLogOut.setFont(new java.awt.Font("Apple LiGothic", 0, 18)); // NOI18N
+        btnLogOut.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         btnLogOut.setText("LogOut");
 
-        lblUsername.setFont(new java.awt.Font("Apple LiGothic", 0, 24)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         lblUsername.setText("jLabel4");
 
-        btnSales.setFont(new java.awt.Font("Apple LiGothic", 0, 18)); // NOI18N
+        btnSales.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         btnSales.setText("Sales Dashboard");
         btnSales.setPreferredSize(new java.awt.Dimension(80, 23));
         btnSales.addActionListener(new java.awt.event.ActionListener() {
@@ -62,7 +68,7 @@ public class Manager_MainMenu extends javax.swing.JFrame {
             }
         });
 
-        btnMaintenance.setFont(new java.awt.Font("Apple LiGothic", 0, 18)); // NOI18N
+        btnMaintenance.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         btnMaintenance.setText("Maintenance Operations");
         btnMaintenance.setPreferredSize(new java.awt.Dimension(80, 23));
         btnMaintenance.addActionListener(new java.awt.event.ActionListener() {
@@ -92,10 +98,10 @@ public class Manager_MainMenu extends javax.swing.JFrame {
                 .addGap(66, 66, 66))
         );
 
-        lblNotification.setFont(new java.awt.Font("Apple LiGothic", 0, 24)); // NOI18N
+        lblNotification.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         lblNotification.setText("Notification");
 
-        btnView.setFont(new java.awt.Font("Apple LiGothic", 0, 18)); // NOI18N
+        btnView.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         btnView.setText("View");
         btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,7 +144,7 @@ public class Manager_MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCompanyName)
                     .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblUsername)
@@ -162,7 +168,7 @@ public class Manager_MainMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
