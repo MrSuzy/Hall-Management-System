@@ -17,7 +17,7 @@ public class Manager_SalesDashboard extends javax.swing.JFrame {
      */
     public Manager_SalesDashboard() {
         initComponents();
-        Color col = new Color(227, 242, 253);
+        Color col = new Color(224, 240, 255);
         Color buttonColor = new Color(228, 228, 228);
         Color color = new Color(242, 242, 242);
         getContentPane().setBackground(col);
