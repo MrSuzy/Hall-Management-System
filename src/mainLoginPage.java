@@ -1,3 +1,6 @@
+
+import java.awt.Color;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +17,8 @@ public class mainLoginPage extends javax.swing.JFrame {
      */
     public mainLoginPage() {
         initComponents();
+        Color col = new Color(227, 242, 253);
+        getContentPane().setBackground(col);
     }
 
     /**
@@ -41,24 +46,25 @@ public class mainLoginPage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 51, 0));
 
-        lblTitle.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 48)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
         lblTitle.setText("Hall Symphony Inc");
 
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo6.png"))); // NOI18N
 
-        lblContact.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        lblContact.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblContact.setText("Contact : 012-3456789");
 
-        lblInquires.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 36)); // NOI18N
+        lblInquires.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         lblInquires.setText("For Further Inquires:");
 
-        lblEmail.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        lblEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblEmail.setText("Email : hallsymphony@gmail.com");
 
-        lblOperatingHours.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        lblOperatingHours.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblOperatingHours.setText("Operating Hours: 8am - 6pm");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -75,30 +81,30 @@ public class mainLoginPage extends javax.swing.JFrame {
                             .addComponent(lblInquires, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblOperatingHours, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
+                        .addGap(92, 92, 92)
                         .addComponent(lblLogo)))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(25, 25, 25)
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(34, 34, 34)
                 .addComponent(lblInquires)
-                .addGap(24, 24, 24)
+                .addGap(37, 37, 37)
                 .addComponent(lblContact)
                 .addGap(18, 18, 18)
                 .addComponent(lblEmail)
                 .addGap(18, 18, 18)
                 .addComponent(lblOperatingHours)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
-        lblQuote.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 24)); // NOI18N
+        lblQuote.setFont(new java.awt.Font("Bradley Hand ITC", 0, 18)); // NOI18N
         lblQuote.setText("Your #1 Booking Companion");
 
-        txtUserName.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        txtUserName.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         txtUserName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUserName.setText("Username / User ID");
         txtUserName.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +113,7 @@ public class mainLoginPage extends javax.swing.JFrame {
             }
         });
 
-        pwdPassword.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        pwdPassword.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         pwdPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pwdPassword.setText("Password");
         pwdPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -116,10 +122,10 @@ public class mainLoginPage extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         jButton1.setText("LOGIN");
 
-        lblSignup.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        lblSignup.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblSignup.setText("Not a member? Sign Up");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,24 +135,28 @@ public class mainLoginPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(lblQuote, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pwdPassword)
-                            .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(lblSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                                .addGap(54, 54, 54)
+                                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(176, 176, 176)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(121, 121, 121)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(pwdPassword)
+                                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblQuote, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(93, 93, 93))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(130, 130, 130)))))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(

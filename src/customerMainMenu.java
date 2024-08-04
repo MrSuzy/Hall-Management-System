@@ -1,3 +1,6 @@
+
+import java.awt.Color;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -10,10 +13,13 @@
 public class customerMainMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form adminMainMenu
+     * Creates new form customerMainMenu
      */
     public customerMainMenu() {
         initComponents();
+        
+        Color col = new Color(224, 240, 255); //red, green and blue values
+        getContentPane().setBackground(col);
     }
 
     /**
@@ -27,71 +33,89 @@ public class customerMainMenu extends javax.swing.JFrame {
 
         lblTitle = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnBookingHistory = new javax.swing.JButton();
         btnBooking = new javax.swing.JButton();
         btnUpdateProfile = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        panelNotifcation = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstBoxNotification = new javax.swing.JList<>();
         lblNotification = new javax.swing.JLabel();
-        btnView = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblTitle.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 48)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
         lblTitle.setText("Hall Symphony Inc");
 
         lblUsername.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
         lblUsername.setText("username");
 
-        jButton1.setBackground(new java.awt.Color(242, 242, 242));
-        jButton1.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
-        jButton1.setText("logout");
-        jButton1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        btnLogOut.setBackground(new java.awt.Color(228, 228, 228));
+        btnLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnLogOut.setText("logout");
+        btnLogOut.setBorder(javax.swing.BorderFactory.createCompoundBorder());
 
-        btnBookingHistory.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        jPanel1.setForeground(new java.awt.Color(242, 242, 242));
+
+        btnBookingHistory.setBackground(new java.awt.Color(228, 228, 228));
+        btnBookingHistory.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         btnBookingHistory.setText("Booking History");
 
-        btnBooking.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        btnBooking.setBackground(new java.awt.Color(228, 228, 228));
+        btnBooking.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         btnBooking.setText("Hall Booking ");
 
-        btnUpdateProfile.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        btnUpdateProfile.setBackground(new java.awt.Color(228, 228, 228));
+        btnUpdateProfile.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         btnUpdateProfile.setText("Update Profile");
 
-        btnReport.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        btnReport.setBackground(new java.awt.Color(228, 228, 228));
+        btnReport.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         btnReport.setText("Feedback / Report");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdateProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addComponent(btnBookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnUpdateProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelNotifcation.setBackground(new java.awt.Color(242, 242, 242));
+        panelNotifcation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelNotifcation.setForeground(new java.awt.Color(242, 242, 242));
+        panelNotifcation.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                panelNotifcationAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
+        lstBoxNotification.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lstBoxNotification.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -99,35 +123,29 @@ public class customerMainMenu extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(lstBoxNotification);
 
-        lblNotification.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        lblNotification.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         lblNotification.setText("Notification");
 
-        btnView.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
-        btnView.setText("View");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelNotifcationLayout = new javax.swing.GroupLayout(panelNotifcation);
+        panelNotifcation.setLayout(panelNotifcationLayout);
+        panelNotifcationLayout.setHorizontalGroup(
+            panelNotifcationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNotifcationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelNotifcationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(panelNotifcationLayout.createSequentialGroup()
                         .addComponent(lblNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                        .addComponent(btnView)))
+                        .addGap(0, 202, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNotification)
-                    .addComponent(btnView))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+        panelNotifcationLayout.setVerticalGroup(
+            panelNotifcationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNotifcationLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(lblNotification)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -138,17 +156,17 @@ public class customerMainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
+                        .addGap(63, 63, 63)
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
+                        .addGap(60, 60, 60)
                         .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(btnLogOut))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelNotifcation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -158,16 +176,20 @@ public class customerMainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitle)
                     .addComponent(lblUsername)
-                    .addComponent(jButton1))
+                    .addComponent(btnLogOut))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(panelNotifcation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void panelNotifcationAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_panelNotifcationAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panelNotifcationAncestorAdded
 
     /**
      * @param args the command line arguments
@@ -199,7 +221,7 @@ public class customerMainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new adminMainMenu().setVisible(true);
+                new customerMainMenu().setVisible(true);
             }
         });
     }
@@ -207,16 +229,15 @@ public class customerMainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBooking;
     private javax.swing.JButton btnBookingHistory;
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnUpdateProfile;
-    private javax.swing.JButton btnView;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblNotification;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JList<String> lstBoxNotification;
+    private javax.swing.JPanel panelNotifcation;
     // End of variables declaration//GEN-END:variables
 }
