@@ -55,12 +55,27 @@ public class adminUserMenu extends javax.swing.JFrame {
 
         btnStaff.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnStaff.setText("Staff Management");
+        btnStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStaffActionPerformed(evt);
+            }
+        });
 
         btnHall.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnHall.setText("Hall Management");
+        btnHall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHallActionPerformed(evt);
+            }
+        });
 
         btnMainMenu.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMainMenu.setText("Main Menu");
+        btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMainMenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout directoryPanelLayout = new javax.swing.GroupLayout(directoryPanel);
         directoryPanel.setLayout(directoryPanelLayout);
@@ -95,6 +110,11 @@ public class adminUserMenu extends javax.swing.JFrame {
         btnLogout.setBackground(new java.awt.Color(227, 242, 253));
         btnLogout.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnLogout.setText("logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         lblTableTitle.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblTableTitle.setText("User Information");
@@ -245,6 +265,30 @@ public class adminUserMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new adminMainPage().setVisible(true);
+    }//GEN-LAST:event_btnMainMenuActionPerformed
+
+    private void btnStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStaffActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new adminStaffMenu().setVisible(true);
+    }//GEN-LAST:event_btnStaffActionPerformed
+
+    private void btnHallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new adminHallManage().setVisible(true);
+    }//GEN-LAST:event_btnHallActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new mainLoginPage().setVisible(true);
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments

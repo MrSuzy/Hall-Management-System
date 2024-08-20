@@ -171,6 +171,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="logout"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPageTitle">
           <Properties>
@@ -197,6 +200,9 @@
             <Property name="text" type="java.lang.String" value="Main Menu"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblInfo1">
           <Properties>

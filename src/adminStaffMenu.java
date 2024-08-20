@@ -55,12 +55,27 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
         btnUser.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnUser.setText("User Management");
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
+            }
+        });
 
         btnHall.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnHall.setText("Hall Management");
+        btnHall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHallActionPerformed(evt);
+            }
+        });
 
         btnMainMenu.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMainMenu.setText("Main Menu");
+        btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMainMenuActionPerformed(evt);
+            }
+        });
 
         staffPanel.setBackground(new java.awt.Color(192, 205, 218));
 
@@ -135,6 +150,11 @@ public class adminStaffMenu extends javax.swing.JFrame {
         btnLogout.setBackground(new java.awt.Color(227, 242, 253));
         btnLogout.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnLogout.setText("logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         lblTableTitle.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblTableTitle.setText("Staff Information");
@@ -194,9 +214,19 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
         btnAdd.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnAdd.setText("Add New Staff");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnEdit.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnEdit.setText("Edit Staff");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnDelete.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnDelete.setText("Delete Staff");
@@ -264,6 +294,42 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new adminMainPage().setVisible(true);
+    }//GEN-LAST:event_btnMainMenuActionPerformed
+
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new adminUserMenu().setVisible(true);
+    }//GEN-LAST:event_btnUserActionPerformed
+
+    private void btnHallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new adminHallManage().setVisible(true);
+    }//GEN-LAST:event_btnHallActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new mainLoginPage().setVisible(true);
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new adminAddScheduler().setVisible(true);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new adminEditScheduler().setVisible(true);
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments

@@ -61,6 +61,11 @@ public class adminAddScheduler extends javax.swing.JFrame {
         btnLogout.setBackground(new java.awt.Color(227, 242, 253));
         btnLogout.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnLogout.setText("logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         lblPageTitle.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblPageTitle.setText("Staff Account Creation");
@@ -72,6 +77,11 @@ public class adminAddScheduler extends javax.swing.JFrame {
         btnMenu.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMenu.setText("Main Menu");
         btnMenu.setToolTipText("");
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
 
         lblInfo1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblInfo1.setText("Staff ID: ");
@@ -221,6 +231,18 @@ public class adminAddScheduler extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new adminMainPage().setVisible(true);
+    }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new mainLoginPage().setVisible(true);
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
