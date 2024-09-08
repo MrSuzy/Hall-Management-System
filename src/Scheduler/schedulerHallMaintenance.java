@@ -1,3 +1,6 @@
+package Scheduler;
+
+import Login.mainLoginPage;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -51,7 +54,6 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
         btnHallMaintenance = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(789, 439));
 
         jPanel1.setBackground(new java.awt.Color(227, 242, 253));
 

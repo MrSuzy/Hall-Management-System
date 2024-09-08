@@ -1,5 +1,13 @@
+package Login;
+
 
 import java.awt.Color;
+import Admin.adminMainPage;
+import Admin.adminStaffMenu;
+import Admin.adminUserMenu;
+import Admin.adminHallManage;
+import Admin.adminEditScheduler;
+import Admin.adminAddScheduler;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,6 +23,10 @@ public class mainLoginPage extends javax.swing.JFrame {
     /**
      * Creates new form mainLoginPage
      */
+    // public will overwrite & setters getters might not get the value
+    private static String username; // static can only be called in static method
+    
+    
     public mainLoginPage() {
         initComponents();
         Color col = new Color(227, 242, 253);
@@ -171,6 +183,16 @@ public class mainLoginPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // set the username 
+    public void setUsername(String username) {
+        mainLoginPage.username = username; 
+    }
+    
+    public String getUsername() {
+        return mainLoginPage.username; 
+    }
+    
+    
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserNameActionPerformed

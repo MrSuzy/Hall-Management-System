@@ -1,4 +1,7 @@
+package Customer;
 
+
+import Login.mainLoginPage;
 import java.awt.Color;
 
 /*

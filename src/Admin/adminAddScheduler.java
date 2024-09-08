@@ -1,3 +1,16 @@
+package Admin;
+
+
+import Login.mainLoginPage;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -7,12 +20,12 @@
  *
  * @author user
  */
-public class adminEditScheduler extends javax.swing.JFrame {
+public class adminAddScheduler extends javax.swing.JFrame {
 
     /**
-     * Creates new form adminEditScheduler
+     * Creates new form adminAddScheduler
      */
-    public adminEditScheduler() {
+    public adminAddScheduler() {
         initComponents();
     }
 
@@ -38,15 +51,15 @@ public class adminEditScheduler extends javax.swing.JFrame {
         lblInfo4 = new javax.swing.JLabel();
         lblInfo5 = new javax.swing.JLabel();
         lblInfo6 = new javax.swing.JLabel();
-        lblInfor7 = new javax.swing.JLabel();
-        lblStaffID = new javax.swing.JLabel();
-        lblName = new javax.swing.JLabel();
+        lblInfo7 = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
-        lblContact = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
+        txtContact = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         pwdPassword = new javax.swing.JPasswordField();
         pwdConfirm = new javax.swing.JPasswordField();
-        btnUpdate = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        cbRole = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,7 +81,7 @@ public class adminEditScheduler extends javax.swing.JFrame {
         });
 
         lblPageTitle.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblPageTitle.setText("Staff Account Update");
+        lblPageTitle.setText("Staff Account Creation");
 
         btnClear.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnClear.setText("Clear");
@@ -84,7 +97,7 @@ public class adminEditScheduler extends javax.swing.JFrame {
         });
 
         lblInfo1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblInfo1.setText("Staff ID: ");
+        lblInfo1.setText("Role");
 
         lblInfo2.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblInfo2.setText("Name: ");
@@ -101,23 +114,21 @@ public class adminEditScheduler extends javax.swing.JFrame {
         lblInfo6.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblInfo6.setText("Password:");
 
-        lblInfor7.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblInfor7.setText("Confirm Password: ");
+        lblInfo7.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblInfo7.setText("Confirm Password: ");
 
-        lblStaffID.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblStaffID.setText("(auto)");
-
-        lblName.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblName.setText("(auto)");
+        txtName.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        txtName.setText("name");
 
         txtUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         txtUsername.setText("username");
 
-        lblContact.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblContact.setText("(auto)");
+        txtContact.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        txtContact.setText("contact");
 
-        lblEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblEmail.setText("(auto)");
+        txtEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        txtEmail.setText("email");
+        txtEmail.setToolTipText("");
 
         pwdPassword.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         pwdPassword.setText("password");
@@ -125,9 +136,17 @@ public class adminEditScheduler extends javax.swing.JFrame {
         pwdConfirm.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         pwdConfirm.setText("password");
 
-        btnUpdate.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnUpdate.setText("Update");
-        btnUpdate.setToolTipText("");
+        btnAdd.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnAdd.setText("Add");
+        btnAdd.setToolTipText("");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        cbRole.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Staff", "Manager" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -136,6 +155,28 @@ public class adminEditScheduler extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblInfo2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblInfo3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                            .addComponent(lblInfo4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblInfo6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblInfo5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblInfo7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtContact, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                            .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pwdPassword)
+                            .addComponent(pwdConfirm, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblPageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(68, 68, 68)
@@ -147,27 +188,7 @@ public class adminEditScheduler extends javax.swing.JFrame {
                         .addGap(131, 131, 131)
                         .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblInfo3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblInfo4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblInfo5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblInfo6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblInfor7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(lblContact, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(lblStaffID, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(txtUsername)
-                            .addComponent(pwdPassword)
-                            .addComponent(pwdConfirm))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -180,17 +201,17 @@ public class adminEditScheduler extends javax.swing.JFrame {
                     .addComponent(btnLogout))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPageTitle)
                     .addComponent(btnClear)
-                    .addComponent(btnMenu))
+                    .addComponent(btnMenu)
+                    .addComponent(lblPageTitle))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo1)
-                    .addComponent(lblStaffID))
+                    .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo2)
-                    .addComponent(lblName))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo3)
@@ -198,21 +219,21 @@ public class adminEditScheduler extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo4)
-                    .addComponent(lblContact))
+                    .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo5)
-                    .addComponent(lblEmail))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo6)
                     .addComponent(pwdPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblInfor7)
+                    .addComponent(lblInfo7)
                     .addComponent(pwdConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addComponent(btnAdd))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -241,6 +262,78 @@ public class adminEditScheduler extends javax.swing.JFrame {
         new mainLoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        // ensure all fields are filled
+        if (txtName.getText().isEmpty() || txtUsername.getText().isEmpty() || txtContact.getText().isEmpty()
+                || txtEmail.getText().isEmpty() || pwdPassword.getText().isEmpty()
+                || pwdConfirm.getText().isEmpty()) {
+            
+            JOptionPane.showMessageDialog(this, "Please fil in all the fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // ensure password match
+        if (!pwdPassword.getText().equals(pwdConfirm.getText())) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try {
+            // check if staff already exists
+            BufferedReader reader = new BufferedReader(new FileReader("staff.txt"));
+            String line;
+            boolean exists = false;
+            
+            while ((line = reader.readLine()) != null) {
+                String[] staffDetails = line.split(";");
+                if(staffDetails[2].equals(txtEmail.getText()) || staffDetails[3].equals(txtUsername.getText())) {
+                    exists = true;
+                    break;
+                }
+            }
+            reader.close();
+            
+            if (exists) {
+                JOptionPane.showMessageDialog(this, "Staff with the username or email already exists", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // add staff
+                ArrayList<String> staff = new ArrayList<>();
+                staff.add(txtName.getText());
+                staff.add(txtUsername.getText());
+                staff.add(txtContact.getText());
+                staff.add(txtEmail.getText());
+                staff.add(pwdPassword.getText());
+                staff.add((String) cbRole.getSelectedItem());
+                
+                // set date time created 
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                String formattedDateTime = currentDateTime.format(formatter);
+                
+                // set status to active
+                String status = "active";
+                
+                try (FileWriter fw = new FileWriter("staff.txt", true)) {
+                    fw.write(staff.get(0) + ";" + staff.get(1) + ";" + staff.get(2) + ";" + staff.get(3) + ";" + formattedDateTime + ";" + staff.get(4) + ";" + status + ";" + staff.get(5));
+                }
+                
+                JOptionPane.showMessageDialog(this, "Staff added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                
+                // clear fields
+                txtName.setText("");
+                txtUsername.setText("");
+                txtContact.setText("");
+                txtEmail.setText("");
+                pwdPassword.setText("");
+                pwdConfirm.setText("");
+                
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -258,46 +351,46 @@ public class adminEditScheduler extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(adminEditScheduler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminAddScheduler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(adminEditScheduler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminAddScheduler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(adminEditScheduler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminAddScheduler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(adminEditScheduler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminAddScheduler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new adminEditScheduler().setVisible(true);
+                new adminAddScheduler().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMenu;
-    private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cbRole;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblContact;
-    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblInfo1;
     private javax.swing.JLabel lblInfo2;
     private javax.swing.JLabel lblInfo3;
     private javax.swing.JLabel lblInfo4;
     private javax.swing.JLabel lblInfo5;
     private javax.swing.JLabel lblInfo6;
-    private javax.swing.JLabel lblInfor7;
-    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblInfo7;
     private javax.swing.JLabel lblPageTitle;
-    private javax.swing.JLabel lblStaffID;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPasswordField pwdConfirm;
     private javax.swing.JPasswordField pwdPassword;
+    private javax.swing.JTextField txtContact;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

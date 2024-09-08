@@ -129,9 +129,6 @@
           <Font name="Bradley Hand" size="36" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Hall Symphony Inc."/>
-        <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
-          <Point value="[0, 25]"/>
-        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnLogOut">
@@ -224,9 +221,6 @@
           <Font name="Gill Sans" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Response"/>
-        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[78, 21]"/>
-        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResponseActionPerformed"/>
@@ -238,9 +232,6 @@
           <Font name="Gill Sans" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Edit Status"/>
-        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[78, 21]"/>
-        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditStatusActionPerformed"/>

@@ -65,10 +65,10 @@
                               <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtContact" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtUsername" alignment="0" pref="295" max="32767" attributes="0"/>
-                              <Component id="lblStaffID" alignment="0" min="-2" pref="285" max="-2" attributes="0"/>
                               <Component id="txtName" alignment="0" max="32767" attributes="0"/>
                               <Component id="pwdPassword" max="32767" attributes="0"/>
                               <Component id="pwdConfirm" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbRole" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnAdd" min="-2" pref="92" max="-2" attributes="0"/>
@@ -110,7 +110,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblInfo1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblStaffID" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbRole" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -143,7 +143,7 @@
                       <Component id="pwdConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -213,7 +213,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gill Sans MT" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Staff ID: "/>
+            <Property name="text" type="java.lang.String" value="Role"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblInfo2">
@@ -262,14 +262,6 @@
               <Font name="Gill Sans MT" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Confirm Password: "/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblStaffID">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Gill Sans MT" size="18" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="(auto)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtName">
@@ -329,6 +321,25 @@
             <Property name="text" type="java.lang.String" value="Add"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbRole">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Gill Sans MT" size="18" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="Staff"/>
+                <StringItem index="1" value="Manager"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

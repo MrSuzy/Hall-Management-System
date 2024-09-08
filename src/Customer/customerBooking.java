@@ -1,5 +1,8 @@
+package Customer;
+
 
 import java.awt.Color;
+import Login.mainLoginPage;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -86,7 +89,6 @@ public class customerBooking extends javax.swing.JFrame {
 
         btnLogOut.setBackground(new java.awt.Color(228, 228, 228));
         btnLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        btnLogOut.setForeground(new java.awt.Color(0, 0, 0));
         btnLogOut.setText("logout");
         btnLogOut.setBorder(null);
 

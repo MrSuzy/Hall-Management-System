@@ -1,3 +1,13 @@
+package Admin;
+
+
+import Login.mainLoginPage;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -7,13 +17,35 @@
  *
  * @author user
  */
-public class adminStaffMenu extends javax.swing.JFrame {
+public class adminUserMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form adminStaff
      */
-    public adminStaffMenu() {
+    public adminUserMenu() {
         initComponents();
+        try {
+            mainLoginPage login = new mainLoginPage();
+            lblUsername.setText(login.getUsername());
+            DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();
+            model.setRowCount(0);
+            FileReader fr = new FileReader("staff.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            while ((read = br.readLine()) != null) {
+                if (read.split(";")[3].equals(login.getUsername())) {
+                    String name = read.split(";")[0];
+                    String password = read.split(";")[1];
+                    String email = read.split(";")[2];
+                    String username = read.split(";")[3];
+                    String dateTime = read.split(";")[4];
+                    String status = read.split(";")[5];
+                    model.addRow(new Object[]{name, password, email, username, dateTime, status});
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 
     /**
@@ -27,25 +59,25 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         directoryPanel = new javax.swing.JPanel();
-        btnUser = new javax.swing.JButton();
+        btnStaff = new javax.swing.JButton();
         btnHall = new javax.swing.JButton();
         btnMainMenu = new javax.swing.JButton();
-        staffPanel = new javax.swing.JPanel();
-        lblText = new javax.swing.JLabel();
-        lblStaffNum = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         infoPanel = new javax.swing.JPanel();
         lblTableTitle = new javax.swing.JLabel();
-        cbStaff = new javax.swing.JComboBox<>();
+        cbUser = new javax.swing.JComboBox<>();
         btnView = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbStaff = new javax.swing.JTable();
         lblPageTitle = new javax.swing.JLabel();
-        btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
+        btnBlock = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        lblActive = new javax.swing.JLabel();
+        lblBlocked = new javax.swing.JLabel();
+        lblNumActive = new javax.swing.JLabel();
+        lblNumBlocked = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,11 +85,11 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
         directoryPanel.setBackground(new java.awt.Color(228, 228, 228));
 
-        btnUser.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnUser.setText("User Management");
-        btnUser.addActionListener(new java.awt.event.ActionListener() {
+        btnStaff.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnStaff.setText("Staff Management");
+        btnStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserActionPerformed(evt);
+                btnStaffActionPerformed(evt);
             }
         });
 
@@ -77,40 +109,6 @@ public class adminStaffMenu extends javax.swing.JFrame {
             }
         });
 
-        staffPanel.setBackground(new java.awt.Color(192, 205, 218));
-
-        lblText.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblText.setText("Active Staff");
-
-        lblStaffNum.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblStaffNum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStaffNum.setText("50");
-
-        javax.swing.GroupLayout staffPanelLayout = new javax.swing.GroupLayout(staffPanel);
-        staffPanel.setLayout(staffPanelLayout);
-        staffPanelLayout.setHorizontalGroup(
-            staffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(staffPanelLayout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addGroup(staffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, staffPanelLayout.createSequentialGroup()
-                        .addComponent(lblText)
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, staffPanelLayout.createSequentialGroup()
-                        .addComponent(lblStaffNum, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))))
-        );
-        staffPanelLayout.setVerticalGroup(
-            staffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(staffPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(lblText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblStaffNum)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout directoryPanelLayout = new javax.swing.GroupLayout(directoryPanel);
         directoryPanel.setLayout(directoryPanelLayout);
         directoryPanelLayout.setHorizontalGroup(
@@ -120,22 +118,16 @@ public class adminStaffMenu extends javax.swing.JFrame {
                 .addGroup(directoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHall, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(directoryPanelLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(staffPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         directoryPanelLayout.setVerticalGroup(
             directoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(directoryPanelLayout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(staffPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap(137, Short.MAX_VALUE)
                 .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnHall, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
@@ -157,9 +149,9 @@ public class adminStaffMenu extends javax.swing.JFrame {
         });
 
         lblTableTitle.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblTableTitle.setText("Staff Information");
+        lblTableTitle.setText("User Information");
 
-        cbStaff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnView.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnView.setText("View");
@@ -169,13 +161,13 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
         tbStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name", "Password", "Email", "Username", "Date Time Created", "Status"
             }
         ));
         jScrollPane1.setViewportView(tbStaff);
@@ -191,7 +183,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
                     .addGroup(infoPanelLayout.createSequentialGroup()
                         .addComponent(lblTableTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(cbStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -202,34 +194,33 @@ public class adminStaffMenu extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTableTitle)
-                    .addComponent(cbStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnView))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         lblPageTitle.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblPageTitle.setText("Staff Account Management");
+        lblPageTitle.setText("Customer Account Management");
 
-        btnAdd.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnAdd.setText("Add New Staff");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
-        btnEdit.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnEdit.setText("Edit Staff");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
+        btnBlock.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnBlock.setText("Block User");
 
         btnDelete.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnDelete.setText("Delete Staff");
+        btnDelete.setText("Delete User");
+
+        lblActive.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblActive.setText("Active Users: ");
+
+        lblBlocked.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblBlocked.setText("Blocked Users: ");
+
+        lblNumActive.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblNumActive.setText("600");
+
+        lblNumBlocked.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblNumBlocked.setText("20");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -240,15 +231,23 @@ public class adminStaffMenu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(directoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnBlock, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(lblActive, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(35, 35, 35)
+                                    .addComponent(lblNumActive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(lblBlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lblNumBlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(41, 41, 41)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,7 +255,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
                         .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,17 +266,21 @@ public class adminStaffMenu extends javax.swing.JFrame {
                     .addComponent(lblUsername)
                     .addComponent(btnLogout))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblPageTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblActive)
+                            .addComponent(lblNumActive)
+                            .addComponent(lblBlocked)
+                            .addComponent(lblNumBlocked))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAdd)
-                            .addComponent(btnEdit)
-                            .addComponent(btnDelete))
-                        .addGap(18, 18, 18)
-                        .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                            .addComponent(btnBlock)
+                            .addComponent(btnDelete)))
                     .addComponent(directoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -301,11 +304,11 @@ public class adminStaffMenu extends javax.swing.JFrame {
         new adminMainPage().setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
-    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+    private void btnStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStaffActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new adminUserMenu().setVisible(true);
-    }//GEN-LAST:event_btnUserActionPerformed
+        new adminStaffMenu().setVisible(true);
+    }//GEN-LAST:event_btnStaffActionPerformed
 
     private void btnHallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallActionPerformed
         // TODO add your handling code here:
@@ -318,18 +321,6 @@ public class adminStaffMenu extends javax.swing.JFrame {
         this.dispose();
         new mainLoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new adminAddScheduler().setVisible(true);
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new adminEditScheduler().setVisible(true);
-    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,14 +339,22 @@ public class adminStaffMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(adminStaffMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminUserMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(adminStaffMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminUserMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(adminStaffMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminUserMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(adminStaffMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminUserMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -368,32 +367,32 @@ public class adminStaffMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new adminStaffMenu().setVisible(true);
+                new adminUserMenu().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnBlock;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHall;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMainMenu;
-    private javax.swing.JButton btnUser;
+    private javax.swing.JButton btnStaff;
     private javax.swing.JButton btnView;
-    private javax.swing.JComboBox<String> cbStaff;
+    private javax.swing.JComboBox<String> cbUser;
     private javax.swing.JPanel directoryPanel;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblActive;
+    private javax.swing.JLabel lblBlocked;
+    private javax.swing.JLabel lblNumActive;
+    private javax.swing.JLabel lblNumBlocked;
     private javax.swing.JLabel lblPageTitle;
-    private javax.swing.JLabel lblStaffNum;
     private javax.swing.JLabel lblTableTitle;
-    private javax.swing.JLabel lblText;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JPanel staffPanel;
     private javax.swing.JTable tbStaff;
     // End of variables declaration//GEN-END:variables
 }
