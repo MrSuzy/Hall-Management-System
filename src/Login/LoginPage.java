@@ -10,7 +10,7 @@ import Customer.customerClass;
 import Admin.adminClass1;
 import Admin.adminMainPage;
 import Manager.managerClass;
-import Manager.manangerMainMenu;
+import Manager.managerMainMenu;
 import Scheduler.schedulerMainMenu;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -218,6 +218,7 @@ public class LoginPage extends javax.swing.JFrame {
                        break;
                    case "manager":
                        new managerMainMenu().setVisible(true);
+                       break;
                    default:
                        JOptionPane.showMessageDialog(null, "Invalid role.");
                        break;
