@@ -23,39 +23,72 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class admin {
-    protected String staffID;
-    protected String userID;
-    protected String name;
-    protected String username;
-    protected String contact;
-    protected String email;
-    protected String password;
-    protected String status;
+public class adminClass {
+    private String name;
+    private String contact;
+    private String email;
+    private String password;
+    private String status;
+    private String role;
     
-    // throw away
-    // method to generate the staff ID
-    /*
-    private String generateStaffID() {
-        String lastID = "";
-        try (BufferedReader reader = new BufferedReader(new FileReader("staff.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lastID = line.split(";")[0]; // get the ID of the last staff
-            }
-        } catch (IOException e) {
-            e.printStackTrace(); 
-        }
-        
-        if (lastID.isEmpty()) {
-            return "S01";
-        } else {
-            int idNum = Integer.parseInt(lastID.substring(1)); // extract the numeric part of the ID
-            idNum ++; // increment by 1
-            return String.format("S%02d", idNum); // format the id to S02 etc
-        }
+    public adminClass (String name, String contact, String email, String password, String status, String role) {
+        this.name = name;
+        this.contact = contact;
+        this.email = email;
+        this.password = password;
+        this.status = status;
+        this.role = role;
     }
-    */
+    
+    // getters
+    public String getName() {
+        return name;
+    }
+    
+    public String getContact() {
+        return contact;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+    
+    // setters
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public void setRole (String role) {
+        this.role = role;
+    }
     
     
     // method to check if staff exists
