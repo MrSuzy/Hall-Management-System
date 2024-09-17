@@ -9,5 +9,5 @@ package Manager;
  * @author xuen_
  */
 public class managerClass {
-    fuck you
+    
 }
