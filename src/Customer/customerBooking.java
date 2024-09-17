@@ -2,7 +2,7 @@ package Customer;
 
 
 import java.awt.Color;
-import Login.mainLoginPage;
+import Login.LoginPage;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

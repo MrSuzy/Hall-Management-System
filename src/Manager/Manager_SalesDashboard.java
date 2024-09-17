@@ -2,7 +2,7 @@ package Manager;
 
 
 import Manager.Manager_MaintenanceOperation;
-import Login.mainLoginPage;
+import Login.LoginPage;
 import java.awt.Color;
 
 /*
