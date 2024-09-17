@@ -9,7 +9,8 @@ import Customer.customerMainMenu;
 import Customer.customerClass;
 import Admin.adminClass1;
 import Admin.adminMainPage;
-import Manager.Manager_MainMenu;
+import Manager.managerClass;
+import Manager.manangerMainMenu;
 import Scheduler.schedulerMainMenu;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -200,6 +201,8 @@ public class LoginPage extends javax.swing.JFrame {
                    role = "customer";
                } else if (user instanceof adminClass1) {
                    role = "admin";
+               } else if (user instanceof managerClass) {
+                   role = "manager";
                }
                
                JOptionPane.showMessageDialog(null, "Login Successful");
@@ -213,6 +216,8 @@ public class LoginPage extends javax.swing.JFrame {
                    case "admin":
                        new adminMainPage().setVisible(true);
                        break;
+                   case "manager":
+                       new managerMainMenu().setVisible(true);
                    default:
                        JOptionPane.showMessageDialog(null, "Invalid role.");
                        break;
@@ -248,6 +253,8 @@ public class LoginPage extends javax.swing.JFrame {
                             return new customerClass(name, phoneNum, email, password, status, role);
                         case "admin":
                             return new adminClass1(name, phoneNum, email, password, status, role);
+                        case "manager":
+                            return new managerClass(name, phoneNum, email, password, status, role);
                         default:
                             return null;
                     }
