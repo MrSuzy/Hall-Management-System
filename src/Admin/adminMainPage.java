@@ -1,6 +1,6 @@
 package Admin;
 
-import Login.mainLoginPage;
+import Login.LoginPage;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -352,7 +352,7 @@ public class adminMainPage extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new mainLoginPage().setVisible(true);
+        new LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**

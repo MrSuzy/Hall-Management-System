@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Admin;
-import Login.mainLoginPage;
+import Login.LoginPage;
 
 /**
  *
@@ -299,7 +299,7 @@ public class adminSchedulerMenu extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new mainLoginPage().setVisible(true);
+        new LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
