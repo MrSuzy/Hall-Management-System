@@ -4,6 +4,12 @@
  */
 package Login;
 
+import javax.swing.JOptionPane;
+import Customer.customerMainMenu;
+import Customer.customerClass;
+import Manager.Manager_MainMenu;
+import Scheduler.schedulerMainMenu;
+
 /**
  *
  * @author xuen_
@@ -27,11 +33,11 @@ public class LoginPage extends javax.swing.JFrame {
     private void initComponents() {
 
         lblQuote = new javax.swing.JLabel();
-        txtUserName = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         lblSignup = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        pwdPass = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         lblContact = new javax.swing.JLabel();
@@ -44,17 +50,22 @@ public class LoginPage extends javax.swing.JFrame {
         lblQuote.setFont(new java.awt.Font("Bradley Hand ITC", 0, 18)); // NOI18N
         lblQuote.setText("Your #1 Booking Companion");
 
-        txtUserName.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        txtUserName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtUserName.setText("Username / User ID");
-        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+        txtEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        txtEmail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtEmail.setText("Email");
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserNameActionPerformed(evt);
+                txtEmailActionPerformed(evt);
             }
         });
 
         jButton1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         jButton1.setText("LOGIN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         lblSignup.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblSignup.setText("Not a member? Sign Up");
@@ -62,7 +73,7 @@ public class LoginPage extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
         lblTitle.setText("Hall Symphony Inc");
 
-        jPasswordField1.setText("password");
+        pwdPass.setText("password");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -131,8 +142,8 @@ public class LoginPage extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(121, 121, 121)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pwdPass, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -150,9 +161,9 @@ public class LoginPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblQuote)
                 .addGap(47, 47, 47)
-                .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pwdPass, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
@@ -163,9 +174,31 @@ public class LoginPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserNameActionPerformed
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String email = txtEmail.getText();
+        String password = new String(pwdPass.getPassword());
+        
+        try{
+            Object user = authenticate(email, password);
+            
+            if (user != null) {
+                JOptionPane.showMessageDialog(null, "Login Successful");
+                dispose();
+                
+               // dtermine role of user
+               if (user instanceof customerClass) {
+                   role = "customer";
+               } else if (user instanceof admin) {
+                   role = "admin";
+               }
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,7 +238,6 @@ public class LoginPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JLabel lblContact;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblInquires;
@@ -214,6 +246,7 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel lblQuote;
     private javax.swing.JLabel lblSignup;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTextField txtUserName;
+    private javax.swing.JPasswordField pwdPass;
+    private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 }

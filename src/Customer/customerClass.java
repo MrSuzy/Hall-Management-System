@@ -15,16 +15,18 @@ import java.io.IOException;
  */
 public class customerClass {
     private String name;
+    private String phoneNum;
     private String email;
-    private String address;
     private String password;
-    private String role;
+    private String status;
+    private String role;  
     
-    public customerClass(String name, String email, String address, String password, String role) {
+    public customerClass(String name, String phoneNum, String email, String password, String status, String role) {
         this.name = name;
+        this.phoneNum = phoneNum;
         this.email = email;
-        this.address = address;
         this.password = password;
+        this.status = status;
         this.role = role;
     }
     
@@ -33,12 +35,20 @@ public class customerClass {
         return name;
     }
     
-    public String getAddress() {
-        return address;
+    public String getphoneNum() {
+        return phoneNum;
+    }
+    
+     public String getEmail() {
+        return email;
     }
     
     public String getPassword() {
         return password;
+    }
+    
+    public String getStatus() {
+        return status;
     }
     
     public String getRole() {
@@ -50,16 +60,20 @@ public class customerClass {
         this.name = name;
     }
     
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+    
     public void setEmail(String email) {
         this.email = email;
     }
     
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
     }
     
     public void setRole(String role) {
@@ -70,7 +84,7 @@ public class customerClass {
     public void customerRecord() {
         try{
             FileWriter fw = new FileWriter("users.txt", true);
-            fw.write(name + "," + address + "," + email + "," + password + "," + role + "\n");
+            fw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + status + ";" + role + "\n");
         } catch (IOException e) {
             System.out.println("Exception error." + e.getMessage());
 
@@ -78,7 +92,7 @@ public class customerClass {
     }
     
     // user authentication method 
-    public static customerClass authenticate(String email, String password) {
+    /*public static customerClass authenticate(String email, String password) {
         try{
             FileReader fr = new FileReader("users.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -94,5 +108,5 @@ public class customerClass {
         }
         return null;
     }
-    
+    */
 }
