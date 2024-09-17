@@ -24,15 +24,15 @@ import java.util.regex.Pattern;
 
 public class adminClass1 {
     private String name;
-    private String contact;
+    private String phoneNum;
     private String email;
     private String password;
     private String status;
     private String role;
     
-    public adminClass1 (String name, String contact, String email, String password, String status, String role) {
+    public adminClass1 (String name, String phoneNum, String email, String password, String status, String role) {
         this.name = name;
-        this.contact = contact;
+        this.phoneNum = phoneNum;
         this.email = email;
         this.password = password;
         this.status = status;
@@ -44,8 +44,8 @@ public class adminClass1 {
         return name;
     }
     
-    public String getContact() {
-        return contact;
+    public String getphoneNum() {
+        return phoneNum;
     }
     
     public String getEmail() {
@@ -69,8 +69,8 @@ public class adminClass1 {
         this.name = name;
     }
     
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
     
     public void setEmail(String email) {
@@ -112,7 +112,7 @@ public class adminClass1 {
     
     
     // method to add new scheduler staff
-    public void addStaff (String name, String username, String contact, String email, String password, String role) {
+    public void addStaff (String name, String username, String phoneNum, String email, String password, String role) {
         // Validate email
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + 
                 "[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
@@ -138,7 +138,7 @@ public class adminClass1 {
             String status = "active";
             
             try (FileWriter fw = new FileWriter("staff.txt", true)) {
-                fw.write(name + ";" + username + ";" + contact + ";" + email + ";" + formattedDateTime + ";" + password + ";" + status + ";" + role + "\n");
+                fw.write(name + ";" + username + ";" + phoneNum + ";" + email + ";" + formattedDateTime + ";" + password + ";" + status + ";" + role + "\n");
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -149,7 +149,7 @@ public class adminClass1 {
     }
     
     // method to edit staff information 
-    public void editStaff (String name, String role, String newUsername, String newContact, String email, String newPassword) {
+    public void editStaff (String name, String role, String newUsername, String newPhoneNum, String email, String newPassword) {
         File file = new File("staff.txt");
         File tempFile = new File("tempStaff.txt");
         boolean found = false;
@@ -162,7 +162,7 @@ public class adminClass1 {
                 String [] staffDetails = line.split(";");
                 if (staffDetails[0].equals(name) || staffDetails[7].equals(role)) {
                     staffDetails[1] = newUsername;
-                    staffDetails[2] = newContact;
+                    staffDetails[2] = newPhoneNum;
                     staffDetails[4] = newPassword;
                     found = true; 
                 }

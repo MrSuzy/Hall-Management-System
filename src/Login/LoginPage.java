@@ -8,8 +8,13 @@ import javax.swing.JOptionPane;
 import Customer.customerMainMenu;
 import Customer.customerClass;
 import Admin.adminClass1;
+import Admin.adminMainPage;
 import Manager.Manager_MainMenu;
 import Scheduler.schedulerMainMenu;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
@@ -188,19 +193,75 @@ public class LoginPage extends javax.swing.JFrame {
             Object user = authenticate(email, password);
             
             if (user != null) {
-                JOptionPane.showMessageDialog(null, "Login Successful");
-                dispose();
+                String role = ""; 
                 
-               // dtermine role of user
+               // determine role of user
                if (user instanceof customerClass) {
                    role = "customer";
-               } else if (user instanceof admin) {
+               } else if (user instanceof adminClass1) {
                    role = "admin";
                }
+               
+               JOptionPane.showMessageDialog(null, "Login Successful");
+               dispose();
+               
+               // switch case to navigate to respective main page
+               switch(role.toLowerCase()) {
+                   case "customer":
+                       new customerMainMenu().setVisible(true);
+                       break;
+                   case "admin":
+                       new adminMainPage().setVisible(true);
+                       break;
+                   default:
+                       JOptionPane.showMessageDialog(null, "Invalid role.");
+                       break;
+               }
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid email or password");
             }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        
+        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private Object authenticate(String email, String password) throws FileNotFoundException, IOException {
+        try{
+            FileReader fr = new FileReader("users.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            while((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                if (details.length >= 6 && details[2].equals(email) && details[3].equals(password)) {
+                    String name = details[0];
+                    String phoneNum = details[1];
+                    String status = details[5];
+                    String role = details[6];
+                    
+                    switch (role.toLowerCase()) {
+                        case "customer":
+                            return new customerClass(name, phoneNum, email, password, status, role);
+                        case "admin":
+                            return new adminClass1(name, phoneNum, email, password, status, role);
+                        default:
+                            return null;
+                    }
+                }
+            }
+        } catch (FileNotFoundException fnfe) {
+            JOptionPane.showMessageDialog(null, "User not Found");
+            throw fnfe;
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
+        return null;
+    }
     /**
      * @param args the command line arguments
      */
