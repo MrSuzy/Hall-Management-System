@@ -1,37 +1,20 @@
-package Admin;
-
-
-import Login.*;
-import java.awt.Color;
-import Admin.adminMainPage;
-import Admin.adminStaffMenu;
-import Admin.adminUserMenu;
-import Admin.adminHallManage;
-import Admin.adminEditScheduler;
-import Admin.adminAddScheduler;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+package Login;
 
 /**
  *
  * @author xuen_
  */
-public class mainLoginPage extends javax.swing.JFrame {
+public class LoginPage extends javax.swing.JFrame {
 
     /**
-     * Creates new form mainLoginPage
+     * Creates new form LoginPage
      */
-    // public will overwrite & setters getters might not get the value
-    private static String username; // static can only be called in static method
-    
-    
-    public mainLoginPage() {
+    public LoginPage() {
         initComponents();
-        Color col = new Color(227, 242, 253);
-        getContentPane().setBackground(col);
     }
 
     /**
@@ -43,30 +26,47 @@ public class mainLoginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblQuote = new javax.swing.JLabel();
+        txtUserName = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        lblSignup = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         lblContact = new javax.swing.JLabel();
         lblInquires = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         lblOperatingHours = new javax.swing.JLabel();
-        lblQuote = new javax.swing.JLabel();
-        txtUserName = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        lblSignup = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 51, 0));
+
+        lblQuote.setFont(new java.awt.Font("Bradley Hand ITC", 0, 18)); // NOI18N
+        lblQuote.setText("Your #1 Booking Companion");
+
+        txtUserName.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        txtUserName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUserName.setText("Username / User ID");
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserNameActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        jButton1.setText("LOGIN");
+
+        lblSignup.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblSignup.setText("Not a member? Sign Up");
 
         lblTitle.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
         lblTitle.setText("Hall Symphony Inc");
 
+        jPasswordField1.setText("password");
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
-
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo6.png"))); // NOI18N
 
         lblContact.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblContact.setText("Contact : 012-3456789");
@@ -94,7 +94,7 @@ public class mainLoginPage extends javax.swing.JFrame {
                             .addComponent(lblInquires, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblOperatingHours, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
+                        .addGap(98, 98, 98)
                         .addComponent(lblLogo)))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
@@ -114,26 +114,6 @@ public class mainLoginPage extends javax.swing.JFrame {
                 .addContainerGap(89, Short.MAX_VALUE))
         );
 
-        lblQuote.setFont(new java.awt.Font("Bradley Hand ITC", 0, 18)); // NOI18N
-        lblQuote.setText("Your #1 Booking Companion");
-
-        txtUserName.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        txtUserName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtUserName.setText("Username / User ID");
-        txtUserName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserNameActionPerformed(evt);
-            }
-        });
-
-        jButton1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jButton1.setText("LOGIN");
-
-        lblSignup.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblSignup.setText("Not a member? Sign Up");
-
-        jPasswordField1.setText("password");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,14 +132,13 @@ public class mainLoginPage extends javax.swing.JFrame {
                                 .addGap(121, 121, 121)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE))
+                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblQuote, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(93, 93, 93)))
+                        .addComponent(lblQuote, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -184,16 +163,6 @@ public class mainLoginPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // set the username 
-    public void setUsername(String username) {
-        mainLoginPage.username = username; 
-    }
-    
-    public String getUsername() {
-        return mainLoginPage.username; 
-    }
-    
-    
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserNameActionPerformed
@@ -215,21 +184,20 @@ public class mainLoginPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainLoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainLoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainLoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainLoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mainLoginPage().setVisible(true);
+                new LoginPage().setVisible(true);
             }
         });
     }
