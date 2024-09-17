@@ -1,2 +1,2 @@
 Sam;samm;012-1233456;sam123@gmail.com;sam123;2024-08-08 09:13:22;active;scheduler;
-John;johncena;012-9875542;john456@gmail.com;john101;2024-08-08 11:23:37;active;manager;
+John;johncena;012-9875542;john456@gmail.com;john101;2024-08-08 11:23:37;active;manager;name;username;contact;email;2024-09-16 23:24:55;password;active;Staff

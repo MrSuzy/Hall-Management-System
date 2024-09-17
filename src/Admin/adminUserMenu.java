@@ -24,6 +24,7 @@ public class adminUserMenu extends javax.swing.JFrame {
      */
     public adminUserMenu() {
         initComponents();
+        /*
         try {
             mainLoginPage login = new mainLoginPage();
             lblUsername.setText(login.getUsername());
@@ -46,6 +47,7 @@ public class adminUserMenu extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        */
     }
 
     /**

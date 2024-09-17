@@ -1,4 +1,4 @@
-package Admin;
+package admin;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class admin {
     protected String staffID;
@@ -34,6 +35,7 @@ public class admin {
     
     // throw away
     // method to generate the staff ID
+    /*
     private String generateStaffID() {
         String lastID = "";
         try (BufferedReader reader = new BufferedReader(new FileReader("staff.txt"))) {
@@ -53,6 +55,7 @@ public class admin {
             return String.format("S%02d", idNum); // format the id to S02 etc
         }
     }
+    */
     
     
     // method to check if staff exists
@@ -61,7 +64,11 @@ public class admin {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] staffDetails = line.split(";");
-                if (staffDetails[2].equals(username) || staffDetails[4].equals(email)){
+                
+                String existUname = staffDetails[2].trim();
+                String existEmail = staffDetails[4].trim();
+                
+                if (existUname.equals(username.trim()) || existEmail.equals(email.trim())){
                     return true;
                 }
             }
@@ -74,14 +81,22 @@ public class admin {
     
     // method to add new scheduler staff
     public void addStaff (String name, String username, String contact, String email, String password, String role) {
+        // Validate email
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + 
+                "[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        
+        if (!pattern.matcher(email).matches()) {
+            JOptionPane.showMessageDialog(null, "Invalid email format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         try {
             if (isStaffExists(username, email)) {
                 JOptionPane.showMessageDialog(null, "Staff with same username or email already exists.", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
-            // generate the unique staff ID for new scheduler staff
-            // String staffID = generateStaffID(); 
             // set date time created 
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
@@ -92,16 +107,17 @@ public class admin {
             
             try (FileWriter fw = new FileWriter("staff.txt", true)) {
                 fw.write(name + ";" + username + ";" + contact + ";" + email + ";" + formattedDateTime + ";" + password + ";" + status + ";" + role + "\n");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
             }
-            
             JOptionPane.showMessageDialog(null, "Staff added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     // method to edit staff information 
-    public void editStaff (String staffID, String name, String newUsername, String newContact, String email, String newPassword) {
+    public void editStaff (String name, String role, String newUsername, String newContact, String email, String newPassword) {
         File file = new File("staff.txt");
         File tempFile = new File("tempStaff.txt");
         boolean found = false;
@@ -112,10 +128,10 @@ public class admin {
             String line;
             while ((line = reader. readLine()) != null) {
                 String [] staffDetails = line.split(";");
-                if (staffDetails[0].equals(staffID)) {
-                    staffDetails[2] = newUsername;
-                    staffDetails[3] = newContact;
-                    staffDetails[5] = newPassword;
+                if (staffDetails[0].equals(name) || staffDetails[7].equals(role)) {
+                    staffDetails[1] = newUsername;
+                    staffDetails[2] = newContact;
+                    staffDetails[4] = newPassword;
                     found = true; 
                 }
                 writer.write(String.join(";", staffDetails) + "\n");
@@ -144,7 +160,7 @@ public class admin {
                 staffList.add(staffDetails);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return staffList;
     }
@@ -226,10 +242,29 @@ public class admin {
             JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+
+    // define user status 
+    public enum userStatus {
+        ACTIVE("active"),
+        BLOCKED("blocked"),
+        INACTIVE("inactive");
         
-    // method to block user based on status
-    public void blockUser(String username) {
-        File file = new File("user.txt");
+        private final String status;
+        
+        userStatus(String status) {
+            this.status = status;
+        }
+        
+        public String getStatus() {
+            return status;
+        }
+    }
+    
+    // method to update status 
+    // can be reused if want to set user to active inactive block
+    public void updateUserStatus(String username, userStatus newStatus) {
+        File file = new File("staff.txt");
         File tempFile = new File("tempUser.txt");
         boolean found = false;
 
@@ -239,8 +274,8 @@ public class admin {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] userDetails = line.split(";");
-                if (userDetails[2].equals(username)) { // check username based on the index
-                    userDetails[7] = "blocked"; // status at index 7
+                if (userDetails[1].equals(username)) { // check username based on the index
+                    userDetails[6] = newStatus.getStatus(); // status at index 7
                     found = true;
                 }
                 writer.write(String.join(";", userDetails) + "\n");
@@ -256,6 +291,11 @@ public class admin {
         } else {
             JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    // method to block user using the updateUserStatus method
+    public void blockUser(String username) {
+        updateUserStatus(username, userStatus.BLOCKED);
     }
     
     // method to view bookings 
