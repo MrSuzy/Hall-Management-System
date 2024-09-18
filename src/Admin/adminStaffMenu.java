@@ -1,6 +1,9 @@
 package Admin;
 
 import Login.LoginPage;
+import Admin.adminClass1;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -167,19 +170,24 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
         btnView.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setColumnHeaderView(null);
         jScrollPane1.setName(""); // NOI18N
 
         tbStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name", "Contact", "Email", "Date Time Created", "Status"
             }
         ));
         jScrollPane1.setViewportView(tbStaff);
@@ -334,6 +342,22 @@ public class adminStaffMenu extends javax.swing.JFrame {
         this.dispose();
         new adminEditScheduler().setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        adminClass1 admin = new adminClass1();
+        String[] roles = {"scheduler", "manager"};
+        ArrayList<String[]> usersList = new ArrayList<>();
+        for (String role : roles) {
+            usersList.addAll(admin.viewUsers(role));
+        }
+        // display in the table
+        DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();
+        model.setRowCount(0);
+        for (String[] staff : usersList) {
+            model.addRow(staff);
+        }
+    }//GEN-LAST:event_btnViewActionPerformed
 
     /**
      * @param args the command line arguments

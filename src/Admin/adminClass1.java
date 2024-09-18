@@ -91,16 +91,16 @@ public class adminClass1 {
     
     
     // method to check if staff exists
-    private boolean isStaffExists (String username, String email) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("staff.txt"))) {
+    private boolean isStaffExists (String name, String email) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] staffDetails = line.split(";");
                 
-                String existUname = staffDetails[2].trim();
-                String existEmail = staffDetails[4].trim();
+                String existName = staffDetails[0].trim();
+                String existEmail = staffDetails[2].trim();
                 
-                if (existUname.equals(username.trim()) || existEmail.equals(email.trim())){
+                if (existName.equals(name.trim()) || existEmail.equals(email.trim())){
                     return true;
                 }
             }
@@ -124,8 +124,8 @@ public class adminClass1 {
         }
         
         try {
-            if (isStaffExists(username, email)) {
-                JOptionPane.showMessageDialog(null, "Staff with same username or email already exists.", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
+            if (isStaffExists(name, email)) {
+                JOptionPane.showMessageDialog(null, "Staff with same name or email already exists.", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -137,8 +137,8 @@ public class adminClass1 {
             // set status to active
             String status = "active";
             
-            try (FileWriter fw = new FileWriter("staff.txt", true)) {
-                fw.write(name + ";" + username + ";" + phoneNum + ";" + email + ";" + formattedDateTime + ";" + password + ";" + status + ";" + role + "\n");
+            try (FileWriter fw = new FileWriter("users.txt", true)) {
+                fw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + formattedDateTime + ";" + status + ";" + role + "\n");
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -150,7 +150,7 @@ public class adminClass1 {
     
     // method to edit staff information 
     public void editStaff (String name, String role, String newUsername, String newPhoneNum, String email, String newPassword) {
-        File file = new File("staff.txt");
+        File file = new File("users.txt");
         File tempFile = new File("tempStaff.txt");
         boolean found = false;
         
@@ -183,24 +183,25 @@ public class adminClass1 {
     
     // method to view all staff 
     // return in array for table view
-    public ArrayList<String[]> viewStaff() {
-        ArrayList<String[]> staffList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("staff.txt"))) {
+    public ArrayList<String[]> viewUsers(String role) {
+        ArrayList<String[]> usersList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] staffDetails = line.split(";");
-                staffList.add(staffDetails);
+                if (staffDetails[6].equals(role))
+                usersList.add(staffDetails);
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        return staffList;
+        return usersList;
     }
     
 
     // method to delete a staff by username
     public void deleteStaff(String username) {
-        File file = new File("staff.txt");
+        File file = new File("users.txt");
         File tempFile = new File("tempStaff.txt");
         boolean found = false;
 
@@ -230,9 +231,9 @@ public class adminClass1 {
     }
     
     // method to view all users 
-    public ArrayList<String[]> viewUser() {
+    /* public ArrayList<String[]> viewUser() {
         ArrayList<String[]> userList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("user.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] userDetails = line.split(";");
@@ -242,11 +243,11 @@ public class adminClass1 {
             e.printStackTrace();
         }
         return userList;
-    }
+    }*/
     
     // method to delete user
     public void deleteUser(String username) {
-        File file = new File("user.txt");
+        File file = new File("users.txt");
         File tempFile = new File("tempUser.txt");
         boolean found = false;
 

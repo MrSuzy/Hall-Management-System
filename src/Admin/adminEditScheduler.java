@@ -45,12 +45,12 @@ public class adminEditScheduler extends javax.swing.JFrame {
         lblInfor7 = new javax.swing.JLabel();
         lblStaffID = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
         pwdPassword = new javax.swing.JPasswordField();
         pwdConfirm = new javax.swing.JPasswordField();
         btnUpdate = new javax.swing.JButton();
         lblContact = new javax.swing.JTextField();
+        cbStatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,7 +94,7 @@ public class adminEditScheduler extends javax.swing.JFrame {
         lblInfo2.setText("Name: ");
 
         lblInfo3.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblInfo3.setText("Username: ");
+        lblInfo3.setText("Status:");
 
         lblInfo4.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblInfo4.setText("Contact:");
@@ -113,9 +113,6 @@ public class adminEditScheduler extends javax.swing.JFrame {
 
         lblName.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblName.setText("(auto)");
-
-        txtUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        txtUsername.setText("username");
 
         lblEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblEmail.setText("(auto)");
@@ -137,6 +134,9 @@ public class adminEditScheduler extends javax.swing.JFrame {
                 lblContactActionPerformed(evt);
             }
         });
+
+        cbStatus.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive", "Blocked" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,10 +171,10 @@ public class adminEditScheduler extends javax.swing.JFrame {
                             .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                             .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                             .addComponent(lblStaffID, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(txtUsername)
                             .addComponent(pwdPassword)
                             .addComponent(pwdConfirm)
-                            .addComponent(lblContact))
+                            .addComponent(lblContact)
+                            .addComponent(cbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -201,9 +201,9 @@ public class adminEditScheduler extends javax.swing.JFrame {
                     .addComponent(lblInfo2)
                     .addComponent(lblName))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblInfo3)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo4)
@@ -294,6 +294,7 @@ public class adminEditScheduler extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lblContact;
     private javax.swing.JLabel lblEmail;
@@ -311,6 +312,5 @@ public class adminEditScheduler extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPasswordField pwdConfirm;
     private javax.swing.JPasswordField pwdPassword;
-    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

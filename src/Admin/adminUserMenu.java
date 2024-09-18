@@ -5,6 +5,7 @@ import Login.LoginPage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -157,19 +158,24 @@ public class adminUserMenu extends javax.swing.JFrame {
 
         btnView.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setColumnHeaderView(null);
         jScrollPane1.setName(""); // NOI18N
 
         tbStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Name", "Password", "Email", "Username", "Date Time Created", "Status"
+                "Name", "Contact", "Email", "Date Time Created", "Status"
             }
         ));
         jScrollPane1.setViewportView(tbStaff);
@@ -323,6 +329,18 @@ public class adminUserMenu extends javax.swing.JFrame {
         this.dispose();
         new LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        adminClass1 admin = new adminClass1();
+        ArrayList<String[]> usersList = admin.viewUsers("customer");
+        // display in tbStaff
+        DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();
+        model.setRowCount(0);
+        for (String[] user: usersList) {
+            model.addRow(user);
+        }
+    }//GEN-LAST:event_btnViewActionPerformed
 
     /**
      * @param args the command line arguments
