@@ -4,6 +4,14 @@
  */
 package Customer;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author xuen_
@@ -42,11 +50,11 @@ public class hallClass {
         return price;
     }
     
-    public int capacity() {
+    public int getCapacity() {
         return capacity;
     }
     
-    public String availabilty() {
+    public String getAvailabilty() {
         return availability;
     }
     
@@ -73,5 +81,63 @@ public class hallClass {
     
     public void setAvailabiliy(String availability) {
         this.availability = availability;
+    }
+    
+    // hall booking method
+    public void book() {
+        if(this.availability.equals("Available")) {
+            this.availability = "Booked";
+            updateAvailability();
+        }
+    }
+    
+    public void cancel() {
+        if(this.availability.equals("Booked")) {
+            this.availability = "Available";
+            updateAvailability();
+        }
+    }
+    
+    private void updateAvailability() {
+        List<hallClass> halls = new ArrayList<>();
+        try{
+            FileReader fr = new FileReader("halls.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            while((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                if (details.length == 6) {
+                    String hallID = details[0];
+                    String hallName = details[1];
+                    String hallType = details[2];
+                    double price = Double.parseDouble(details[3]);
+                    int capacity = Integer.parseInt(details[4]);
+                    String availability = details[5];
+                    
+                    if (hallID.equals(this.hallID) && hallName.equals(this.hallName)) {
+                        // update the availability column
+                        halls.add(new hallClass(hallID, hallName, hallType, price, availability));
+                    } else {
+                        halls.add(new hallClass(hallID, hallName, hallType, price, availability));
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error." + e.getMessage());
+        }
+        
+        
+        // write the updated ArrayList into the text file 
+        try{
+            FileWriter fw = new FileWriter("halls.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            for (hallClass hall : halls) {
+                bw.write(hall.getHallID() + ";" + hall.getHallName() + ";" + hall.getHallType() + ";" + hall.getPrice() + ";" + hall.getCapacity() + ";" + hall.getAvailabilty());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error" + e.getMessage());
+        }
     }
 }
