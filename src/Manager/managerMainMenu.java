@@ -13,12 +13,12 @@ import Login.LoginPage;
  *
  * @author khaientiew
  */
-public class Manager_MainMenu extends javax.swing.JFrame {
+public class managerMainMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form Manager_Login
      */
-    public Manager_MainMenu() {
+    public managerMainMenu() {
         initComponents();
         Color col = new Color(224, 240, 255);
         Color buttonColor = new Color(228, 228, 228);
@@ -247,7 +247,7 @@ public class Manager_MainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Manager_MainMenu().setVisible(true);
+                new managerMainMenu().setVisible(true);
             }
         });
     }
