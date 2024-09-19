@@ -81,6 +81,7 @@ public class adminUserMenu extends javax.swing.JFrame {
         lblBlocked = new javax.swing.JLabel();
         lblNumActive = new javax.swing.JLabel();
         lblNumBlocked = new javax.swing.JLabel();
+        btnUnblock = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -212,10 +213,20 @@ public class adminUserMenu extends javax.swing.JFrame {
         lblPageTitle.setText("Customer Account Management");
 
         btnBlock.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnBlock.setText("Block User");
+        btnBlock.setText("Block");
+        btnBlock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBlockActionPerformed(evt);
+            }
+        });
 
         btnDelete.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnDelete.setText("Delete User");
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         lblActive.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblActive.setText("Active Users: ");
@@ -229,6 +240,14 @@ public class adminUserMenu extends javax.swing.JFrame {
         lblNumBlocked.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblNumBlocked.setText("20");
 
+        btnUnblock.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnUnblock.setText("Unblock");
+        btnUnblock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnblockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -238,23 +257,24 @@ public class adminUserMenu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(directoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnUnblock, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBlock, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblPageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(lblActive, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(35, 35, 35)
-                                    .addComponent(lblNumActive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lblBlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lblNumBlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(41, 41, 41)))))
+                            .addComponent(infoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPageTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblActive, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(lblNumActive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblBlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblNumBlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,7 +307,8 @@ public class adminUserMenu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnBlock)
-                            .addComponent(btnDelete)))
+                            .addComponent(btnDelete)
+                            .addComponent(btnUnblock)))
                     .addComponent(directoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -339,6 +360,65 @@ public class adminUserMenu extends javax.swing.JFrame {
         adminClass1 Admin = new adminClass1();
         Admin.loadUserByRole(selectedRole, selectedStatus, model);
     }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tbStaff.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a staff to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // get email from the selected row
+        String email = tbStaff.getValueAt(selectedRow, 2).toString(); 
+        
+        // call the delete method
+        adminClass1 Admin = new adminClass1();
+        Admin.deleteUser(email);
+        
+        // refresh table
+        ((DefaultTableModel) tbStaff.getModel()).removeRow(selectedRow);
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnBlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlockActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tbStaff.getSelectedRow();
+        
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "User selection is required.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // get email from the selected row
+        String email = tbStaff.getValueAt(selectedRow, 2).toString(); 
+        
+        // call the delete method
+        adminClass1 Admin = new adminClass1();
+        Admin.updateUserStatus(email, adminClass1.userStatus.BLOCKED);
+        
+        // refresh table
+        ((DefaultTableModel) tbStaff.getModel()).removeRow(selectedRow);
+    }//GEN-LAST:event_btnBlockActionPerformed
+
+    private void btnUnblockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnblockActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tbStaff.getSelectedRow();
+        
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "User selection is required.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // get email from the selected row
+        String email = tbStaff.getValueAt(selectedRow, 2).toString(); 
+        
+        // call the delete method
+        adminClass1 Admin = new adminClass1();
+        Admin.updateUserStatus(email, adminClass1.userStatus.ACTIVE);
+        
+        // refresh table
+        ((DefaultTableModel) tbStaff.getModel()).removeRow(selectedRow);
+    }//GEN-LAST:event_btnUnblockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,6 +477,7 @@ public class adminUserMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnStaff;
+    private javax.swing.JButton btnUnblock;
     private javax.swing.JButton btnView;
     private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JComboBox<String> cbUser;

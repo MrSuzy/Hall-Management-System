@@ -245,6 +245,11 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
         btnDelete.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnDelete.setText("Delete Staff");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -372,6 +377,25 @@ public class adminStaffMenu extends javax.swing.JFrame {
         adminClass1 Admin = new adminClass1();
         Admin.loadUserByRole(selectedRole, selectedStatus, model);
     }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = StaffTbl.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a staff to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // get email from the selected row
+        String email = StaffTbl.getValueAt(selectedRow, 2).toString(); 
+        
+        // call the delete method
+        adminClass1 Admin = new adminClass1();
+        Admin.deleteUser(email);
+        
+        // refresh table
+        ((DefaultTableModel) StaffTbl.getModel()).removeRow(selectedRow);
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments

@@ -172,6 +172,36 @@ public class adminClass1 {
         }
     }
     
+    // delete staff/user
+    public void deleteUser(String email) {
+        File file = new File("users.txt");
+        File tempfile = new File("tempUsers.txt");
+        boolean found = false;
+        
+        try(BufferedReader reader = new BufferedReader(new FileReader(file));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempfile))) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                String[] details = line.split(";");
+                if(details[2].equals(email)) {
+                    found = true;
+                    continue;
+                }
+                writer.write(line + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        if (found) {
+            if(file.delete() && tempfile.renameTo(file)) {
+                JOptionPane.showMessageDialog(null, "User deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     // method to edit staff information 
     public void editStaff (String name, String role, String newStatus, String newPhoneNum, String email, String newPassword) {
         File file = new File("users.txt");
@@ -205,68 +235,6 @@ public class adminClass1 {
         }
     }
     
-
-    // method to delete a staff by username
-    public void deleteStaff(String email) {
-        File file = new File("users.txt");
-        File tempFile = new File("tempStaff.txt");
-        boolean found = false;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] staffDetails = line.split(";");
-                if (staffDetails[2].equals(email)) { // Username is at index 2 
-                    found = true;
-                    continue; // Skip this line (delete the staff)
-                }
-                writer.write(line + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (found) {
-            if (file.delete() && tempFile.renameTo(file)) {
-                JOptionPane.showMessageDialog(null, "Staff deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Staff not found.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    // method to delete user
-    public void deleteUser(String email) {
-        File file = new File("users.txt");
-        File tempFile = new File("tempUser.txt");
-        boolean found = false;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] userDetails = line.split(";");
-                if (userDetails[2].equals(email)) { // username at index 2 
-                    found = true;
-                    continue; // Skip this line (delete the staff)
-                }
-                writer.write(line + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (found) {
-            if (file.delete() && tempFile.renameTo(file)) {
-                JOptionPane.showMessageDialog(null, "User deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
     
 
     // define user status 
@@ -289,7 +257,7 @@ public class adminClass1 {
     // method to update status 
     // can be reused if want to set user to active inactive block
     public void updateUserStatus(String email, userStatus newStatus) {
-        File file = new File("staff.txt");
+        File file = new File("users.txt");
         File tempFile = new File("tempUser.txt");
         boolean found = false;
 
@@ -300,7 +268,7 @@ public class adminClass1 {
             while ((line = reader.readLine()) != null) {
                 String[] userDetails = line.split(";");
                 if (userDetails[2].equals(email)) { // check username based on the index
-                    userDetails[6] = newStatus.getStatus(); // status at index 7
+                    userDetails[5] = newStatus.getStatus(); // status at index 5
                     found = true;
                 }
                 writer.write(String.join(";", userDetails) + "\n");

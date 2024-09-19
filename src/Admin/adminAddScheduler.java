@@ -268,11 +268,21 @@ public class adminAddScheduler extends javax.swing.JFrame {
         String role = (String)cbRole.getSelectedItem();
         String status = "active";
         
+        // fields authentication
         if (name.isEmpty() || phoneNum.isEmpty()
                 || email.isEmpty() || password.isEmpty()
                 || password2.isEmpty() || role.isEmpty()) {
             
             JOptionPane.showMessageDialog(this, "Please fil in all the fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // set name criteria
+        String nameRegex = "^[a-zA-Z]+$";
+        Pattern namePattern = Pattern.compile(nameRegex);
+        
+        if (!namePattern.matcher(name).matches()) {
+            JOptionPane.showMessageDialog(this, "Name can only contain alphabets.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
