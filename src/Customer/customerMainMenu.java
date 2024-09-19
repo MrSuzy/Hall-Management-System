@@ -70,10 +70,20 @@ public class customerMainMenu extends javax.swing.JFrame {
         btnBookingHistory.setBackground(new java.awt.Color(228, 228, 228));
         btnBookingHistory.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         btnBookingHistory.setText("Booking History");
+        btnBookingHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookingHistoryActionPerformed(evt);
+            }
+        });
 
         btnBooking.setBackground(new java.awt.Color(228, 228, 228));
         btnBooking.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         btnBooking.setText("Hall Booking ");
+        btnBooking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookingActionPerformed(evt);
+            }
+        });
 
         btnUpdateProfile.setBackground(new java.awt.Color(228, 228, 228));
         btnUpdateProfile.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
@@ -205,6 +215,18 @@ public class customerMainMenu extends javax.swing.JFrame {
         new Login.LoginPage();
         dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnBookingHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingHistoryActionPerformed
+        // TODO add your handling code here:
+        new customerBookingHistory();
+        dispose();
+    }//GEN-LAST:event_btnBookingHistoryActionPerformed
+
+    private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
+        // TODO add your handling code here:
+        new customerBooking();
+        dispose();
+    }//GEN-LAST:event_btnBookingActionPerformed
 
     /**
      * @param args the command line arguments
