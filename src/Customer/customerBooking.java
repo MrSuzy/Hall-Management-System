@@ -52,7 +52,6 @@ public class customerBooking extends javax.swing.JFrame {
         lblEndTime = new javax.swing.JLabel();
         lblHallType = new javax.swing.JLabel();
         lblNoOfGuest = new javax.swing.JLabel();
-        lblDuration = new javax.swing.JLabel();
         lblAvailable = new javax.swing.JLabel();
         cbDate = new javax.swing.JComboBox<>();
         txtStartTime = new javax.swing.JTextField();
@@ -63,6 +62,7 @@ public class customerBooking extends javax.swing.JFrame {
         lblDate1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        btnBook1 = new javax.swing.JButton();
 
         jButton8.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jButton8.setText("Hall Booking");
@@ -196,10 +196,6 @@ public class customerBooking extends javax.swing.JFrame {
         lblNoOfGuest.setForeground(new java.awt.Color(51, 51, 51));
         lblNoOfGuest.setText("Number of Guests:");
 
-        lblDuration.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblDuration.setForeground(new java.awt.Color(51, 51, 51));
-        lblDuration.setText("Duration:");
-
         lblAvailable.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblAvailable.setForeground(new java.awt.Color(51, 51, 51));
         lblAvailable.setText("Available Hall:");
@@ -234,6 +230,15 @@ public class customerBooking extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jList1);
 
+        btnBook1.setBackground(new java.awt.Color(228, 228, 228));
+        btnBook1.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        btnBook1.setText("Check Availability");
+        btnBook1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBook1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -243,12 +248,10 @@ public class customerBooking extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(lblBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDuration, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,14 +260,12 @@ public class customerBooking extends javax.swing.JFrame {
                             .addComponent(lblAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbAvailable, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtStartTime)
-                            .addComponent(cbDate, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbDate, 0, 123, Short.MAX_VALUE)
                             .addComponent(txtEndTime)
-                            .addComponent(cbHallType, 0, 123, Short.MAX_VALUE)
-                            .addComponent(cbAvailable, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBook)
-                        .addGap(60, 60, 60))))
+                            .addComponent(cbHallType, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 98, Short.MAX_VALUE)
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,7 +276,10 @@ public class customerBooking extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBook, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBook1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
@@ -288,7 +292,6 @@ public class customerBooking extends javax.swing.JFrame {
                     .addComponent(btnLogOut))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblBooking)
                         .addGap(17, 17, 17)
@@ -299,10 +302,10 @@ public class customerBooking extends javax.swing.JFrame {
                                 .addComponent(lblStartTime)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblEndTime)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblDuration)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblNoOfGuest))
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblHallType)
+                                    .addComponent(cbHallType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cbDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,15 +319,17 @@ public class customerBooking extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
-                        .addGap(18, 18, 18)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblHallType)
-                            .addComponent(cbHallType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblAvailable)
-                            .addComponent(cbAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBook))))
+                            .addComponent(lblNoOfGuest)
+                            .addComponent(btnBook1))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblAvailable))
+                            .addComponent(btnBook)))
+                    .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -354,6 +359,10 @@ public class customerBooking extends javax.swing.JFrame {
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReportActionPerformed
+
+    private void btnBook1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBook1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBook1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,6 +401,7 @@ public class customerBooking extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBook;
+    private javax.swing.JButton btnBook1;
     private javax.swing.JButton btnBooking;
     private javax.swing.JButton btnBookingHistory;
     private javax.swing.JButton btnLogOut;
@@ -410,7 +420,6 @@ public class customerBooking extends javax.swing.JFrame {
     private javax.swing.JLabel lblBooking;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblDate1;
-    private javax.swing.JLabel lblDuration;
     private javax.swing.JLabel lblEndTime;
     private javax.swing.JLabel lblHallType;
     private javax.swing.JLabel lblNoOfGuest;
