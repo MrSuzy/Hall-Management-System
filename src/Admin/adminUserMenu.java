@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author user
+ * @author jason
  */
 public class adminUserMenu extends javax.swing.JFrame {
 
@@ -69,11 +69,11 @@ public class adminUserMenu extends javax.swing.JFrame {
         lblUsername = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         infoPanel = new javax.swing.JPanel();
-        lblTableTitle = new javax.swing.JLabel();
         cbUser = new javax.swing.JComboBox<>();
         btnView = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbStaff = new javax.swing.JTable();
+        cbStatus = new javax.swing.JComboBox<>();
         lblPageTitle = new javax.swing.JLabel();
         btnBlock = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -151,10 +151,7 @@ public class adminUserMenu extends javax.swing.JFrame {
             }
         });
 
-        lblTableTitle.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblTableTitle.setText("User Information");
-
-        cbUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer" }));
 
         btnView.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnView.setText("View");
@@ -180,6 +177,8 @@ public class adminUserMenu extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbStaff);
 
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "blocked" }));
+
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
         infoPanelLayout.setHorizontalGroup(
@@ -189,8 +188,8 @@ public class adminUserMenu extends javax.swing.JFrame {
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(infoPanelLayout.createSequentialGroup()
-                        .addComponent(lblTableTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
                         .addComponent(cbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -201,9 +200,9 @@ public class adminUserMenu extends javax.swing.JFrame {
             .addGroup(infoPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTableTitle)
                     .addComponent(cbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnView))
+                    .addComponent(btnView)
+                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(10, Short.MAX_VALUE))
@@ -332,6 +331,13 @@ public class adminUserMenu extends javax.swing.JFrame {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();
+        // get the selected role from the cbRole
+        String selectedRole = cbUser.getSelectedItem().toString();
+        // get the selected status from the cbStatus
+        String selectedStatus = cbStatus.getSelectedItem().toString();
+        adminClass1 Admin = new adminClass1();
+        Admin.loadUserByRole(selectedRole, selectedStatus, model);
     }//GEN-LAST:event_btnViewActionPerformed
 
     /**
@@ -392,6 +398,7 @@ public class adminUserMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnStaff;
     private javax.swing.JButton btnView;
+    private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JComboBox<String> cbUser;
     private javax.swing.JPanel directoryPanel;
     private javax.swing.JPanel infoPanel;
@@ -402,7 +409,6 @@ public class adminUserMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblNumActive;
     private javax.swing.JLabel lblNumBlocked;
     private javax.swing.JLabel lblPageTitle;
-    private javax.swing.JLabel lblTableTitle;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JTable tbStaff;

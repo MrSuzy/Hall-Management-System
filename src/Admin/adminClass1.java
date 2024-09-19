@@ -22,6 +22,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import javax.swing.table.DefaultTableModel;
 
 public class adminClass1 {
     private String name;
@@ -38,6 +39,10 @@ public class adminClass1 {
         this.password = password;
         this.status = status;
         this.role = role;
+    }
+    
+    public adminClass1() {
+        
     }
     
     // getters
@@ -90,22 +95,33 @@ public class adminClass1 {
         this.role = role;
     }
     
-
-// method to view all staff 
-    // return in array for table view
-    public ArrayList<String[]> viewUsers(String role) {
-        ArrayList<String[]> usersList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] staffDetails = line.split(";");
-                if (staffDetails[6].equals(role))
-                usersList.add(staffDetails);
+    // load users to display in table
+    public void loadUserByRole(String selectedRole, String selectedStatus, DefaultTableModel model) {
+        try {
+            FileReader fr = new FileReader("users.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            // clear the existing rows from the table
+            model.setRowCount(0);
+            
+            // read the txt file into the table
+            while ((read = br.readLine()) != null) {
+                String name = read.split(";")[0];
+                String phoneNum = read.split(";")[1];
+                String email = read.split(";")[2];
+                String dateTime = read.split(";")[4];
+                String status = read.split(";")[5];
+                String role = read.split(";")[6];
+                
+                // match selected role
+                if (role.equalsIgnoreCase(selectedRole) && status.equalsIgnoreCase(selectedStatus)) {
+                    model.addRow(new Object[]{name, phoneNum, email, dateTime, status, role});
+                }
             }
+            br.close();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
         }
-        return usersList;
     }
 
     // method to check if staff exists
@@ -131,18 +147,6 @@ public class adminClass1 {
     
     // method to add new scheduler staff
     public void addStaff (String name, String phoneNum, String email, String password, String role, String status) {
-        // Validate email
-        /*
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + 
-                "[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        
-        if (!pattern.matcher(email).matches()) {
-            JOptionPane.showMessageDialog(null, "Invalid email format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        */
-        
         try {
             if (isStaffExists(name, email)) {
                 JOptionPane.showMessageDialog(null, "Staff with same name or email already exists.", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
@@ -158,7 +162,7 @@ public class adminClass1 {
             status = "active";
             
             try (FileWriter fw = new FileWriter("users.txt", true)) {
-                fw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + formattedDateTime + ";" + status + ";" + role + "\n");
+                fw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + formattedDateTime + ";" + status + ";" + role + ";" +  "\n");
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -180,7 +184,7 @@ public class adminClass1 {
             String line;
             while ((line = reader. readLine()) != null) {
                 String [] staffDetails = line.split(";");
-                if (staffDetails[0].equals(name) || staffDetails[6].equals(role)) {
+                if (staffDetails[0].equals(name) && staffDetails[6].equals(role)) {
                     staffDetails[1] = newPhoneNum;
                     staffDetails[3] = newPassword;
                     staffDetails[5] = newStatus;
@@ -232,21 +236,6 @@ public class adminClass1 {
             JOptionPane.showMessageDialog(null, "Staff not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    // method to view all users 
-    /* public ArrayList<String[]> viewUser() {
-        ArrayList<String[]> userList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] userDetails = line.split(";");
-                userList.add(userDetails);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return userList;
-    }*/
     
     // method to delete user
     public void deleteUser(String email) {
@@ -350,4 +339,19 @@ public class adminClass1 {
         }
         return bookingList;
     }
+    
+    // method to view all users 
+    /* public ArrayList<String[]> viewUser() {
+        ArrayList<String[]> userList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] userDetails = line.split(";");
+                userList.add(userDetails);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }*/
 }

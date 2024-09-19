@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author user
+ * @author jason
  */
 public class adminAddScheduler extends javax.swing.JFrame {
 
@@ -85,6 +85,11 @@ public class adminAddScheduler extends javax.swing.JFrame {
         btnClear.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnClear.setText("Clear");
         btnClear.setToolTipText("");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnMenu.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMenu.setText("Main Menu");
@@ -139,7 +144,7 @@ public class adminAddScheduler extends javax.swing.JFrame {
         });
 
         cbRole.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Staff", "Manager" }));
+        cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "scheduler", "manager", "admin" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -290,6 +295,15 @@ public class adminAddScheduler extends javax.swing.JFrame {
         adminClass1 Admin = new adminClass1(name, phoneNum, email, password, status, role);
         Admin.addStaff(name, phoneNum, email, password, role, status);
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        txtName.setText("");
+        txtContact.setText("");
+        txtEmail.setText("");
+        pwdPassword.setText("");
+        pwdConfirm.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
 
     /**
      * @param args the command line arguments

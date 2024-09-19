@@ -46,20 +46,6 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="lblPageTitle" min="-2" pref="285" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                          <Component id="btnClear" min="-2" pref="150" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnMenu" min="-2" pref="150" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="lblTitle" min="-2" pref="345" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
-                          <Component id="lblUsername" min="-2" pref="97" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnLogout" min="-2" pref="80" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblInfo1" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
@@ -74,14 +60,29 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="lblEmail" pref="285" max="32767" attributes="0"/>
                               <Component id="lblName" pref="285" max="32767" attributes="0"/>
-                              <Component id="lblStaffID" pref="285" max="32767" attributes="0"/>
+                              <Component id="lblRole" pref="285" max="32767" attributes="0"/>
                               <Component id="pwdPassword" alignment="0" max="32767" attributes="0"/>
                               <Component id="pwdConfirm" max="32767" attributes="0"/>
-                              <Component id="lblContact" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtContact" alignment="0" max="32767" attributes="0"/>
                               <Component id="cbStatus" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnUpdate" min="-2" pref="92" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblTitle" alignment="0" min="-2" pref="345" max="-2" attributes="0"/>
+                              <Component id="lblPageTitle" alignment="0" min="-2" pref="285" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnMenu" min="-2" pref="189" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="lblUsername" min="-2" pref="97" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnLogout" min="-2" pref="80" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="50" max="32767" attributes="0"/>
@@ -100,13 +101,12 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblPageTitle" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMenu" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblInfo1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblStaffID" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblRole" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -121,7 +121,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblInfo4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblContact" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtContact" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -183,21 +183,12 @@
             <Property name="text" type="java.lang.String" value="Staff Account Update"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnClear">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Gill Sans MT" size="18" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Clear"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="btnMenu">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gill Sans MT" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Main Menu"/>
+            <Property name="text" type="java.lang.String" value="Back to Main Menu"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
@@ -260,7 +251,7 @@
             <Property name="text" type="java.lang.String" value="Confirm Password: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblStaffID">
+        <Component class="javax.swing.JLabel" name="lblRole">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gill Sans MT" size="18" style="0"/>
@@ -309,7 +300,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="lblContact">
+        <Component class="javax.swing.JTextField" name="txtContact">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Gill Sans MT" size="18" style="0"/>
@@ -317,7 +308,7 @@
             <Property name="text" type="java.lang.String" value="contact"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblContactActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtContactActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbStatus">

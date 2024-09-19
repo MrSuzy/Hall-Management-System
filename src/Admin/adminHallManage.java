@@ -9,7 +9,7 @@ import Login.LoginPage;
 
 /**
  *
- * @author user
+ * @author jason
  */
 public class adminHallManage extends javax.swing.JFrame {
 

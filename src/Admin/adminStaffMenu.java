@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author user
+ * @author jason
  */
 public class adminStaffMenu extends javax.swing.JFrame {
 
@@ -48,11 +48,11 @@ public class adminStaffMenu extends javax.swing.JFrame {
         lblUsername = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         infoPanel = new javax.swing.JPanel();
-        lblTableTitle = new javax.swing.JLabel();
         cbStaff = new javax.swing.JComboBox<>();
         btnView = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         StaffTbl = new javax.swing.JTable();
+        cbStatus = new javax.swing.JComboBox<>();
         lblPageTitle = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -167,9 +167,6 @@ public class adminStaffMenu extends javax.swing.JFrame {
             }
         });
 
-        lblTableTitle.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblTableTitle.setText("Staff Information");
-
         cbStaff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "manager", "scheduler" }));
 
         btnView.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
@@ -196,6 +193,8 @@ public class adminStaffMenu extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(StaffTbl);
 
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "inactive", "blocked" }));
+
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
         infoPanelLayout.setHorizontalGroup(
@@ -205,8 +204,8 @@ public class adminStaffMenu extends javax.swing.JFrame {
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(infoPanelLayout.createSequentialGroup()
-                        .addComponent(lblTableTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
                         .addComponent(cbStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -217,9 +216,9 @@ public class adminStaffMenu extends javax.swing.JFrame {
             .addGroup(infoPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTableTitle)
                     .addComponent(cbStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnView))
+                    .addComponent(btnView)
+                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -343,41 +342,35 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        int selectedRow = StaffTbl.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a user to edit.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // get the selected rows user data
+        String name = StaffTbl.getValueAt(selectedRow, 0).toString();
+        String phoneNum = StaffTbl.getValueAt(selectedRow, 1).toString();
+        String email = StaffTbl.getValueAt(selectedRow, 2).toString();
+        String status = StaffTbl.getValueAt(selectedRow, 5).toString();
+        String role = StaffTbl.getValueAt(selectedRow, 6).toString();
+        
+        // instance of adminClass1
+        adminClass1 Admin = new adminClass1();
+        
         this.dispose();
-        new adminEditScheduler().setVisible(true);
+        new adminEditScheduler(name, phoneNum, email, status, role).setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) StaffTbl.getModel();
-        // clear the existing rows from the table
-        model.setRowCount(0);
-        // get the selected role from the combobox
+        // get the selected role from the cbRole
         String selectedRole = cbStaff.getSelectedItem().toString();
-        
-        try {
-            FileReader fr = new FileReader("users.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String read;
-            
-            // read the txt file into the table
-            while ((read = br.readLine()) != null) {
-                String name = read.split(";")[0];
-                String phoneNum = read.split(";")[1];
-                String email = read.split(";")[2];
-                String dateTime = read.split(";")[4];
-                String status = read.split(";")[5];
-                String role = read.split(";")[6];
-                
-                // match selected role
-                if (role.equalsIgnoreCase(selectedRole)) {
-                    model.addRow(new Object[]{name, phoneNum, email, dateTime, status, role});
-                }
-            }
-            br.close();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
-        }
+        // get the selected status from the cbStatus
+        String selectedStatus = cbStatus.getSelectedItem().toString();
+        adminClass1 Admin = new adminClass1();
+        Admin.loadUserByRole(selectedRole, selectedStatus, model);
     }//GEN-LAST:event_btnViewActionPerformed
 
     /**
@@ -433,13 +426,13 @@ public class adminStaffMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnUser;
     private javax.swing.JButton btnView;
     private javax.swing.JComboBox<String> cbStaff;
+    private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JPanel directoryPanel;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPageTitle;
     private javax.swing.JLabel lblStaffNum;
-    private javax.swing.JLabel lblTableTitle;
     private javax.swing.JLabel lblText;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
