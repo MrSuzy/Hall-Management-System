@@ -59,6 +59,11 @@ public class customerMainMenu extends javax.swing.JFrame {
         btnLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnLogOut.setText("logout");
         btnLogOut.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
 
         jPanel1.setForeground(new java.awt.Color(242, 242, 242));
 
@@ -194,6 +199,12 @@ public class customerMainMenu extends javax.swing.JFrame {
     private void panelNotifcationAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_panelNotifcationAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_panelNotifcationAncestorAdded
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // TODO add your handling code here:
+        new Login.LoginPage();
+        dispose();
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,11 +4,15 @@
  */
 package Customer;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -32,6 +36,26 @@ public class issueClass {
         this.status = "Open";
     }
     
+    public String getIssueID() {
+        return issueID;
+    }
+    
+    public String getBookingID() {
+        return bookingID;
+    }
+    
+    public Date getIssueDate() {
+        return issueDate;
+    }
+    
+    public String getIssueDescription() {
+        return issueDescription;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    
     // raise issue method 
     public void raiseIssue() {
         try{
@@ -40,6 +64,53 @@ public class issueClass {
             bw.write(issueID + ";" + bookingID + ";" + date.format(issueDate) + ";" + issueDescription + ";" + status);
             bw.newLine();
             System.out.println("Issue raised successfully");
+        } catch (IOException e) {
+            System.out.println("Error" + e.getMessage());
+        }
+    }
+    
+    // update issue status method
+    public void updateStatus(String updatedStatus) {
+        this.status = updatedStatus;
+    }
+    
+    // write record into text file 
+    private void recordIssue() {
+        List<String> issue = new ArrayList<>();
+        
+        // read records from text file 
+        try{
+            FileReader fr = new FileReader("issues.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                if (details.length == 5) {
+                    String issueID = details[0];
+                    
+                    if (issueID.equals(this.issueID)) {
+                        details[4] = this.status;
+                        read = String.join(";", details);
+                    }
+                }
+            }
+            
+            issue.add(read);
+        } catch (IOException e) {
+            System.out.println("Error" + e.getMessage());
+        }
+        
+        try{
+            FileWriter fw = new FileWriter("issues.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            for (String record : issue) {
+                bw.write(record);
+                bw.newLine();
+            }
+            
+            System.out.println("Issue is: " + status);
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
         }
