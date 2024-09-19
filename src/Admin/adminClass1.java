@@ -10,6 +10,7 @@ package Admin;
  */
 
 // import 
+import java.awt.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -89,8 +90,8 @@ public class adminClass1 {
         this.role = role;
     }
     
-    
-    // method to view all staff 
+
+// method to view all staff 
     // return in array for table view
     public ArrayList<String[]> viewUsers(String role) {
         ArrayList<String[]> usersList = new ArrayList<>();
@@ -129,7 +130,7 @@ public class adminClass1 {
     
     
     // method to add new scheduler staff
-    public void addStaff (String name, String phoneNum, String email, String password, String role) {
+    public void addStaff (String name, String phoneNum, String email, String password, String role, String status) {
         // Validate email
         /*
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + 
@@ -154,7 +155,7 @@ public class adminClass1 {
             String formattedDateTime = currentDateTime.format(formatter);
             
             // set status to active
-            String status = "active";
+            status = "active";
             
             try (FileWriter fw = new FileWriter("users.txt", true)) {
                 fw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + formattedDateTime + ";" + status + ";" + role + "\n");

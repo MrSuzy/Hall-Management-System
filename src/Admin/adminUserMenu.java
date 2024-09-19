@@ -332,14 +332,6 @@ public class adminUserMenu extends javax.swing.JFrame {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
-        adminClass1 admin = new adminClass1();
-        ArrayList<String[]> usersList = admin.viewUsers("customer");
-        // display in tbStaff
-        DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();
-        model.setRowCount(0);
-        for (String[] user: usersList) {
-            model.addRow(user);
-        }
     }//GEN-LAST:event_btnViewActionPerformed
 
     /**

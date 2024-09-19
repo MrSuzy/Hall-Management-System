@@ -261,6 +261,7 @@ public class adminAddScheduler extends javax.swing.JFrame {
         String password = pwdPassword.getText();
         String password2 = pwdConfirm.getText();
         String role = (String)cbRole.getSelectedItem();
+        String status = "active";
         
         if (name.isEmpty() || phoneNum.isEmpty()
                 || email.isEmpty() || password.isEmpty()
@@ -286,8 +287,8 @@ public class adminAddScheduler extends javax.swing.JFrame {
             return;
         }
         
-        adminClass1 admin = new adminClass1();
-        admin.addStaff(name, phoneNum, email, password, role);
+        adminClass1 Admin = new adminClass1(name, phoneNum, email, password, status, role);
+        Admin.addStaff(name, phoneNum, email, password, role, status);
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**

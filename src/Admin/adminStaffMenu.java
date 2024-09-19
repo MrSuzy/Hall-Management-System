@@ -2,7 +2,11 @@ package Admin;
 
 import Login.LoginPage;
 import Admin.adminClass1;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -48,7 +52,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
         cbStaff = new javax.swing.JComboBox<>();
         btnView = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbStaff = new javax.swing.JTable();
+        StaffTbl = new javax.swing.JTable();
         lblPageTitle = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -166,7 +170,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
         lblTableTitle.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblTableTitle.setText("Staff Information");
 
-        cbStaff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbStaff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "manager", "scheduler" }));
 
         btnView.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnView.setText("View");
@@ -179,18 +183,18 @@ public class adminStaffMenu extends javax.swing.JFrame {
         jScrollPane1.setColumnHeaderView(null);
         jScrollPane1.setName(""); // NOI18N
 
-        tbStaff.setModel(new javax.swing.table.DefaultTableModel(
+        StaffTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Contact", "Email", "Date Time Created", "Status"
+                "Name", "Contact", "Email", "Date Time Created", "Status", "Role"
             }
         ));
-        jScrollPane1.setViewportView(tbStaff);
+        jScrollPane1.setViewportView(StaffTbl);
 
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
@@ -345,16 +349,34 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
-        String[] roles = {"admin", "scheduler", "manager"};
-        ArrayList<String[]> usersList = new ArrayList<>();
-        for (String role : roles) {
-            usersList.addAll(viewUsers(role));
-        }
-        // display in the table
-        DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();
+        DefaultTableModel model = (DefaultTableModel) StaffTbl.getModel();
+        // clear the existing rows from the table
         model.setRowCount(0);
-        for (String[] staff : usersList) {
-            model.addRow(staff);
+        // get the selected role from the combobox
+        String selectedRole = cbStaff.getSelectedItem().toString();
+        
+        try {
+            FileReader fr = new FileReader("users.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            // read the txt file into the table
+            while ((read = br.readLine()) != null) {
+                String name = read.split(";")[0];
+                String phoneNum = read.split(";")[1];
+                String email = read.split(";")[2];
+                String dateTime = read.split(";")[4];
+                String status = read.split(";")[5];
+                String role = read.split(";")[6];
+                
+                // match selected role
+                if (role.equalsIgnoreCase(selectedRole)) {
+                    model.addRow(new Object[]{name, phoneNum, email, dateTime, status, role});
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnViewActionPerformed
 
@@ -401,6 +423,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable StaffTbl;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
@@ -421,6 +444,5 @@ public class adminStaffMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPanel staffPanel;
-    private javax.swing.JTable tbStaff;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,3 +1,4 @@
 Sam;012-1233456;sam123@gmail.com;sam123;2024-08-08 09:13:22;active;admin;
 John;012-9875542;john456@gmail.com;john456;2024-08-08 11:23:37;active;customer;
 Hot_Chocolate;015-1623487;hc789@gmail.com;hc789;2024-08-08 11:23:37;active;manager;
+Mark;012-9376658;mark123@gmail.com;mark123;2024-08-08 09:13:22;active;admin;
