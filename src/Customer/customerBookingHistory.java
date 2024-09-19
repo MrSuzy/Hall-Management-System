@@ -47,6 +47,7 @@ public class customerBookingHistory extends javax.swing.JFrame {
         lblBookingHistory = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbHistory = new javax.swing.JTable();
+        btnLogOut1 = new javax.swing.JButton();
 
         jButton8.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jButton8.setText("Hall Booking");
@@ -65,7 +66,7 @@ public class customerBookingHistory extends javax.swing.JFrame {
 
         btnLogOut.setBackground(new java.awt.Color(228, 228, 228));
         btnLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        btnLogOut.setText("logout");
+        btnLogOut.setText("View");
         btnLogOut.setBorder(null);
 
         lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
@@ -168,6 +169,11 @@ public class customerBookingHistory extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbHistory);
 
+        btnLogOut1.setBackground(new java.awt.Color(228, 228, 228));
+        btnLogOut1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnLogOut1.setText("logout");
+        btnLogOut1.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,7 +182,10 @@ public class customerBookingHistory extends javax.swing.JFrame {
                 .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBookingHistory)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblBookingHistory)
+                        .addGap(60, 60, 60)
+                        .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -184,9 +193,12 @@ public class customerBookingHistory extends javax.swing.JFrame {
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addGap(107, 107, 107))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(704, Short.MAX_VALUE)
+                    .addComponent(btnLogOut1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(27, 27, 27)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,16 +206,22 @@ public class customerBookingHistory extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUsername)
-                    .addComponent(btnLogOut))
+                    .addComponent(lblUsername))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBookingHistory)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblBookingHistory)
+                            .addComponent(btnLogOut))
                         .addGap(28, 28, 28)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(40, 40, 40)
+                    .addComponent(btnLogOut1)
+                    .addContainerGap(382, Short.MAX_VALUE)))
         );
 
         pack();
@@ -272,6 +290,7 @@ public class customerBookingHistory extends javax.swing.JFrame {
     private javax.swing.JButton btnBooking;
     private javax.swing.JButton btnBookingHistory;
     private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnLogOut1;
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnUpdateProfile;

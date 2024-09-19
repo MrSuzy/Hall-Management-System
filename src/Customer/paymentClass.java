@@ -4,7 +4,13 @@
  */
 package Customer;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -17,12 +23,14 @@ public class paymentClass {
     private Date paymentDate;
     private String paymentMethod;
     
+    private static final SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    
     // constructor
     public paymentClass(String paymentID, String bookingID, double totalAmount, Date paymentDate, String paymentMethod) {
         this.paymentID = paymentID;
         this.bookingID = bookingID;
         this.totalAmount = totalAmount;
-        this.paymentDate = paymentDate;
+        this.paymentDate = new Date();
         this.paymentMethod = paymentMethod;
     }
     
@@ -47,27 +55,37 @@ public class paymentClass {
         return paymentMethod;
     }
     
-    
-    // setters method
-    public void setPaymentID(String paymentID) {
-        this.paymentID = paymentID;
+// perform payment method
+public void performPayment() {
+    this.paymentDate = new Date(); // set current date as payment date
+    recordPayment();
+    displayReceipt();
+}
+
+// record payment method
+public void recordPayment() {
+    try{
+        FileWriter fw = new FileWriter("payment.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(paymentID + ";" + bookingID + ";" + date.format(paymentDate) + ";" + totalAmount + ";" + paymentMethod);
+    } catch (IOException e) {
+        System.out.println("Error" + e.getMessage());
     }
+}
+
+// display receipt details method
+public void displayReceipt() {
+    JFrame frame = new JFrame("Payment Receipt");
+    JTextArea area = new JTextArea();
+    area.setText("Payment ID: " + paymentID + "\nBooking ID: " + bookingID + "\nTotal Amount: " + totalAmount + "\nPayment Date: " + date.format(paymentDate) + "\nPayment Method: " + paymentMethod);
+    area.setEditable(false);
+    frame.add(area);
+    frame.setSize(300, 200);
+    frame.setVisible(true);
+}
+
+   
     
-    public void setBookingID(String bookingID) {
-        this.bookingID = bookingID;
-    }
-    
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-    
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-    
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
     
 
 }

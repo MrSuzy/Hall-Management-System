@@ -24,7 +24,7 @@ public class hallClass {
     private int capacity;
     private String availability;
     
-    public hallClass(String hallID, String hallName, String hallType, double price, String availability) {
+    public hallClass(String hallID, String hallName, String hallType, double price, int capacity, String availability) {
         this.hallID = hallID;
         this.hallName = hallName;
         this.hallType = hallType;
@@ -83,20 +83,46 @@ public class hallClass {
         this.availability = availability;
     }
     
-    // hall booking method
-    public void book() {
-        if(this.availability.equals("Available")) {
+    // view hall availability method
+    public static List<hallClass> viewHall() {
+        List<hallClass> availableHall = new ArrayList<>();
+        
+        try{
+            FileReader fr = new FileReader("halls.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                if(details.length == 6) {
+                    String hallID = details[0];
+                    String hallName = details[1];
+                    String hallType = details[2];
+                    double price = Double.parseDouble(details[3]);
+                    int capacity = Integer.parseInt(details[4]);
+                    String availability = details[5];
+                    
+                    if (availability.equals("Available")) {
+                        availableHall.add(new hallClass(hallID, hallName, hallType, price, capacity, availability));
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error" + e.getMessage());
+        }
+        return availableHall;
+    }
+    
+    // select hall method
+    public void selectHall() {
+        if (this.availability.equals("Available")) {
             this.availability = "Booked";
             updateAvailability();
+        } else {
+            System.out.println("Hall is not available, please select other time slot.");
         }
     }
     
-    public void cancel() {
-        if(this.availability.equals("Booked")) {
-            this.availability = "Available";
-            updateAvailability();
-        }
-    }
     
     private void updateAvailability() {
         List<hallClass> halls = new ArrayList<>();
@@ -116,9 +142,9 @@ public class hallClass {
                     
                     if (hallID.equals(this.hallID) && hallName.equals(this.hallName)) {
                         // update the availability column
-                        halls.add(new hallClass(hallID, hallName, hallType, price, availability));
+                        halls.add(new hallClass(hallID, hallName, hallType, price, capacity, this.availability));
                     } else {
-                        halls.add(new hallClass(hallID, hallName, hallType, price, availability));
+                        halls.add(new hallClass(hallID, hallName, hallType, price, capacity, availability));
                     }
                 }
             }
@@ -140,4 +166,6 @@ public class hallClass {
             System.out.println("Error" + e.getMessage());
         }
     }
+    
+    
 }
