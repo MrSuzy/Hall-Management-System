@@ -345,11 +345,10 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
-        adminClass1 admin = new adminClass1();
-        String[] roles = {"scheduler", "manager"};
+        String[] roles = {"admin", "scheduler", "manager"};
         ArrayList<String[]> usersList = new ArrayList<>();
         for (String role : roles) {
-            usersList.addAll(admin.viewUsers(role));
+            usersList.addAll(viewUsers(role));
         }
         // display in the table
         DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();

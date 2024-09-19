@@ -90,6 +90,23 @@ public class adminClass1 {
     }
     
     
+    // method to view all staff 
+    // return in array for table view
+    public ArrayList<String[]> viewUsers(String role) {
+        ArrayList<String[]> usersList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] staffDetails = line.split(";");
+                if (staffDetails[6].equals(role))
+                usersList.add(staffDetails);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return usersList;
+    }
+
     // method to check if staff exists
     private boolean isStaffExists (String name, String email) {
         try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
@@ -112,8 +129,9 @@ public class adminClass1 {
     
     
     // method to add new scheduler staff
-    public void addStaff (String name, String username, String phoneNum, String email, String password, String role) {
+    public void addStaff (String name, String phoneNum, String email, String password, String role) {
         // Validate email
+        /*
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + 
                 "[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
         Pattern pattern = Pattern.compile(emailRegex);
@@ -122,6 +140,7 @@ public class adminClass1 {
             JOptionPane.showMessageDialog(null, "Invalid email format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        */
         
         try {
             if (isStaffExists(name, email)) {
@@ -149,7 +168,7 @@ public class adminClass1 {
     }
     
     // method to edit staff information 
-    public void editStaff (String name, String role, String newUsername, String newPhoneNum, String email, String newPassword) {
+    public void editStaff (String name, String role, String newStatus, String newPhoneNum, String email, String newPassword) {
         File file = new File("users.txt");
         File tempFile = new File("tempStaff.txt");
         boolean found = false;
@@ -160,10 +179,10 @@ public class adminClass1 {
             String line;
             while ((line = reader. readLine()) != null) {
                 String [] staffDetails = line.split(";");
-                if (staffDetails[0].equals(name) || staffDetails[7].equals(role)) {
-                    staffDetails[1] = newUsername;
-                    staffDetails[2] = newPhoneNum;
-                    staffDetails[4] = newPassword;
+                if (staffDetails[0].equals(name) || staffDetails[6].equals(role)) {
+                    staffDetails[1] = newPhoneNum;
+                    staffDetails[3] = newPassword;
+                    staffDetails[5] = newStatus;
                     found = true; 
                 }
                 writer.write(String.join(";", staffDetails) + "\n");
@@ -181,26 +200,9 @@ public class adminClass1 {
         }
     }
     
-    // method to view all staff 
-    // return in array for table view
-    public ArrayList<String[]> viewUsers(String role) {
-        ArrayList<String[]> usersList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] staffDetails = line.split(";");
-                if (staffDetails[6].equals(role))
-                usersList.add(staffDetails);
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        return usersList;
-    }
-    
 
     // method to delete a staff by username
-    public void deleteStaff(String username) {
+    public void deleteStaff(String email) {
         File file = new File("users.txt");
         File tempFile = new File("tempStaff.txt");
         boolean found = false;
@@ -211,7 +213,7 @@ public class adminClass1 {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] staffDetails = line.split(";");
-                if (staffDetails[2].equals(username)) { // Username is at index 2 
+                if (staffDetails[2].equals(email)) { // Username is at index 2 
                     found = true;
                     continue; // Skip this line (delete the staff)
                 }
@@ -246,7 +248,7 @@ public class adminClass1 {
     }*/
     
     // method to delete user
-    public void deleteUser(String username) {
+    public void deleteUser(String email) {
         File file = new File("users.txt");
         File tempFile = new File("tempUser.txt");
         boolean found = false;
@@ -257,7 +259,7 @@ public class adminClass1 {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] userDetails = line.split(";");
-                if (userDetails[2].equals(username)) { // username at index 2 
+                if (userDetails[2].equals(email)) { // username at index 2 
                     found = true;
                     continue; // Skip this line (delete the staff)
                 }
@@ -296,7 +298,7 @@ public class adminClass1 {
     
     // method to update status 
     // can be reused if want to set user to active inactive block
-    public void updateUserStatus(String username, userStatus newStatus) {
+    public void updateUserStatus(String email, userStatus newStatus) {
         File file = new File("staff.txt");
         File tempFile = new File("tempUser.txt");
         boolean found = false;
@@ -307,7 +309,7 @@ public class adminClass1 {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] userDetails = line.split(";");
-                if (userDetails[1].equals(username)) { // check username based on the index
+                if (userDetails[2].equals(email)) { // check username based on the index
                     userDetails[6] = newStatus.getStatus(); // status at index 7
                     found = true;
                 }
@@ -327,8 +329,8 @@ public class adminClass1 {
     }
     
     // method to block user using the updateUserStatus method
-    public void blockUser(String username) {
-        updateUserStatus(username, userStatus.BLOCKED);
+    public void blockUser(String email) {
+        updateUserStatus(email, userStatus.BLOCKED);
     }
     
     // method to view bookings 

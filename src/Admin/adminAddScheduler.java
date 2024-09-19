@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /*
@@ -254,71 +255,39 @@ public class adminAddScheduler extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         // ensure all fields are filled
-        if (txtName.getText().isEmpty() || txtContact.getText().isEmpty()
-                || txtEmail.getText().isEmpty() || pwdPassword.getText().isEmpty()
-                || pwdConfirm.getText().isEmpty()) {
+        String name = txtName.getText();
+        String phoneNum = txtContact.getText();
+        String email = txtEmail.getText();
+        String password = pwdPassword.getText();
+        String password2 = pwdConfirm.getText();
+        String role = (String)cbRole.getSelectedItem();
+        
+        if (name.isEmpty() || phoneNum.isEmpty()
+                || email.isEmpty() || password.isEmpty()
+                || password2.isEmpty() || role.isEmpty()) {
             
             JOptionPane.showMessageDialog(this, "Please fil in all the fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         // ensure password match
-        if (!pwdPassword.getText().equals(pwdConfirm.getText())) {
+        if (!password.equals(password2)) {
             JOptionPane.showMessageDialog(this, "Passwords do not match.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        try {
-            // check if staff already exists
-            BufferedReader reader = new BufferedReader(new FileReader("staff.txt"));
-            String line;
-            boolean exists = false;
-            
-            while ((line = reader.readLine()) != null) {
-                String[] staffDetails = line.split(";");
-                if(staffDetails[2].equals(txtEmail.getText())) {
-                    exists = true;
-                    break;
-                }
-            }
-            reader.close();
-            
-            if (exists) {
-                JOptionPane.showMessageDialog(this, "Staff with the username or email already exists", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                // add staff
-                ArrayList<String> staff = new ArrayList<>();
-                staff.add(txtName.getText());
-                staff.add(txtContact.getText());
-                staff.add(txtEmail.getText());
-                staff.add(pwdPassword.getText());
-                staff.add((String) cbRole.getSelectedItem());
-                
-                // set date time created 
-                LocalDateTime currentDateTime = LocalDateTime.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
-                String formattedDateTime = currentDateTime.format(formatter);
-                
-                // set status to active
-                String status = "active";
-                
-                try (FileWriter fw = new FileWriter("staff.txt", true)) {
-                    fw.write(staff.get(0) + ";" + staff.get(1) + ";" + staff.get(2) + ";" + staff.get(3) + ";" + formattedDateTime + ";" + staff.get(4) + ";" + status + ";" + staff.get(5));
-                }
-                
-                JOptionPane.showMessageDialog(this, "Staff added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                
-                // clear fields
-                txtName.setText("");
-                txtContact.setText("");
-                txtEmail.setText("");
-                pwdPassword.setText("");
-                pwdConfirm.setText("");
-                
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+        // Validate email
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + 
+                "[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        
+        if (!pattern.matcher(email).matches()) {
+            JOptionPane.showMessageDialog(null, "Invalid email format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        
+        adminClass1 admin = new adminClass1();
+        admin.addStaff(name, phoneNum, email, password, role);
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**
