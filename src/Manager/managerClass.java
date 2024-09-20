@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
+//import org.jfree.chart.ChartFactory;
+//import org.jfree.chart.ChartPanel;
+//import org.jfree.chart.JFreeChart;
+//import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -156,7 +156,9 @@ public class managerClass {
             System.out.println("Error:" + e.getMessage());
         }
     }
+}
     
+    /*
     public void saleschart() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String line;
@@ -189,7 +191,6 @@ public class managerClass {
         frame.setVisible(true);
        
     }
-
-
     
 }
+*/
