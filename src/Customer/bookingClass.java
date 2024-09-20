@@ -36,7 +36,7 @@ public class bookingClass {
     
     
     // constructor
-    public bookingClass(String bookingID, String email, String hallID, Date bookingDate, String paymentStatus) {
+    public bookingClass(String bookingID, String email, String hallID, Date bookingDate, Date startTime, Date endTime, String paymentStatus) {
         this.bookingID = bookingID;
         this.email = email;
         this.hallID = hallID;
@@ -88,22 +88,6 @@ public class bookingClass {
         this.paymentStatus = paymentStatus;
     }
     
-    // check hall availabilty before booking method 
-    public static List<String> hallAvailability(Date selectedDate, String startTime, String endTime, String hallType) {
-        List<String> available = new ArrayList<>();
-        List<String> booked = new ArrayList<>();
-        
-        try{
-            FileReader fr = new FileReader("bookings.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String read;
-            
-            while ((read = br.readLine()) != null) {
-                String[] details = read.split(";");
-                if (details)
-            }
-        }
-    }
     
     // view and filter booking method 
     public static List<bookingClass> viewBooking(String email, boolean upcoming) {
@@ -117,18 +101,20 @@ public class bookingClass {
             
             while ((read = br.readLine()) != null) {
                 String[] details = read.split(";");
-                if (details.length == 5) {
+                if (details.length == 7) {
                     String bookingID = details[0];
                     String Email = details[1];
                     String hallID = details[2];
                     Date bookingDate = date.parse(details[3]);
-                    String paymentStatus = details[4];
+                    Date startTime = date.parse(details[4]);
+                    Date endTime = date.parse(details[5]);
+                    String paymentStatus = details[6];
                     
                     if (Email.equals(email)) {
                         if(upcoming && bookingDate.after(currentDate)) {
-                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, paymentStatus));
+                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentStatus));
                         } else if (!upcoming && bookingDate.before(currentDate)) {
-                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, paymentStatus));
+                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentStatus));
                         }
                     }
                     
@@ -169,17 +155,19 @@ public class bookingClass {
             
             while((read = br.readLine()) != null) {
                 String[] details = read.split(";");
-                if (details.length == 5) {
+                if (details.length == 7) {
                     String bookingID = details[0];
                     String email = details[1];
                     String hallID = details[2];
                     Date bookingDate = date.parse(details[3]);
-                    String paymentStatus = details[4];
+                    Date startTime = time.parse(details[4]);
+                    Date endTime = time.parse(details[5]);
+                    String paymentStatus = details[6];
                     
                     if (this.bookingID.equals(bookingID)) {
                         booking.add(this); //update the record
                     } else {
-                        booking.add(new bookingClass(bookingID, email, hallID, bookingDate, paymentStatus));
+                        booking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentStatus));
                     }
                 }
             }
@@ -193,7 +181,7 @@ public class bookingClass {
             BufferedWriter bw = new BufferedWriter(fw);
             
             for (bookingClass updatedBooking : booking) {
-                bw.write(updatedBooking.bookingID + ";" + updatedBooking.email + ";" + date.format(updatedBooking.bookingDate) + ";" + updatedBooking.paymentStatus);
+                bw.write(updatedBooking.bookingID + ";" + updatedBooking.email + ";" + date.format(updatedBooking.bookingDate) + ";" + time.format(updatedBooking.startTime) + ";" + time.format(updatedBooking.endTime) + ";" + updatedBooking.paymentStatus);
                 bw.newLine();
             }
         } catch (IOException e) {
