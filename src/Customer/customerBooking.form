@@ -108,7 +108,7 @@
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jScrollPane2" min="-2" pref="161" max="-2" attributes="0"/>
                       <Component id="btnBook" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnBook1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnAvailability" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
@@ -164,7 +164,7 @@
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblNoOfGuest" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnBook1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAvailability" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -463,11 +463,10 @@
           <Font name="Gill Sans MT" size="12" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Auditorium"/>
+            <StringItem index="1" value="Banquet Hall"/>
+            <StringItem index="2" value="Meeting Room"/>
           </StringArray>
         </Property>
       </Properties>
@@ -522,7 +521,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="jList1">
+        <Component class="javax.swing.JList" name="listPayment">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
               <StringArray count="3">
@@ -538,7 +537,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnBook1">
+    <Component class="javax.swing.JButton" name="btnAvailability">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e4" green="e4" red="e4" type="rgb"/>
@@ -549,7 +548,7 @@
         <Property name="text" type="java.lang.String" value="Check Availability"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBook1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAvailabilityActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

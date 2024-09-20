@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  *
  * @author xuen_
@@ -114,7 +115,7 @@ public class hallClass {
     
     
     // check hall availabilty before booking method 
-    public static List<String> hallAvailability(Date selectedDate, String selectedStartTime, String selectedEndTime, String hallType) {
+    public static List<String> hallAvailability(Date selectedDate, Date selectedStartTime, Date selectedEndTime, String hallType) {
         List<String> available = new ArrayList<>();
         
         try{
@@ -140,11 +141,9 @@ public class hallClass {
                         if (bookingDate == null || !bookingDate.equals(selectedDate)) {
                             available.add(hallID);
                         } else {
-                            Date requestedStartTime = time.parse(selectedStartTime);
-                            Date requestedEndTime = time.parse(selectedEndTime);
                             
                             // check time clash
-                            if (requestedEndTime.before(startTime) || requestedStartTime.after(endTime)) {
+                            if (selectedEndTime.before(startTime) || selectedStartTime.after(endTime)) {
                                 available.add(hallID);
                             }
                         }

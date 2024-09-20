@@ -14,13 +14,13 @@ import Login.LoginPage;
  * @author user
  */
 public class customerMainMenu extends javax.swing.JFrame {
-    private String email;
+    private String loggedInEmail;
    
     /**
      * Creates new form customerMainMenu
      */
-    public customerMainMenu(String email) {
-        this.email = email;
+    public customerMainMenu(String loggedInEmail) {
+        this.loggedInEmail = loggedInEmail;
         initComponents();
         
         Color col = new Color(224, 240, 255); //red, green and blue values
@@ -237,13 +237,13 @@ public class customerMainMenu extends javax.swing.JFrame {
     private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new customerBooking().setVisible(true);
+        new customerBooking(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnBookingActionPerformed
 
     private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new customerUpdateProfile(email).setVisible(true);
+        new customerUpdateProfile(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnUpdateProfileActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed

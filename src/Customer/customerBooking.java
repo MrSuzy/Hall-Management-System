@@ -4,8 +4,12 @@ package Customer;
 import java.awt.Color;
 import Login.LoginPage;
 import com.toedter.calendar.JDateChooser;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+import Customer.hallClass;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -17,6 +21,7 @@ import javax.swing.SpinnerDateModel;
  */
 public class customerBooking extends javax.swing.JFrame {
     
+    private String loggedInEmail;
     private JDateChooser datePicker;
     private JSpinner startTimePicker;
     private JSpinner endTimePicker;
@@ -24,7 +29,8 @@ public class customerBooking extends javax.swing.JFrame {
     /**
      * Creates new form adminMainMenu
      */
-    public customerBooking() {
+    public customerBooking(String loggedInEmail) {
+        this.loggedInEmail = loggedInEmail;
         initComponents();
         initCustomComponents();
         Color col = new Color(224, 240, 255); //red, green and blue values
@@ -32,31 +38,7 @@ public class customerBooking extends javax.swing.JFrame {
 
     }
     
-    private void initCustomComponents() {
-        datePicker = new JDateChooser();
-        datePicker.setDateFormatString("yyyy-MM-dd");
-        
-        startTimePicker = new JSpinner(new SpinnerDateModel());
-        JSpinner.DateEditor startEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm");
-        startTimePicker.setEditor(startEditor);
-        
-        endTimePicker = new JSpinner(new SpinnerDateModel());
-        JSpinner.DateEditor endEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm");
-        endTimePicker.setEditor(endEditor);
-        
-        getContentPane().remove(cbDate);
-        getContentPane().add(datePicker);
-        datePicker.setBounds(cbDate.getBounds());
-        
-        getContentPane().remove(txtStartTime);
-        getContentPane().add(startTimePicker);
-        startTimePicker.setBounds(txtStartTime.getBounds());
-
-        getContentPane().remove(txtEndTime);
-        getContentPane().add(endTimePicker);
-        endTimePicker.setBounds(txtEndTime.getBounds());
-        
-    }
+    
     
 
     /**
@@ -95,8 +77,8 @@ public class customerBooking extends javax.swing.JFrame {
         btnBook = new javax.swing.JButton();
         lblDate1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        btnBook1 = new javax.swing.JButton();
+        listPayment = new javax.swing.JList<>();
+        btnAvailability = new javax.swing.JButton();
 
         jButton8.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jButton8.setText("Hall Booking");
@@ -249,7 +231,7 @@ public class customerBooking extends javax.swing.JFrame {
         txtEndTime.setText("jTextField1");
 
         cbHallType.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        cbHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auditorium", "Banquet Hall", "Meeting Room" }));
 
         cbAvailable.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         cbAvailable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -262,19 +244,19 @@ public class customerBooking extends javax.swing.JFrame {
         lblDate1.setForeground(new java.awt.Color(51, 51, 51));
         lblDate1.setText("Payment Method:");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        listPayment.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Debit / Credit Card", "E-Wallet ", "FPX Online Banking" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(listPayment);
 
-        btnBook1.setBackground(new java.awt.Color(228, 228, 228));
-        btnBook1.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        btnBook1.setText("Check Availability");
-        btnBook1.addActionListener(new java.awt.event.ActionListener() {
+        btnAvailability.setBackground(new java.awt.Color(228, 228, 228));
+        btnAvailability.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        btnAvailability.setText("Check Availability");
+        btnAvailability.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBook1ActionPerformed(evt);
+                btnAvailabilityActionPerformed(evt);
             }
         });
 
@@ -318,7 +300,7 @@ public class customerBooking extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnBook, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBook1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnAvailability, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
@@ -361,7 +343,7 @@ public class customerBooking extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNoOfGuest)
-                            .addComponent(btnBook1))
+                            .addComponent(btnAvailability))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -375,6 +357,33 @@ public class customerBooking extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void initCustomComponents() {
+        datePicker = new JDateChooser();
+        datePicker.setDateFormatString("yyyy-MM-dd");
+        
+        startTimePicker = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor startEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm");
+        startTimePicker.setEditor(startEditor);
+        
+        endTimePicker = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor endEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm");
+        endTimePicker.setEditor(endEditor);
+        
+        getContentPane().remove(cbDate);
+        getContentPane().add(datePicker);
+        datePicker.setBounds(cbDate.getBounds());
+        
+        getContentPane().remove(txtStartTime);
+        getContentPane().add(startTimePicker);
+        startTimePicker.setBounds(txtStartTime.getBounds());
+
+        getContentPane().remove(txtEndTime);
+        getContentPane().add(endTimePicker);
+        endTimePicker.setBounds(txtEndTime.getBounds());
+        
+    }
+    
+    
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMainMenuActionPerformed
@@ -385,6 +394,15 @@ public class customerBooking extends javax.swing.JFrame {
 
     private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
         // TODO add your handling code here:
+        String hallID = (String) cbAvailable.getSelectedItem();
+        Date selectedDate = datePicker.getDate();
+        Date startTime = (Date) startTimePicker.getValue();
+        Date endTime = (Date) endTimePicker.getValue();
+        String paymentMethod = listPayment.getSelectedValue();
+        
+        bookingClass.performBooking(hallID, selectedDate, startTime, endTime, loggedInEmail, paymentMethod);
+        
+        JOptionPane.showMessageDialog(this, "Booking Sucessful!");
     }//GEN-LAST:event_btnBookingActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -399,9 +417,29 @@ public class customerBooking extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReportActionPerformed
 
-    private void btnBook1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBook1ActionPerformed
+    private void btnAvailabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvailabilityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBook1ActionPerformed
+        Date selectedDate = datePicker.getDate();
+        Date startTime = (Date) startTimePicker.getValue();
+        Date endTime = (Date) endTimePicker.getValue();
+        String hallType = (String) cbHallType.getSelectedItem();
+        
+        List<String> available = hallClass.hallAvailability(selectedDate, startTime, endTime, hallType);
+        
+        if (!available.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Available halls found!");
+            
+            // display the available halls in the combobox
+            cbAvailable.removeAllItems();
+            for (String hall : available) {
+                cbAvailable.addItem(hall);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No available halls found for the selected date and time");
+        }
+        
+
+    }//GEN-LAST:event_btnAvailabilityActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         // TODO add your handling code here:
@@ -412,41 +450,11 @@ public class customerBooking extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(customerBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(customerBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(customerBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(customerBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new customerBooking().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAvailability;
     private javax.swing.JButton btnBook;
-    private javax.swing.JButton btnBook1;
     private javax.swing.JButton btnBooking;
     private javax.swing.JButton btnBookingHistory;
     private javax.swing.JButton btnLogOut;
@@ -458,7 +466,6 @@ public class customerBooking extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbHallType;
     private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lblAvailable;
@@ -471,6 +478,7 @@ public class customerBooking extends javax.swing.JFrame {
     private javax.swing.JLabel lblStartTime;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JList<String> listPayment;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JTextField txtEndTime;
     private javax.swing.JTextField txtStartTime;

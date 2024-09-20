@@ -1,0 +1,5 @@
+B001;john.doe@gmail.com;A001;2024-09-25;09:00;17:00;1500.00;Credit Card;Paid
+B002;jane.smith@gmail.com;B002;2024-10-05;12:00;22:00;1200.00;FPX;Paid
+B003;michael.brown@gmail.com;M002;2024-09-28;10:00;18:00;350.00;E-Wallet;Paid
+B004;susan.jones@gmail.com;A002;2024-09-30;08:00;16:00;1700.00;Credit Card;Paid
+B005;alice.white@gmail.com;M001;2024-09-26;08:00;16:00;300.00;FPX;Cancelled

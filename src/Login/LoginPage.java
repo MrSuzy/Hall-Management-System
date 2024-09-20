@@ -22,6 +22,8 @@ import java.io.IOException;
  * @author xuen_
  */
 public class LoginPage extends javax.swing.JFrame {
+    
+    private String loggedInEmail;
 
     /**
      * Creates new form LoginPage
@@ -194,6 +196,7 @@ public class LoginPage extends javax.swing.JFrame {
             Object user = authenticate(email, password);
             
             if (user != null) {
+                loggedInEmail = email;
                 String role = ""; 
                 
                // determine role of user
@@ -211,7 +214,7 @@ public class LoginPage extends javax.swing.JFrame {
                // switch case to navigate to respective main page
                switch(role.toLowerCase()) {
                    case "customer":
-                       new customerMainMenu(email).setVisible(true);
+                       new customerMainMenu(loggedInEmail).setVisible(true);
                        break;
                    case "admin":
                        new adminMainPage().setVisible(true);

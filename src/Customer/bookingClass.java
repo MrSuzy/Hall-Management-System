@@ -26,6 +26,7 @@ public class bookingClass {
     private Date bookingDate;
     private Date startTime;
     private Date endTime;
+    private String paymentMethod;
     private String paymentStatus;
     
     // date formatter 
@@ -36,13 +37,14 @@ public class bookingClass {
     
     
     // constructor
-    public bookingClass(String bookingID, String email, String hallID, Date bookingDate, Date startTime, Date endTime, String paymentStatus) {
+    public bookingClass(String bookingID, String email, String hallID, Date bookingDate, Date startTime, Date endTime, String paymentMethod, String paymentStatus) {
         this.bookingID = bookingID;
         this.email = email;
         this.hallID = hallID;
         this.bookingDate = bookingDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.paymentMethod = paymentMethod;
         this.paymentStatus = paymentStatus;
     }
     
@@ -61,6 +63,18 @@ public class bookingClass {
     
     public Date getBookingDate() {
         return bookingDate;
+    }
+    
+    public Date getStartTime() {
+        return startTime;
+    }
+    
+    public Date getEndTime() {
+        return endTime;
+    }
+    
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
     
     public String getPaymentStatus() {
@@ -84,11 +98,22 @@ public class bookingClass {
         this.bookingDate = bookingDate;
     }
     
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+    
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+    
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+    
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
-    
-    
+       
     // view and filter booking method 
     public static List<bookingClass> viewBooking(String email, boolean upcoming) {
         List<bookingClass> viewBooking = new ArrayList<>();
@@ -101,20 +126,21 @@ public class bookingClass {
             
             while ((read = br.readLine()) != null) {
                 String[] details = read.split(";");
-                if (details.length == 7) {
+                if (details.length == 8) {
                     String bookingID = details[0];
                     String Email = details[1];
                     String hallID = details[2];
                     Date bookingDate = date.parse(details[3]);
                     Date startTime = date.parse(details[4]);
                     Date endTime = date.parse(details[5]);
-                    String paymentStatus = details[6];
+                    String paymentMethod = details[6];
+                    String paymentStatus = details[7];
                     
                     if (Email.equals(email)) {
                         if(upcoming && bookingDate.after(currentDate)) {
-                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentStatus));
+                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentMethod, paymentStatus));
                         } else if (!upcoming && bookingDate.before(currentDate)) {
-                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentStatus));
+                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentMethod, paymentStatus));
                         }
                     }
                     
@@ -124,6 +150,45 @@ public class bookingClass {
             System.out.println("Error" + e.getMessage());
         }
         return viewBooking;
+    }
+    
+    // perform booking and write details into text file 
+    public static void performBooking(String hallID, Date bookingDate, Date startTime, Date endTime, String email, String paymentMethod) {
+        String bookingID = generateBookingID();
+        String paymentStatus = "Paid";
+        double price = 0.0;
+        
+        try{
+            FileReader fr = new FileReader("hall.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                if (details[0].equals(hallID)) {
+                    price = Double.parseDouble(details[2]);
+                    break;
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error" + e.getMessage());
+        }
+        
+        try{
+            FileWriter fw = new FileWriter("bookings.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            bw.write(bookingID + ";" + email + ";" + hallID + ";" + date.format(bookingDate) + ";" + time.format(startTime) + ";" + time.format(endTime) + ";" + price + ";" + paymentMethod + ";" + paymentStatus);
+            bw.newLine();
+        } catch (IOException e) {
+            System.out.println("Error" + e.getMessage());
+        }
+    }
+    
+    // auto generate booking ID method
+    private static String generateBookingID() {
+        return "B" + System.currentTimeMillis();
     }
     
     // cancel booking method
@@ -136,57 +201,51 @@ public class bookingClass {
         
         if (dayDiff >= 3 && this.paymentStatus.equals("Paid")) {
             this.paymentStatus = "Cancelled";
-            recordBooking();
-            System.out.println("Booking cancelled.");
-        } else {
-            System.out.println("Cancel failed. Booking must be at least 3 days before booking date.");
+            
+            List<bookingClass> booking = new ArrayList<>();
+            
+            try{
+                FileReader fr = new FileReader("bookings.txt");
+                BufferedReader br = new BufferedReader(fr);
+                String read;
+                
+                while ((read = br.readLine()) != null) {
+                    String[] details = read.split(";");
+                    if (details.length == 8) {
+                        String bookingID = details[0];
+                        String email = details[1];
+                        String hallID = details[2];
+                        Date bookingDate = date.parse(details[3]);
+                        Date startTime = time.parse(details[4]);
+                        Date endTime = time.parse(details[5]);
+                        String paymentMethod = details[6];
+                        String paymentStatus = details[7];
+                        
+                        if (this.bookingID.equals(bookingID)) {
+                            booking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentMethod, this.paymentStatus));
+                        } else {
+                            booking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentMethod, paymentStatus));
+                        }
+                    }
+                }
+            } catch (IOException | ParseException e) {
+                System.out.println("Error" + e.getMessage());
+            }
+            
+            try{
+                FileWriter fw = new FileWriter("bookings.txt");
+                BufferedWriter bw = new BufferedWriter(fw);
+                
+                for (bookingClass bookings : booking) {
+                    bw.write(bookings.getBookingID() + ";" + bookings.getEmail() + ";" + bookings.getHallID() + ";" + date.format(bookings.getBookingDate()) + ";" + time.format(bookings.getStartTime()) + ";" + time.format(bookings.getEndTime()) + ";" + bookings.getPaymentMethod() + ";" + bookings.getPaymentStatus());
+                    bw.newLine();
+                }
+            } catch (IOException e) {
+                System.out.println("Error" + e.getMessage());
+            }
         }
     }
     
-    // update to booking.txt file 
-    private void recordBooking() {
-        List<bookingClass> booking = new ArrayList();
-        
-        // read existing records in booking.txt
-        try{
-            FileReader fr = new FileReader("booking.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String read;
-            
-            while((read = br.readLine()) != null) {
-                String[] details = read.split(";");
-                if (details.length == 7) {
-                    String bookingID = details[0];
-                    String email = details[1];
-                    String hallID = details[2];
-                    Date bookingDate = date.parse(details[3]);
-                    Date startTime = time.parse(details[4]);
-                    Date endTime = time.parse(details[5]);
-                    String paymentStatus = details[6];
-                    
-                    if (this.bookingID.equals(bookingID)) {
-                        booking.add(this); //update the record
-                    } else {
-                        booking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentStatus));
-                    }
-                }
-            }
-        } catch (IOException | ParseException e) {
-            System.out.println("Error" + e.getMessage());
-        }
-        
-        // write the file with the updated records
-        try{
-            FileWriter fw = new FileWriter("booking.txt");
-            BufferedWriter bw = new BufferedWriter(fw);
-            
-            for (bookingClass updatedBooking : booking) {
-                bw.write(updatedBooking.bookingID + ";" + updatedBooking.email + ";" + date.format(updatedBooking.bookingDate) + ";" + time.format(updatedBooking.startTime) + ";" + time.format(updatedBooking.endTime) + ";" + updatedBooking.paymentStatus);
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Error" + e.getMessage());
-        }
-    }
+
 }
  
