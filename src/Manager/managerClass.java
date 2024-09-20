@@ -156,6 +156,7 @@ public class managerClass {
             System.out.println("Error:" + e.getMessage());
         }
     }
+
     
     public void saleschart() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();

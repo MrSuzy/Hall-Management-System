@@ -3,6 +3,9 @@ package Customer;
 
 import java.awt.Color;
 import Login.LoginPage;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,17 +16,48 @@ import Login.LoginPage;
  * @author user
  */
 public class customerBooking extends javax.swing.JFrame {
+    
+    private JDateChooser datePicker;
+    private JSpinner startTimePicker;
+    private JSpinner endTimePicker;
 
     /**
      * Creates new form adminMainMenu
      */
     public customerBooking() {
         initComponents();
-
+        initCustomComponents();
         Color col = new Color(224, 240, 255); //red, green and blue values
         getContentPane().setBackground(col);
 
     }
+    
+    private void initCustomComponents() {
+        datePicker = new JDateChooser();
+        datePicker.setDateFormatString("yyyy-MM-dd");
+        
+        startTimePicker = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor startEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm");
+        startTimePicker.setEditor(startEditor);
+        
+        endTimePicker = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor endEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm");
+        endTimePicker.setEditor(endEditor);
+        
+        getContentPane().remove(cbDate);
+        getContentPane().add(datePicker);
+        datePicker.setBounds(cbDate.getBounds());
+        
+        getContentPane().remove(txtStartTime);
+        getContentPane().add(startTimePicker);
+        startTimePicker.setBounds(txtStartTime.getBounds());
+
+        getContentPane().remove(txtEndTime);
+        getContentPane().add(endTimePicker);
+        endTimePicker.setBounds(txtEndTime.getBounds());
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,6 +123,11 @@ public class customerBooking extends javax.swing.JFrame {
         btnLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnLogOut.setText("logout");
         btnLogOut.setBorder(null);
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
 
         lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(51, 51, 51));
@@ -363,6 +402,12 @@ public class customerBooking extends javax.swing.JFrame {
     private void btnBook1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBook1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBook1ActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**
      * @param args the command line arguments

@@ -24,10 +24,15 @@ public class bookingClass {
     private String email;
     private String hallID;
     private Date bookingDate;
+    private Date startTime;
+    private Date endTime;
     private String paymentStatus;
     
     // date formatter 
     private static final SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+    
+    // time formatter 
+    private static final SimpleDateFormat time = new SimpleDateFormat("HH:mm");
     
     
     // constructor
@@ -36,6 +41,8 @@ public class bookingClass {
         this.email = email;
         this.hallID = hallID;
         this.bookingDate = bookingDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.paymentStatus = paymentStatus;
     }
     
@@ -79,6 +86,23 @@ public class bookingClass {
     
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+    
+    // check hall availabilty before booking method 
+    public static List<String> hallAvailability(Date selectedDate, String startTime, String endTime, String hallType) {
+        List<String> available = new ArrayList<>();
+        List<String> booked = new ArrayList<>();
+        
+        try{
+            FileReader fr = new FileReader("bookings.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                if (details)
+            }
+        }
     }
     
     // view and filter booking method 

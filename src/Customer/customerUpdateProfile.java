@@ -3,6 +3,7 @@ package Customer;
 
 import java.awt.Color;
 import Login.LoginPage;
+import Customer.customerClass;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -35,6 +36,8 @@ public class customerUpdateProfile extends javax.swing.JFrame {
         loadCurrentUser();
     }
     
+    private String currentDateTime;
+    
     // load user data function
     private void loadCurrentUser() {
         try{
@@ -49,6 +52,7 @@ public class customerUpdateProfile extends javax.swing.JFrame {
                     txtContact.setText(details[1]);
                     txtEmail.setText(details[2]);
                     pwdPassword.setText(details[3]);
+                    currentDateTime = details[4];
                     break;
                 }
             }
@@ -106,6 +110,11 @@ public class customerUpdateProfile extends javax.swing.JFrame {
         btnLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnLogOut.setText("logout");
         btnLogOut.setBorder(null);
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
 
         lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(51, 51, 51));
@@ -353,11 +362,17 @@ public class customerUpdateProfile extends javax.swing.JFrame {
         String status = "Active";
         String role = "Customer";
         
-        customerClass customer = new customerClass(name, phoneNum, email, password, status, role);
+        customerClass customer = new customerClass(name, phoneNum, email, password, currentDateTime, status, role);
         customerClass.updateProfile(customer);
         
         JOptionPane.showMessageDialog(this, "Updated Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
 
     /**

@@ -243,15 +243,16 @@ public class LoginPage extends javax.swing.JFrame {
             String read;
             while((read = br.readLine()) != null) {
                 String[] details = read.split(";");
-                if (details.length >= 6 && details[2].equals(email) && details[3].equals(password)) {
+                if (details.length >= 7 && details[2].equals(email) && details[3].equals(password)) {
                     String name = details[0];
                     String phoneNum = details[1];
+                    String currentDateTime = details[4];
                     String status = details[5];
                     String role = details[6];
                     
                     switch (role.toLowerCase()) {
                         case "customer":
-                            return new customerClass(name, phoneNum, email, password, status, role);
+                            return new customerClass(name, phoneNum, email, password, currentDateTime, status, role);
                         case "admin":
                             return new adminClass1(name, phoneNum, email, password, status, role);
                         case "manager":

@@ -3,6 +3,8 @@ package Customer;
 
 import Login.LoginPage;
 import java.awt.Color;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
@@ -201,7 +203,12 @@ public class customerRegistration extends javax.swing.JFrame {
             return;
         }
         
-        customerClass customer = new customerClass(name, phoneNum, email, password, status, role);
+        // get current datetime of the customer registration 
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatted = currentDateTime.format(date);
+        
+        customerClass customer = new customerClass(name, phoneNum, email, password, formatted, status, role);
         customer.customerRecord();
         
         JOptionPane.showMessageDialog(this, "Succesfully Registered!", "Success", JOptionPane.INFORMATION_MESSAGE);

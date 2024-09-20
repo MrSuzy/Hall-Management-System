@@ -173,6 +173,11 @@ public class customerBookingHistory extends javax.swing.JFrame {
         btnLogOut1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnLogOut1.setText("logout");
         btnLogOut1.setBorder(null);
+        btnLogOut1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOut1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,6 +255,12 @@ public class customerBookingHistory extends javax.swing.JFrame {
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReportActionPerformed
+
+    private void btnLogOut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOut1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
+    }//GEN-LAST:event_btnLogOut1ActionPerformed
 
     /**
      * @param args the command line arguments
