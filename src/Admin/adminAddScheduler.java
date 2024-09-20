@@ -1,6 +1,5 @@
 package Admin;
 
-
 import Login.LoginPage;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,7 +15,6 @@ import javax.swing.JOptionPane;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author jason
@@ -119,20 +117,15 @@ public class adminAddScheduler extends javax.swing.JFrame {
         lblInfo7.setText("Confirm Password: ");
 
         txtName.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        txtName.setText("name");
 
         txtContact.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        txtContact.setText("contact");
 
         txtEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        txtEmail.setText("email");
         txtEmail.setToolTipText("");
 
         pwdPassword.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        pwdPassword.setText("password");
 
         pwdConfirm.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        pwdConfirm.setText("password");
 
         btnAdd.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnAdd.setText("Add");
@@ -144,7 +137,7 @@ public class adminAddScheduler extends javax.swing.JFrame {
         });
 
         cbRole.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "scheduler", "manager", "admin" }));
+        cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "scheduler", "manager" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -265,43 +258,43 @@ public class adminAddScheduler extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String password = pwdPassword.getText();
         String password2 = pwdConfirm.getText();
-        String role = (String)cbRole.getSelectedItem();
+        String role = (String) cbRole.getSelectedItem();
         String status = "active";
-        
+
         // fields authentication
         if (name.isEmpty() || phoneNum.isEmpty()
                 || email.isEmpty() || password.isEmpty()
                 || password2.isEmpty() || role.isEmpty()) {
-            
+
             JOptionPane.showMessageDialog(this, "Please fil in all the fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         // set name criteria
         String nameRegex = "^[a-zA-Z]+$";
         Pattern namePattern = Pattern.compile(nameRegex);
-        
+
         if (!namePattern.matcher(name).matches()) {
             JOptionPane.showMessageDialog(this, "Name can only contain alphabets.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         // ensure password match
         if (!password.equals(password2)) {
             JOptionPane.showMessageDialog(this, "Passwords do not match.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         // Validate email
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + 
-                "[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@"
+                + "[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
         Pattern pattern = Pattern.compile(emailRegex);
-        
+
         if (!pattern.matcher(email).matches()) {
             JOptionPane.showMessageDialog(null, "Invalid email format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         adminClass1 Admin = new adminClass1(name, phoneNum, email, password, status, role);
         Admin.addStaff(name, phoneNum, email, password, role, status);
     }//GEN-LAST:event_btnAddActionPerformed

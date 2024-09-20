@@ -14,11 +14,13 @@ import Login.LoginPage;
  * @author user
  */
 public class customerMainMenu extends javax.swing.JFrame {
-
+    private String email;
+   
     /**
      * Creates new form customerMainMenu
      */
-    public customerMainMenu() {
+    public customerMainMenu(String email) {
+        this.email = email;
         initComponents();
         
         Color col = new Color(224, 240, 255); //red, green and blue values
@@ -88,10 +90,20 @@ public class customerMainMenu extends javax.swing.JFrame {
         btnUpdateProfile.setBackground(new java.awt.Color(228, 228, 228));
         btnUpdateProfile.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         btnUpdateProfile.setText("Update Profile");
+        btnUpdateProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateProfileActionPerformed(evt);
+            }
+        });
 
         btnReport.setBackground(new java.awt.Color(228, 228, 228));
         btnReport.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         btnReport.setText("Feedback / Report");
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -212,56 +224,36 @@ public class customerMainMenu extends javax.swing.JFrame {
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         // TODO add your handling code here:
-        new Login.LoginPage();
-        dispose();
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnBookingHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingHistoryActionPerformed
         // TODO add your handling code here:
-        new customerBookingHistory();
-        dispose();
+        this.dispose();
+        new customerBookingHistory().setVisible(true);
     }//GEN-LAST:event_btnBookingHistoryActionPerformed
 
     private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
         // TODO add your handling code here:
-        new customerBooking();
-        dispose();
+        this.dispose();
+        new customerBooking().setVisible(true);
     }//GEN-LAST:event_btnBookingActionPerformed
+
+    private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new customerUpdateProfile(email).setVisible(true);
+    }//GEN-LAST:event_btnUpdateProfileActionPerformed
+
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReportActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(customerMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(customerMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(customerMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(customerMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new customerMainMenu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBooking;

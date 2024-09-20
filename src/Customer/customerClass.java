@@ -9,6 +9,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,16 +23,22 @@ public class customerClass {
     private String phoneNum;
     private String email;
     private String password;
+    private String currentDateTime;
     private String status;
     private String role;  
     
-    public customerClass(String name, String phoneNum, String email, String password, String status, String role) {
+    public customerClass(String name, String phoneNum, String email, String password,String currentDateTime, String status, String role) {
         this.name = name;
         this.phoneNum = phoneNum;
         this.email = email;
         this.password = password;
+        this.currentDateTime = currentDateTime;
         this.status = status;
         this.role = role;
+    }
+    
+    public customerClass() {
+        
     }
     
     // getters method
@@ -48,6 +56,10 @@ public class customerClass {
     
     public String getPassword() {
         return password;
+    }
+    
+    public String getCurrentDateTime() {
+        return currentDateTime;
     }
     
     public String getStatus() {
@@ -75,6 +87,10 @@ public class customerClass {
         this.password = password;
     }
     
+    public void setCurrentDatetime(String currentDatetime) {
+        this.currentDateTime = currentDateTime;
+    }
+    
     public void setStatus(String status) {
         this.status = status;
     }
@@ -88,8 +104,9 @@ public class customerClass {
         try{
             FileWriter fw = new FileWriter("users.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + status + ";" + role);
-            bw.newLine();
+            
+            bw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + ";" +  status + ";" + role + ";");
+            bw.flush();
         } catch (IOException e) {
             System.out.println("Exception error." + e.getMessage());
 
@@ -107,12 +124,15 @@ public class customerClass {
             
             while ((read = br.readLine()) != null) {
                 String[] details = read.split(";");
+                if (details.length >= 7) {
                 if (details[0].equals(updated.getName())) {
-                    customer.add(updated);
+                    customer.add(new customerClass(updated.getName(), updated.getPhoneNum(), updated.getEmail(), updated.getPassword(), details[4], updated.getStatus(), updated.getRole()));
                 } else {
-                    customer.add(new customerClass(details[0], details[1], details[2], details[3], details[4], details[5]));
+                    customer.add(new customerClass(details[0], details[1], details[2], details[3], details[4], details[5], details[6]));
                 }
                 
+            }
+            br.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -123,9 +143,11 @@ public class customerClass {
             FileWriter fw = new FileWriter("users.txt");
             BufferedWriter bw = new BufferedWriter(fw);
             for (customerClass updateCustomer : customer) {
-                bw.write(updateCustomer.getName() + ";" + updateCustomer.getPhoneNum() + ";" + updateCustomer.getEmail() + ";" + updateCustomer.getPassword() + ";" + updateCustomer.getStatus() + ";" + updateCustomer.getRole());
+                bw.write(updateCustomer.getName() + ";" + updateCustomer.getPhoneNum() + ";" + updateCustomer.getEmail() + ";" + updateCustomer.getPassword() + ";" + updateCustomer.getCurrentDateTime() + ";" + updateCustomer.getStatus() + ";" + updateCustomer.getRole() + ";");
                 bw.newLine();
+                bw.flush();
             }
+            bw.close();
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
         }

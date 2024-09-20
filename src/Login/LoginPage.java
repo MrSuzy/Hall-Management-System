@@ -10,7 +10,7 @@ import Customer.customerClass;
 import Admin.adminClass1;
 import Admin.adminMainPage;
 import Manager.managerClass;
-// import Manager.managerMainMenu;
+import Manager.managerMainMenu;
 import Scheduler.schedulerMainMenu;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -211,13 +211,13 @@ public class LoginPage extends javax.swing.JFrame {
                // switch case to navigate to respective main page
                switch(role.toLowerCase()) {
                    case "customer":
-                       new customerMainMenu().setVisible(true);
+                       new customerMainMenu(email).setVisible(true);
                        break;
                    case "admin":
                        new adminMainPage().setVisible(true);
                        break;
                    case "manager":
-                       // new managerMainMenu().setVisible(true);
+                       new managerMainMenu().setVisible(true);
                        break;
                    default:
                        JOptionPane.showMessageDialog(null, "Invalid role.");
@@ -243,15 +243,16 @@ public class LoginPage extends javax.swing.JFrame {
             String read;
             while((read = br.readLine()) != null) {
                 String[] details = read.split(";");
-                if (details.length >= 6 && details[2].equals(email) && details[3].equals(password)) {
+                if (details.length >= 7 && details[2].equals(email) && details[3].equals(password)) {
                     String name = details[0];
                     String phoneNum = details[1];
+                    String currentDateTime = details[4];
                     String status = details[5];
                     String role = details[6];
                     
                     switch (role.toLowerCase()) {
                         case "customer":
-                            return new customerClass(name, phoneNum, email, password, status, role);
+                            return new customerClass(name, phoneNum, email, password, currentDateTime, status, role);
                         case "admin":
                             return new adminClass1(name, phoneNum, email, password, status, role);
                         case "manager":

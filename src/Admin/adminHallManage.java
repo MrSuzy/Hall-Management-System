@@ -1,6 +1,8 @@
 package Admin;
 
 import Login.LoginPage;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -36,12 +38,12 @@ public class adminHallManage extends javax.swing.JFrame {
         lblPageTitle = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnPast = new javax.swing.JButton();
+        btnCancelled = new javax.swing.JButton();
+        btnUpcoming = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbHall = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,15 +78,20 @@ public class adminHallManage extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(192, 205, 218));
 
-        jButton1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jButton1.setText("Past");
+        btnPast.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnPast.setText("Past");
 
-        jButton3.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jButton3.setText("Cancelled");
+        btnCancelled.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnCancelled.setText("Cancelled");
 
-        jButton2.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jButton2.setText("Upcoming");
-        jButton2.setToolTipText("");
+        btnUpcoming.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnUpcoming.setText("Upcoming");
+        btnUpcoming.setToolTipText("");
+        btnUpcoming.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpcomingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -92,11 +99,11 @@ public class adminHallManage extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpcoming, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPast, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelled, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(7, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -104,24 +111,24 @@ public class adminHallManage extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
+                    .addComponent(btnPast)
+                    .addComponent(btnCancelled)
+                    .addComponent(btnUpcoming))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbHall.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "BookingID", "Email", "HallID", "Booking Date", "Start Time", "End Time", "Hall Type"
+                "BookingID", "Email", "HallID", "Booking Date", "Start Time", "End Time", "Hall Type", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbHall);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -200,6 +207,17 @@ public class adminHallManage extends javax.swing.JFrame {
         new LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnUpcomingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpcomingActionPerformed
+        // TODO add your handling code here:
+        adminClass1 Admin = new adminClass1();
+        ArrayList<String[]> upcomingBookings = Admin.filterBookingByDate("upcoming");
+        DefaultTableModel model = (DefaultTableModel) tbHall.getModel();
+        model.setRowCount(0);
+        for (String[] booking : upcomingBookings) {
+            model.addRow(booking);
+        }
+    }//GEN-LAST:event_btnUpcomingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,18 +254,18 @@ public class adminHallManage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelled;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMenu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnPast;
+    private javax.swing.JButton btnUpcoming;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblPageTitle;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JTable tbHall;
     // End of variables declaration//GEN-END:variables
 }

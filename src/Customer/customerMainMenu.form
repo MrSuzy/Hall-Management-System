@@ -179,6 +179,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Update Profile"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateProfileActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnReport">
           <Properties>
@@ -190,6 +193,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Feedback / Report"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

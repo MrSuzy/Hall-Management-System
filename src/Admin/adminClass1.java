@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
 
 public class adminClass1 {
     private String name;
@@ -31,6 +32,12 @@ public class adminClass1 {
     private String password;
     private String status;
     private String role;
+    
+    // date formatter
+    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    
+    // time formatter
+    private static final SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
     
     public adminClass1 (String name, String phoneNum, String email, String password, String status, String role) {
         this.name = name;
@@ -95,12 +102,51 @@ public class adminClass1 {
         this.role = role;
     }
     
+    // count number of users
+    public int countUsers() {
+        int userCount = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader ("users.txt"))) {
+            String line;
+            while((line = br.readLine()) != null) {
+                String[] userDetails = line.split(";");
+                String role = userDetails[6];
+                if (role.equalsIgnoreCase("customer")) {
+                    userCount++;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return userCount;
+    }
+    
+    // count number of staff
+    public int countStaff() {
+        int staffCount = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader ("users.txt"))) {
+            String line;
+            while((line = br.readLine()) != null) {
+                String[] userDetails = line.split(";");
+                String role = userDetails[6];
+                if (role.equalsIgnoreCase("admin") ||
+                    role.equalsIgnoreCase("scheduler") ||
+                    role.equalsIgnoreCase("manager")) {
+                    staffCount++;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return staffCount;
+    }
+    
     // load users to display in table
     public void loadUserByRole(String selectedRole, String selectedStatus, DefaultTableModel model) {
         try {
             FileReader fr = new FileReader("users.txt");
             BufferedReader br = new BufferedReader(fr);
             String read;
+            
             // clear the existing rows from the table
             model.setRowCount(0);
             
@@ -113,10 +159,17 @@ public class adminClass1 {
                 String status = read.split(";")[5];
                 String role = read.split(";")[6];
                 
+                boolean roleMatch = selectedRole.equalsIgnoreCase("all") || role.equalsIgnoreCase(selectedRole);
+                boolean statusMatch = selectedStatus.equalsIgnoreCase("all") || status.equalsIgnoreCase(selectedStatus);
+                
                 // match selected role
-                if (role.equalsIgnoreCase(selectedRole) && status.equalsIgnoreCase(selectedStatus)) {
+                if (roleMatch && statusMatch) {
                     model.addRow(new Object[]{name, phoneNum, email, dateTime, status, role});
                 }
+                /*
+                if (role.equalsIgnoreCase(selectedRole) && status.equalsIgnoreCase(selectedStatus)) {
+                    model.addRow(new Object[]{name, phoneNum, email, dateTime, status, role});
+                }*/
             }
             br.close();
         } catch (IOException e) {
@@ -174,31 +227,39 @@ public class adminClass1 {
     
     // delete staff/user
     public void deleteUser(String email) {
-        File file = new File("users.txt");
-        File tempfile = new File("tempUsers.txt");
-        boolean found = false;
+        // prompt confirmation 
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
         
-        try(BufferedReader reader = new BufferedReader(new FileReader(file));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(tempfile))) {
-            String line;
-            while((line = reader.readLine()) != null) {
-                String[] details = line.split(";");
-                if(details[2].equals(email)) {
-                    found = true;
-                    continue;
+        // if yes
+        if (confirm == JOptionPane.YES_OPTION) {
+            File file = new File("users.txt");
+            File tempfile = new File("tempUsers.txt");
+            boolean found = false;
+        
+            try(BufferedReader reader = new BufferedReader(new FileReader(file));
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(tempfile))) {
+                String line;
+                while((line = reader.readLine()) != null) {
+                    String[] details = line.split(";");
+                    if(details[2].equals(email)) {
+                        found = true;
+                        continue;
+                    }
+                    writer.write(line + "\n");
                 }
-                writer.write(line + "\n");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        if (found) {
-            if(file.delete() && tempfile.renameTo(file)) {
-                JOptionPane.showMessageDialog(null, "User deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            if (found) {
+                if(file.delete() && tempfile.renameTo(file)) {
+                    JOptionPane.showMessageDialog(null, "User deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Deletion cancelled.", "Cancellation", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
@@ -287,14 +348,15 @@ public class adminClass1 {
     }
     
     // method to block user using the updateUserStatus method
+    /*
     public void blockUser(String email) {
         updateUserStatus(email, userStatus.BLOCKED);
-    }
+    }*/
     
     // method to view bookings 
     public ArrayList<String[]> viewBooking(String status) {
         ArrayList<String[]> bookingList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("booking.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("bookings.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] bookingDetails = line.split(";");
@@ -306,6 +368,45 @@ public class adminClass1 {
             e.printStackTrace();
         }
         return bookingList;
+    }
+    
+    // filter bookings
+    public ArrayList<String[]> filterBookingByDate(String type) {
+        ArrayList<String[]> filterBooking = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader("booking.txt"))) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                String[] bookingDetails = line.split(";");
+                LocalDateTime bookingDate = LocalDateTime.parse(bookingDetails[3], formatter);
+                
+                switch(type.toLowerCase()) {
+                    case "past":
+                        if(bookingDate.isBefore(now)) {
+                            filterBooking.add(bookingDetails);
+                        }
+                        break;
+                    case "upcoming":
+                        if (bookingDate.isAfter(now)) {
+                            filterBooking.add(bookingDetails);
+                        }
+                        break;
+                    case "cancelled":
+                        if (bookingDetails[7].equalsIgnoreCase("cancelled")) {
+                            filterBooking.add(bookingDetails);
+                        }
+                        break;
+                    default:
+                       JOptionPane.showMessageDialog(null, "Invalid selection");
+                       break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return filterBooking;
     }
     
     // method to view all users 

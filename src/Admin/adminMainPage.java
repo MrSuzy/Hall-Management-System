@@ -1,6 +1,7 @@
 package Admin;
 
 import Login.LoginPage;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -18,6 +19,12 @@ public class adminMainPage extends javax.swing.JFrame {
      */
     public adminMainPage() {
         initComponents();
+        adminClass1 Admin = new adminClass1();
+        int userCount = Admin.countUsers();
+        int staffCount = Admin.countStaff();
+        
+        lblStaffNum.setText(String.valueOf(staffCount));
+        lblUserNum.setText(String.valueOf(userCount));
     }
 
     /**
@@ -52,6 +59,7 @@ public class adminMainPage extends javax.swing.JFrame {
         btnView = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         lsNoti = new javax.swing.JList<>();
+        btnSuperuser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -267,12 +275,21 @@ public class adminMainPage extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
+        btnSuperuser.setBackground(new java.awt.Color(227, 242, 253));
+        btnSuperuser.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnSuperuser.setText("superuser");
+        btnSuperuser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuperuserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(directoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,14 +304,13 @@ public class adminMainPage extends javax.swing.JFrame {
                                 .addComponent(bookingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(notiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(494, 494, 494)
-                                .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(24, 24, 24)
+                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSuperuser, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 16, Short.MAX_VALUE))
         );
@@ -305,7 +321,8 @@ public class adminMainPage extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsername)
                     .addComponent(btnLogout)
-                    .addComponent(lblTitle))
+                    .addComponent(lblTitle)
+                    .addComponent(btnSuperuser))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(staffPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -354,6 +371,24 @@ public class adminMainPage extends javax.swing.JFrame {
         this.dispose();
         new LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnSuperuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuperuserActionPerformed
+        // TODO add your handling code here:
+        // prompt for superuser password
+        String inputPass = JOptionPane.showInputDialog(null, "Enter Superuser Password:", "Superuser Login", JOptionPane.QUESTION_MESSAGE);
+        
+        // set superuser password
+        String superPass = "super123";
+        
+        // match the input and the password
+        if (inputPass != null && inputPass.equals(superPass)) {
+            this.dispose();
+            adminSuper superadmin = new adminSuper();
+            superadmin.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect password. Access denied", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSuperuserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,6 +445,7 @@ public class adminMainPage extends javax.swing.JFrame {
     private javax.swing.JButton btnHall;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnStaff;
+    private javax.swing.JButton btnSuperuser;
     private javax.swing.JButton btnUser;
     private javax.swing.JButton btnView;
     private javax.swing.JComboBox<String> cbStatus;
