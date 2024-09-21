@@ -367,7 +367,7 @@ public class customerBookingHistory extends javax.swing.JFrame {
         
         for (String[] Booking : booking) {
             String duration = Booking[4] + " - " + Booking[5];
-            model.addRow(new Object[]{Booking[3], Booking[2], Booking[6], duration, Booking[4]});
+            model.addRow(new Object[]{Booking[3], Booking[2], Booking[8], duration, Booking[6]});
         }
     }
     
