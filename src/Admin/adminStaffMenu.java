@@ -357,6 +357,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
         String name = StaffTbl.getValueAt(selectedRow, 0).toString();
         String phoneNum = StaffTbl.getValueAt(selectedRow, 1).toString();
         String email = StaffTbl.getValueAt(selectedRow, 2).toString();
+        String password = StaffTbl.getValueAt(selectedRow, 3).toString();
         String status = StaffTbl.getValueAt(selectedRow, 5).toString();
         String role = StaffTbl.getValueAt(selectedRow, 6).toString();
         
@@ -364,7 +365,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
         adminClass1 Admin = new adminClass1();
         
         this.dispose();
-        new adminEditScheduler(name, phoneNum, email, status, role).setVisible(true);
+        new adminEditScheduler(name, phoneNum, email, password, status, role).setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
@@ -375,7 +376,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
         // get the selected status from the cbStatus
         String selectedStatus = cbStatus.getSelectedItem().toString();
         adminClass1 Admin = new adminClass1();
-        Admin.loadUserByRole(selectedRole, selectedStatus, model);
+        Admin.loadUserByRole(selectedRole, selectedStatus, model, false);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

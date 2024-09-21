@@ -25,7 +25,7 @@ public class customerBooking extends javax.swing.JFrame {
     private JDateChooser datePicker;
     private JSpinner startTimePicker;
     private JSpinner endTimePicker;
-    private javax.swing.JComboBox<String> cbHallType;
+    // private javax.swing.JComboBox<String> cbHallType;
 
     /**
      * Creates new form adminMainMenu
@@ -76,6 +76,7 @@ public class customerBooking extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         listPayment = new javax.swing.JList<>();
         btnAvailability = new javax.swing.JButton();
+        cbHallType = new javax.swing.JComboBox<>();
 
         jButton8.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jButton8.setText("Hall Booking");
@@ -245,6 +246,9 @@ public class customerBooking extends javax.swing.JFrame {
             }
         });
 
+        cbHallType.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        cbHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auditorium", "Banquet Hall", "Meeting Room" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -265,7 +269,9 @@ public class customerBooking extends javax.swing.JFrame {
                             .addComponent(lblHallType, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
-                        .addComponent(cbAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbHallType, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 98, Short.MAX_VALUE)
@@ -304,12 +310,14 @@ public class customerBooking extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(lblEndTime)
                                 .addGap(24, 24, 24)
-                                .addComponent(lblHallType))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblHallType)
+                                    .addComponent(cbHallType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblDate1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(27, 27, 27)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNoOfGuest)
                             .addComponent(btnAvailability))
@@ -338,19 +346,19 @@ public class customerBooking extends javax.swing.JFrame {
         JSpinner.DateEditor endEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm");
         endTimePicker.setEditor(endEditor);
         
-        cbHallType = new javax.swing.JComboBox<>();
-        cbHallType.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        cbHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auditorium", "Banquet Hall", "Meeting Room"}));
+        //cbHallType = new javax.swing.JComboBox<>();
+        //cbHallType.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        //cbHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auditorium", "Banquet Hall", "Meeting Room"}));
         
-        datePicker.setBounds(240, 120, 150, 30);
+        datePicker.setBounds(500, 120, 150, 30);
         startTimePicker.setBounds(240, 170, 150, 30);
         endTimePicker.setBounds(240, 220, 150, 30);
-        cbHallType.setBounds(240, 270, 150, 30);
+        //cbHallType.setBounds(240, 270, 150, 30);
         
         getContentPane().add(datePicker);
         getContentPane().add(startTimePicker);
         getContentPane().add(endTimePicker);
-        getContentPane().add(cbHallType); 
+        //getContentPane().add(cbHallType); 
         
     }
     
@@ -434,6 +442,7 @@ public class customerBooking extends javax.swing.JFrame {
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnUpdateProfile;
     private javax.swing.JComboBox<String> cbAvailable;
+    private javax.swing.JComboBox<String> cbHallType;
     private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JScrollPane jScrollPane2;

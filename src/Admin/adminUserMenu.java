@@ -344,7 +344,7 @@ public class adminUserMenu extends javax.swing.JFrame {
         // get the selected status from the cbStatus
         String selectedStatus = cbStatus.getSelectedItem().toString();
         adminClass1 Admin = new adminClass1();
-        Admin.loadUserByRole(selectedRole, selectedStatus, model);
+        Admin.loadUserByRole(selectedRole, selectedStatus, model, false);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnBlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlockActionPerformed

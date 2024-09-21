@@ -141,7 +141,7 @@ public class adminClass1 {
     }
     
     // load users to display in table
-    public void loadUserByRole(String selectedRole, String selectedStatus, DefaultTableModel model) {
+    public void loadUserByRole(String selectedRole, String selectedStatus, DefaultTableModel model, boolean showPass) {
         try {
             FileReader fr = new FileReader("users.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -155,6 +155,7 @@ public class adminClass1 {
                 String name = read.split(";")[0];
                 String phoneNum = read.split(";")[1];
                 String email = read.split(";")[2];
+                String password = read.split(";")[3];
                 String dateTime = read.split(";")[4];
                 String status = read.split(";")[5];
                 String role = read.split(";")[6];
@@ -164,7 +165,12 @@ public class adminClass1 {
                 
                 // match selected role
                 if (roleMatch && statusMatch) {
-                    model.addRow(new Object[]{name, phoneNum, email, dateTime, status, role});
+                    if (showPass) {
+                        model.addRow(new Object[]{name, phoneNum, email, password, dateTime, status, role});
+                    } else { 
+                        // exclude the password column
+                        model.addRow(new Object[]{name, phoneNum, email, dateTime, status, role});
+                    }
                 }
                 /*
                 if (role.equalsIgnoreCase(selectedRole) && status.equalsIgnoreCase(selectedStatus)) {
@@ -264,7 +270,7 @@ public class adminClass1 {
     }
     
     // method to edit staff information 
-    public void editStaff (String name, String role, String newStatus, String newPhoneNum, String email, String newPassword) {
+    public void editStaff (String name, String role, String status, String newPhoneNum, String email, String newPass) {
         File file = new File("users.txt");
         File tempFile = new File("tempStaff.txt");
         boolean found = false;
@@ -275,12 +281,14 @@ public class adminClass1 {
             String line;
             while ((line = reader. readLine()) != null) {
                 String [] staffDetails = line.split(";");
-                if (staffDetails[0].equals(name) && staffDetails[6].equals(role)) {
+                if (staffDetails[0].equals(name) && staffDetails[6].equalsIgnoreCase(role)) {
                     staffDetails[1] = newPhoneNum;
-                    staffDetails[3] = newPassword;
-                    staffDetails[5] = newStatus;
+                    staffDetails[2] = email;
+                    staffDetails[3] = newPass;
+                    staffDetails[5] = status;
                     found = true; 
                 }
+
                 writer.write(String.join(";", staffDetails) + "\n");
             }
         } catch (IOException e) {
@@ -290,6 +298,8 @@ public class adminClass1 {
         if (found) {
             if (file.delete() && tempFile.renameTo(file)) {
                 JOptionPane.showMessageDialog(null, "Staff information updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("Error updating staff information.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Staff not found.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -347,12 +357,6 @@ public class adminClass1 {
         }
     }
     
-    // method to block user using the updateUserStatus method
-    /*
-    public void blockUser(String email) {
-        updateUserStatus(email, userStatus.BLOCKED);
-    }*/
-    
     // method to view bookings 
     public ArrayList<String[]> viewBooking(String status) {
         ArrayList<String[]> bookingList = new ArrayList<>();
@@ -408,19 +412,4 @@ public class adminClass1 {
         }
         return filterBooking;
     }
-    
-    // method to view all users 
-    /* public ArrayList<String[]> viewUser() {
-        ArrayList<String[]> userList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] userDetails = line.split(";");
-                userList.add(userDetails);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return userList;
-    }*/
 }

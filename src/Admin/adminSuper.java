@@ -143,13 +143,13 @@ public class adminSuper extends javax.swing.JFrame {
 
         tbUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Contact", "Email", "Date Time Created", "Status", "Role"
+                "Name", "Contact", "Email", "Password", "Date Time Created", "Status", "Role"
             }
         ));
         jScrollPane1.setViewportView(tbUser);
@@ -301,7 +301,7 @@ public class adminSuper extends javax.swing.JFrame {
         // get the selected status from the cbStatus
         String selectedStatus = cbStatus.getSelectedItem().toString();
         adminClass1 Admin = new adminClass1();
-        Admin.loadUserByRole(selectedRole, selectedStatus, model);
+        Admin.loadUserByRole(selectedRole, selectedStatus, model, true);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -375,6 +375,7 @@ public class adminSuper extends javax.swing.JFrame {
         String name = tbUser.getValueAt(selectedRow, 0).toString();
         String phoneNum = tbUser.getValueAt(selectedRow, 1).toString();
         String email = tbUser.getValueAt(selectedRow, 2).toString();
+        String password = tbUser.getValueAt(selectedRow, 3).toString();
         String status = tbUser.getValueAt(selectedRow, 5).toString();
         String role = tbUser.getValueAt(selectedRow, 6).toString();
         
@@ -382,7 +383,7 @@ public class adminSuper extends javax.swing.JFrame {
         adminClass1 Admin = new adminClass1();
         
         this.dispose();
-        new adminEditScheduler(name, phoneNum, email, status, role).setVisible(true);
+        new adminEditScheduler(name, phoneNum, email, password, status, role).setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed

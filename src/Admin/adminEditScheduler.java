@@ -1,6 +1,7 @@
 package Admin;
 
 import Login.LoginPage;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,18 +17,40 @@ public class adminEditScheduler extends javax.swing.JFrame {
     /**
      * Creates new form adminEditScheduler
      */
+    private String name;
+    private String phoneNum;
+    private String email;
+    private String status;
+    private String role;
+    private String password;
     
-    public adminEditScheduler(String name, String phoneNum, String email, String status, String role) {
+    public adminEditScheduler(String name, String phoneNum, String email, String password, String status, String role) {
         initComponents();
         
+        this.name = name;
+        this.phoneNum = phoneNum;
+        this.email = email;
+        this.password = password;
+        this.status = status;
+        this.role = role;
+        loadData();
+        
         // set the passed values to each labels, textboxes, and combobox
-        lblName.setText(name);
-        lblRole.setText(role);
-        cbStatus.setSelectedItem(status);
-        txtContact.setText(phoneNum);
-        lblEmail.setText(email);
+        // lblName.setText(name);
+        // lblRole.setText(role);
+        // cbStatus.setSelectedItem(status);
+        // txtContact.setText(phoneNum);
+        // lblEmail.setText(email);
         // pwdPassword.setText(password);
         // pwdConfirm.setText(password2);
+    }
+    
+    private void loadData() {
+        lblName.setText(name);
+        lblRole.setText(role);
+        lblStatus.setText(status);
+        txtContact.setText(phoneNum);
+        lblEmail.setText(email);
     }
     
     public adminEditScheduler() {
@@ -63,7 +86,7 @@ public class adminEditScheduler extends javax.swing.JFrame {
         pwdConfirm = new javax.swing.JPasswordField();
         btnUpdate = new javax.swing.JButton();
         txtContact = new javax.swing.JTextField();
-        cbStatus = new javax.swing.JComboBox<>();
+        lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,6 +158,11 @@ public class adminEditScheduler extends javax.swing.JFrame {
         btnUpdate.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.setToolTipText("");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         txtContact.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         txtContact.setText("contact");
@@ -144,8 +172,8 @@ public class adminEditScheduler extends javax.swing.JFrame {
             }
         });
 
-        cbStatus.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive", "Blocked" }));
+        lblStatus.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblStatus.setText("(auto)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,7 +199,7 @@ public class adminEditScheduler extends javax.swing.JFrame {
                             .addComponent(pwdPassword)
                             .addComponent(pwdConfirm)
                             .addComponent(txtContact)
-                            .addComponent(cbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -207,10 +235,10 @@ public class adminEditScheduler extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo2)
                     .addComponent(lblName))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo3)
-                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblStatus))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfo4)
@@ -261,6 +289,36 @@ public class adminEditScheduler extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContactActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        String name = lblName.getText();
+        String email = lblEmail.getText();
+        String role = lblRole.getText();
+        String status = lblStatus.getText();
+        String newPhoneNum = txtContact.getText();
+        String newPass = new String(pwdPassword.getPassword());
+        
+        // validate if theres changes in the textboxes
+        boolean isModified = false;
+        if (!phoneNum.equals(newPhoneNum) || !password.equals(newPass)) {
+            isModified = true;
+        }
+        
+        if (isModified) {
+            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to update the staff details?", "Confirm", JOptionPane.YES_NO_OPTION);
+            
+            if (response == JOptionPane.YES_OPTION) {
+                adminClass1 Admin = new adminClass1();
+                Admin.editStaff(name, role, status, newPhoneNum, email, newPass);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Update cancelled.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No changes were made.", "Info", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -300,7 +358,6 @@ public class adminEditScheduler extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblInfo1;
@@ -313,6 +370,7 @@ public class adminEditScheduler extends javax.swing.JFrame {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPageTitle;
     private javax.swing.JLabel lblRole;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPasswordField pwdConfirm;
