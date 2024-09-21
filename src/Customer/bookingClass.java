@@ -191,7 +191,7 @@ public class bookingClass {
                 br.close();
             }
         } catch (IOException e) {
-            System.out.println("Error" + e.getMessage());
+            System.out.println("Error reading hall.txt" + e.getMessage());
             return;
         }
          
@@ -209,6 +209,8 @@ public class bookingClass {
                 System.out.println("Error updating hall.txt" + e.getMessage());
                 return;
             }
+        } else {
+            System.out.println("Hall ID not found");
         }
         
         // update selected booked hall to booking.txt
