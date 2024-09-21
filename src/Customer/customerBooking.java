@@ -225,6 +225,11 @@ public class customerBooking extends javax.swing.JFrame {
         btnBook.setBackground(new java.awt.Color(228, 228, 228));
         btnBook.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         btnBook.setText("Book Now! Pay Later!");
+        btnBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookActionPerformed(evt);
+            }
+        });
 
         lblDate1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblDate1.setForeground(new java.awt.Color(51, 51, 51));
@@ -373,15 +378,7 @@ public class customerBooking extends javax.swing.JFrame {
 
     private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
         // TODO add your handling code here:
-        String hallID = (String) cbAvailable.getSelectedItem();
-        Date selectedDate = datePicker.getDate();
-        Date startTime = (Date) startTimePicker.getValue();
-        Date endTime = (Date) endTimePicker.getValue();
-        String paymentMethod = listPayment.getSelectedValue();
-        
-        bookingClass.performBooking(hallID, selectedDate, startTime, endTime, loggedInEmail, paymentMethod);
-        
-        JOptionPane.showMessageDialog(this, "Booking Sucessful!");
+
     }//GEN-LAST:event_btnBookingActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -431,6 +428,19 @@ public class customerBooking extends javax.swing.JFrame {
         this.dispose();
         new Login.LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
+        // TODO add your handling code here:
+        String hallID = (String) cbAvailable.getSelectedItem();
+        Date selectedDate = datePicker.getDate();
+        Date startTime = (Date) startTimePicker.getValue();
+        Date endTime = (Date) endTimePicker.getValue();
+        String paymentMethod = listPayment.getSelectedValue();
+        
+        bookingClass.performBooking(hallID, selectedDate, startTime, endTime, loggedInEmail, paymentMethod);
+        
+        JOptionPane.showMessageDialog(this, "Booking Sucessful!");
+    }//GEN-LAST:event_btnBookActionPerformed
 
     /**
      * @param args the command line arguments
