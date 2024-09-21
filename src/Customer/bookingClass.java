@@ -189,6 +189,7 @@ public class bookingClass {
             
             bw.write(bookingID + ";" + email + ";" + hallID + ";" + date.format(bookingDate) + ";" + time.format(startTime) + ";" + time.format(endTime) + ";" + price + ";" + paymentMethod + ";" + paymentStatus);
             bw.newLine();
+            bw.flush();
             System.out.println("Booking written success");
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
