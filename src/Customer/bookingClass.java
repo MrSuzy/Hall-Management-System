@@ -158,6 +158,13 @@ public class bookingClass {
         String paymentStatus = "Paid";
         double price = 0.0;
         
+        System.out.println("Hall ID: " + hallID);
+        System.out.println("Booking Date: " + bookingDate);
+        System.out.println("Start time: " + startTime);
+        System.out.println("End time: " + endTime);
+        System.out.println("Email: " + email);
+        System.out.println("Payment method: paymentMethod");
+        
         try{
             FileReader fr = new FileReader("hall.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -167,12 +174,13 @@ public class bookingClass {
                 String[] details = read.split(";");
                 if (details[0].equals(hallID)) {
                     price = Double.parseDouble(details[2]);
+                    System.out.println("Price of hall" + hallID + "is: " + price);
                     break;
                 }
             }
-            br.close();
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
+            return;
         }
         
         try{
@@ -181,6 +189,7 @@ public class bookingClass {
             
             bw.write(bookingID + ";" + email + ";" + hallID + ";" + date.format(bookingDate) + ";" + time.format(startTime) + ";" + time.format(endTime) + ";" + price + ";" + paymentMethod + ";" + paymentStatus);
             bw.newLine();
+            System.out.println("Booking written success");
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
         }
