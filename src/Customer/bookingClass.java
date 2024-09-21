@@ -167,7 +167,6 @@ public class bookingClass {
         
         StringBuilder hall = new StringBuilder(); // to store contents
         
-        
         try{
             FileReader fr = new FileReader("hall.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -211,7 +210,6 @@ public class bookingClass {
             bw.write(bookingID + ";" + email + ";" + hallID + ";" + date.format(bookingDate) + ";" + time.format(startTime) + ";" + time.format(endTime) + ";" + price + ";" + paymentMethod + ";" + paymentStatus);
             bw.newLine();
             bw.flush();
-            System.out.println("Booking written success");
         } catch (IOException e) {
             System.out.println("Error writing to booking.txt" + e.getMessage());
         }

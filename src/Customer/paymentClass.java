@@ -4,12 +4,16 @@
  */
 package Customer;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 /**
@@ -19,19 +23,22 @@ import javax.swing.JTextArea;
 public class paymentClass {
     private String paymentID;
     private String bookingID;
-    private double totalAmount;
-    private Date paymentDate;
+    private double price;
+    private String paymentDate;
     private String paymentMethod;
     
-    private static final SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
     // constructor
-    public paymentClass(String paymentID, String bookingID, double totalAmount, Date paymentDate, String paymentMethod) {
+    public paymentClass(String paymentID, String bookingID, double price, String paymentDate, String paymentMethod) {
         this.paymentID = paymentID;
         this.bookingID = bookingID;
-        this.totalAmount = totalAmount;
-        this.paymentDate = new Date();
+        this.price = price;
+        this.paymentDate = paymentDate;
         this.paymentMethod = paymentMethod;
+    }
+    
+    public paymentClass() {
+        
     }
     
     // getters method
@@ -43,11 +50,11 @@ public class paymentClass {
         return bookingID;
     }
     
-    public double getTotalAmount() {
-        return totalAmount;
+    public double getPrice() {
+        return price;
     }
     
-    public Date getPaymentDate() {
+    public String getPaymentDate() {
         return paymentDate;
     }
     
@@ -55,34 +62,109 @@ public class paymentClass {
         return paymentMethod;
     }
     
-// perform payment method
-public void performPayment() {
-    this.paymentDate = new Date(); // set current date as payment date
-    recordPayment();
-    displayReceipt();
-}
-
-// record payment method
-public void recordPayment() {
-    try{
-        FileWriter fw = new FileWriter("payment.txt");
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(paymentID + ";" + bookingID + ";" + date.format(paymentDate) + ";" + totalAmount + ";" + paymentMethod);
-    } catch (IOException e) {
-        System.out.println("Error" + e.getMessage());
+    // setters method
+    public void setPaymentID(String paymentID) {
+        this.paymentID = paymentID;
     }
-}
-
-// display receipt details method
-public void displayReceipt() {
-    JFrame frame = new JFrame("Payment Receipt");
-    JTextArea area = new JTextArea();
-    area.setText("Payment ID: " + paymentID + "\nBooking ID: " + bookingID + "\nTotal Amount: " + totalAmount + "\nPayment Date: " + date.format(paymentDate) + "\nPayment Method: " + paymentMethod);
-    area.setEditable(false);
-    frame.add(area);
-    frame.setSize(300, 200);
-    frame.setVisible(true);
-}
+    
+    public void setBookingID(String bookingID) {
+        this.bookingID = bookingID;
+    }
+    
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+    
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+    
+    // display receipt method
+    public void displayReceipt(String email, String selectedPaymentMethod) {
+        this.paymentDate = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+        this.paymentMethod = selectedPaymentMethod;
+        extractBooking(email);
+        this.paymentID = generatePaymentID();
+        
+        //display receipt
+        JOptionPane.showMessageDialog(null, "Official Receipt\n" + 
+                "Payment ID: " + this.paymentID + "\n" + 
+                "Booking ID: " + this.bookingID + "\n" +
+                "Price: RM" + this.price + "\n" + 
+                "Payment Date: " + this.paymentDate + "\n" + 
+                "Payment Method: " + this.paymentMethod + "\n");
+        
+        try{
+            FileWriter fw = new FileWriter("payment.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            bw.write(this.paymentID + ";" + this.bookingID + ";" + this.price + ";" + this.paymentDate + ";" + this.paymentMethod + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            System.out.println("Error writing to payment.txt" + e.getMessage());
+        }
+    }
+    
+    private void extractBooking(String email) {
+        try{
+            FileReader fr = new FileReader("booking.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            String booking = null;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                if (details[1].equals(email)) {
+                    booking = read;
+                }
+            }
+            
+            if (booking != null) {
+                String[] details = booking.split(";");
+                this.bookingID = details[0];
+                this.price = Double.parseDouble(details[6]);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading booking.txt" + e.getMessage());
+        }
+    }
+    
+    private String generatePaymentID() {
+        String paymentIDPrefix = "P";
+        int lastNumber = 0;
+        
+        // check for highest number of Payment ID in payment.txt
+        try{
+            FileReader fr = new FileReader("payment.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                String currentPaymentID = details[0];
+                
+                if (currentPaymentID.startsWith(paymentIDPrefix)) {
+                    // ccnvert to integer
+                    int LastNumber = Integer.parseInt(currentPaymentID.substring(1));
+                    
+                    // update lastNumber if LastNumber is higher
+                    if (LastNumber > lastNumber) {
+                        lastNumber = LastNumber;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading payment.txt" + e.getMessage());
+        }
+        
+        lastNumber++;
+        
+        return String.format("P%03d", lastNumber);
+    }
 
    
     

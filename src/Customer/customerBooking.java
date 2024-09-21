@@ -439,6 +439,9 @@ public class customerBooking extends javax.swing.JFrame {
         
         bookingClass.performBooking(hallID, selectedDate, startTime, endTime, loggedInEmail, paymentMethod);
         
+        paymentClass payment = new paymentClass();
+        payment.displayReceipt(loggedInEmail, paymentMethod);
+        
         JOptionPane.showMessageDialog(this, "Booking Sucessful!");
     }//GEN-LAST:event_btnBookActionPerformed
 
