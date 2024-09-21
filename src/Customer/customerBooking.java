@@ -62,7 +62,6 @@ public class customerBooking extends javax.swing.JFrame {
         btnBookingHistory = new javax.swing.JButton();
         btnBooking = new javax.swing.JButton();
         btnUpdateProfile = new javax.swing.JButton();
-        btnReport = new javax.swing.JButton();
         lblBooking = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
         lblStartTime = new javax.swing.JLabel();
@@ -152,15 +151,6 @@ public class customerBooking extends javax.swing.JFrame {
             }
         });
 
-        btnReport.setBackground(new java.awt.Color(228, 228, 228));
-        btnReport.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        btnReport.setText("Feedback/Report");
-        btnReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
@@ -169,26 +159,23 @@ public class customerBooking extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpdateProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBookingHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBookingHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                     .addComponent(btnMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(22, 22, 22)
                 .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addComponent(btnBookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
                 .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(btnUpdateProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         lblBooking.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
@@ -370,14 +357,20 @@ public class customerBooking extends javax.swing.JFrame {
     
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Customer.customerMainMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
     private void btnBookingHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingHistoryActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Customer.customerBookingHistory(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnBookingHistoryActionPerformed
 
     private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Customer.customerBooking(loggedInEmail).setVisible(true);
 
     }//GEN-LAST:event_btnBookingActionPerformed
 
@@ -387,11 +380,9 @@ public class customerBooking extends javax.swing.JFrame {
 
     private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Customer.customerUpdateProfile(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnUpdateProfileActionPerformed
-
-    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportActionPerformed
 
     private void btnAvailabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvailabilityActionPerformed
         // TODO add your handling code here:
@@ -458,7 +449,6 @@ public class customerBooking extends javax.swing.JFrame {
     private javax.swing.JButton btnBookingHistory;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMainMenu;
-    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnUpdateProfile;
     private javax.swing.JComboBox<String> cbAvailable;
     private javax.swing.JComboBox<String> cbHallType;

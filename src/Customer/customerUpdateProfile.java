@@ -19,19 +19,19 @@ import javax.swing.JOptionPane;
  */
 public class customerUpdateProfile extends javax.swing.JFrame {
     
-    private String loggedInUser;
+    private String loggedInEmail;
 
     /**
      * Creates new form adminMainMenu
      */
-    public customerUpdateProfile(String loggenInUser) {
-        this.loggedInUser = loggedInUser;
+    public customerUpdateProfile(String loggenInEmail) {
+        this.loggedInEmail = loggedInEmail;
         initComponents();
 
         Color col = new Color(224, 240, 255); //red, green and blue values
         getContentPane().setBackground(col);
         
-        lblUsername.setText(loggedInUser);
+        lblUsername.setText(loggedInEmail);
 
         loadCurrentUser();
     }
@@ -47,7 +47,7 @@ public class customerUpdateProfile extends javax.swing.JFrame {
             
             while ((read = br.readLine()) != null) {
                 String[] details = read.split(";");
-                if (details[2].equals(loggedInUser)) {
+                if (details[2].equals(loggedInEmail)) {
                     lblName.setText(details[0]);
                     txtContact.setText(details[1]);
                     txtEmail.setText(details[2]);
@@ -87,7 +87,6 @@ public class customerUpdateProfile extends javax.swing.JFrame {
         btnBookingHistory = new javax.swing.JButton();
         btnBooking = new javax.swing.JButton();
         btnUpdateProfile = new javax.swing.JButton();
-        btnReport = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         pwdPassword = new javax.swing.JPasswordField();
 
@@ -192,15 +191,6 @@ public class customerUpdateProfile extends javax.swing.JFrame {
             }
         });
 
-        btnReport.setBackground(new java.awt.Color(228, 228, 228));
-        btnReport.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        btnReport.setText("Feedback/Report");
-        btnReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
@@ -209,26 +199,23 @@ public class customerUpdateProfile extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpdateProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBookingHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBookingHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                     .addComponent(btnMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(23, 23, 23)
                 .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addComponent(btnBookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(btnUpdateProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         btnUpdate.setBackground(new java.awt.Color(228, 228, 228));
@@ -331,14 +318,20 @@ public class customerUpdateProfile extends javax.swing.JFrame {
 
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Customer.customerMainMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
     private void btnBookingHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingHistoryActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Customer.customerBookingHistory(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnBookingHistoryActionPerformed
 
     private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Customer.customerBooking(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnBookingActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -347,11 +340,9 @@ public class customerUpdateProfile extends javax.swing.JFrame {
 
     private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Customer.customerUpdateProfile(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnUpdateProfileActionPerformed
-
-    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
@@ -385,7 +376,6 @@ public class customerUpdateProfile extends javax.swing.JFrame {
     private javax.swing.JButton btnBookingHistory;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMainMenu;
-    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUpdateProfile;
     private javax.swing.JButton jButton8;

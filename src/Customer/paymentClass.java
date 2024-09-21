@@ -96,7 +96,7 @@ public class paymentClass {
                 "Booking ID: " + this.bookingID + "\n" +
                 "Price: RM" + this.price + "\n" + 
                 "Payment Date: " + this.paymentDate + "\n" + 
-                "Payment Method: " + this.paymentMethod + "\n");
+                "Payment Method: " + this.paymentMethod + "\n", "Receipt", JOptionPane.INFORMATION_MESSAGE);
         
         try{
             FileWriter fw = new FileWriter("payment.txt");

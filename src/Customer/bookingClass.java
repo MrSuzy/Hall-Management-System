@@ -113,45 +113,7 @@ public class bookingClass {
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
-       
-    // view and filter booking method 
-   /* public static List<bookingClass> viewBooking(String email, boolean upcoming) {
-        List<bookingClass> viewBooking = new ArrayList<>();
-        Date currentDate = new Date(); // current date
-        
-        try{
-            FileReader fr = new FileReader("booking.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String read;
-            
-            while ((read = br.readLine()) != null) {
-                String[] details = read.split(";");
-                if (details.length == 8) {
-                    String bookingID = details[0];
-                    String Email = details[1];
-                    String hallID = details[2];
-                    Date bookingDate = date.parse(details[3]);
-                    Date startTime = date.parse(details[4]);
-                    Date endTime = date.parse(details[5]);
-                    String paymentMethod = details[6];
-                    String paymentStatus = details[7];
-                    
-                    if (Email.equals(email)) {
-                        if(upcoming && bookingDate.after(currentDate)) {
-                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentMethod, paymentStatus));
-                        } else if (!upcoming && bookingDate.before(currentDate)) {
-                            viewBooking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentMethod, paymentStatus));
-                        }
-                    }
-                    
-                }
-            }
-        } catch (IOException | ParseException e) {
-            System.out.println("Error" + e.getMessage());
-        }
-        return viewBooking;
-    } */
-    
+           
     // perform booking and write details into text file 
     public static void performBooking(String hallID, Date bookingDate, Date startTime, Date endTime, String email, String paymentMethod) {
         String bookingID = generateBookingID();
@@ -204,7 +166,7 @@ public class bookingClass {
         
         // update selected booked hall to booking.txt
         try{
-            FileWriter fw = new FileWriter("booking.txt");
+            FileWriter fw = new FileWriter("booking.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             
             bw.write(bookingID + ";" + email + ";" + hallID + ";" + date.format(bookingDate) + ";" + time.format(startTime) + ";" + time.format(endTime) + ";" + price + ";" + paymentMethod + ";" + paymentStatus);
@@ -249,61 +211,91 @@ public class bookingClass {
         return String.format("B%03d", lastNumber);
     }
     
-    // cancel booking method
-    public void cancelBooking() {
-        Date currentDate = new Date(); //set current date
+    // view upcoming and past bookings method 
+    public static List<String[]> viewBooking(boolean isUpcoming, String loggedInEmail) {
+        List<String[]> booking = new ArrayList<>();
+        Date currentDate = new Date();
         
-        // check if date is at least 3 days in future 
-        long timeDiff = bookingDate.getTime() - currentDate.getTime();
-        long dayDiff = timeDiff / (1000 * 60 * 60 * 24); //convert ms to days
-        
-        if (dayDiff >= 3 && this.paymentStatus.equals("Paid")) {
-            this.paymentStatus = "Cancelled";
+        try{
+            FileReader fr = new FileReader("booking.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
             
-            List<bookingClass> booking = new ArrayList<>();
-            
-            try{
-                FileReader fr = new FileReader("booking.txt");
-                BufferedReader br = new BufferedReader(fr);
-                String read;
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
                 
-                while ((read = br.readLine()) != null) {
-                    String[] details = read.split(";");
-                    if (details.length == 8) {
-                        String bookingID = details[0];
-                        String email = details[1];
-                        String hallID = details[2];
-                        Date bookingDate = date.parse(details[3]);
-                        Date startTime = time.parse(details[4]);
-                        Date endTime = time.parse(details[5]);
-                        String paymentMethod = details[6];
-                        String paymentStatus = details[7];
-                        
-                        if (this.bookingID.equals(bookingID)) {
-                            booking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentMethod, this.paymentStatus));
-                        } else {
-                            booking.add(new bookingClass(bookingID, email, hallID, bookingDate, startTime, endTime, paymentMethod, paymentStatus));
-                        }
-                    }
+                // filter email
+                if (!details[1].equals(loggedInEmail)) {
+                    continue;
                 }
-            } catch (IOException | ParseException e) {
-                System.out.println("Error" + e.getMessage());
-            }
-            
-            try{
-                FileWriter fw = new FileWriter("bookings.txt");
-                BufferedWriter bw = new BufferedWriter(fw);
                 
-                for (bookingClass bookings : booking) {
-                    bw.write(bookings.getBookingID() + ";" + bookings.getEmail() + ";" + bookings.getHallID() + ";" + date.format(bookings.getBookingDate()) + ";" + time.format(bookings.getStartTime()) + ";" + time.format(bookings.getEndTime()) + ";" + bookings.getPaymentMethod() + ";" + bookings.getPaymentStatus());
-                    bw.newLine();
+                Date bookingDate = date.parse(details[3]);
+                Date startTime = time.parse(details[4]);
+                
+                // combine date and time 
+                long bookingDateTime = bookingDate.getTime() + startTime.getTime();
+                
+                // compare with current DateTime
+                if (isUpcoming && bookingDateTime > currentDate.getTime()) {
+                    booking.add(details);
+                } else if (!isUpcoming && bookingDateTime < currentDate.getTime()) {
+                    booking.add(details);
                 }
-            } catch (IOException e) {
-                System.out.println("Error" + e.getMessage());
             }
+        } catch (IOException | ParseException e) {
+            System.out.println("Error reading booking.txt" + e.getMessage());
         }
+        return booking;
     }
     
-
+    public static void cancelBooking(String bookingID, String loggedInEmail) {
+        StringBuilder booking = new StringBuilder();
+        boolean found = false;
+        
+        try{
+            FileReader fr = new FileReader("booking.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                
+                if (details[0].equals(bookingID) && details[1].equals(loggedInEmail)) {
+                    Date bookingDate = date.parse(details[3]);
+                    Date startTime = time.parse(details[4]);
+                    Date currentDate = new Date();
+                    
+                    long bookingDateTime = bookingDate.getTime() + startTime.getTime();
+                    
+                    // check if booking is upcoming and not cancelled
+                    if (bookingDateTime > currentDate.getTime() && !details[8].equals("Cancelled")) {
+                        details[8] = "Cancelled";
+                        found = true;
+                    } else if (details[8].equals("Cancelled")) {
+                        System.out.println("The selected booking has already been cancelled");
+                    }
+                }
+                booking.append(String.join(";", details)).append(System.lineSeparator());
+            }
+        } catch (IOException | ParseException e) {
+            System.out.println("Error reading booking.txt" + e.getMessage());
+            return;
+        }
+        
+        if (found) {
+            try{
+                FileWriter fw = new FileWriter("booking.txt");
+                BufferedWriter bw = new BufferedWriter(fw);
+                
+                bw.write(booking.toString());
+                bw.flush();
+                System.out.println("Booking cancelled successfully");
+            } catch (IOException e) {
+                System.out.println("Error writing booking.txt" + e.getMessage());
+            }
+        } else {
+            System.out.println("No such booking found.");
+        }
+    }
 }
  
