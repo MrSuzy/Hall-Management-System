@@ -273,7 +273,7 @@ public class bookingClass {
                     long diffDays = diffMS / (1000 * 60 * 60 * 24);
                     
                     // check if booking is upcoming and not cancelled
-                    if (bookingDateTime > currentDate.getTime() && !details[8].equals("Cancelled")) {
+                    if (bookingDateTime > currentDateTime && !details[8].equals("Cancelled")) {
                         if (diffDays >= 3) {
                         details[8] = "Cancelled";
                         found = true;
