@@ -163,10 +163,10 @@ public class bookingClass {
         System.out.println("Start time: " + startTime);
         System.out.println("End time: " + endTime);
         System.out.println("Email: " + email);
-        System.out.println("Payment method: paymentMethod");
+        System.out.println("Payment method: " + paymentMethod);
         
-        List<String> hall = new ArrayList<>();
-        boolean hallUpdate = true;
+        StringBuilder hall = new StringBuilder(); // to store contents
+        
         
         try{
             FileReader fr = new FileReader("hall.txt");
@@ -182,36 +182,26 @@ public class bookingClass {
                     details[5] = time.format(endTime);
                     details[7] = "Booked";
                     
-                    String updatedHall = String.join(";", details);
-                    hall.add(updatedHall);
-                    hallUpdate = true;
+                    hall.append(String.join(";", details)).append(System.lineSeparator());
                 } else {
-                    hall.add(read);
+                    hall.append(read).append(System.lineSeparator());
                 }
-                br.close();
             }
+            br.close();
         } catch (IOException e) {
             System.out.println("Error reading hall.txt" + e.getMessage());
             return;
         }
-         
-        // update the hall status to 'booked' in the hall.txt
-        if (hallUpdate) {
-            try{
-                FileWriter fw = new FileWriter("hall.txt");
-                BufferedWriter bw = new BufferedWriter(fw);
-                
-                for (String Hall : hall) {
-                    bw.write(Hall);
-                    bw.newLine();
-                }
-            } catch (IOException e) {
-                System.out.println("Error updating hall.txt" + e.getMessage());
-                return;
+        
+        // write to hall.txt
+        try{
+            FileWriter fw = new FileWriter("hall.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(hall.toString());
+            bw.flush();
+        } catch (IOException e) {
+            System.out.println("Error writing to hall.txt" + e.getMessage());
             }
-        } else {
-            System.out.println("Hall ID not found");
-        }
         
         // update selected booked hall to booking.txt
         try{
@@ -223,7 +213,7 @@ public class bookingClass {
             bw.flush();
             System.out.println("Booking written success");
         } catch (IOException e) {
-            System.out.println("Error" + e.getMessage());
+            System.out.println("Error writing to booking.txt" + e.getMessage());
         }
     }
     
