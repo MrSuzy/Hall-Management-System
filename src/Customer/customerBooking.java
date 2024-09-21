@@ -25,6 +25,7 @@ public class customerBooking extends javax.swing.JFrame {
     private JDateChooser datePicker;
     private JSpinner startTimePicker;
     private JSpinner endTimePicker;
+    private javax.swing.JComboBox<String> cbHallType;
 
     /**
      * Creates new form adminMainMenu
@@ -69,10 +70,6 @@ public class customerBooking extends javax.swing.JFrame {
         lblHallType = new javax.swing.JLabel();
         lblNoOfGuest = new javax.swing.JLabel();
         lblAvailable = new javax.swing.JLabel();
-        cbDate = new javax.swing.JComboBox<>();
-        txtStartTime = new javax.swing.JTextField();
-        txtEndTime = new javax.swing.JTextField();
-        cbHallType = new javax.swing.JComboBox<>();
         cbAvailable = new javax.swing.JComboBox<>();
         btnBook = new javax.swing.JButton();
         lblDate1 = new javax.swing.JLabel();
@@ -221,18 +218,6 @@ public class customerBooking extends javax.swing.JFrame {
         lblAvailable.setForeground(new java.awt.Color(51, 51, 51));
         lblAvailable.setText("Available Hall:");
 
-        cbDate.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        cbDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        txtStartTime.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        txtStartTime.setText("jTextField1");
-
-        txtEndTime.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        txtEndTime.setText("jTextField1");
-
-        cbHallType.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        cbHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auditorium", "Banquet Hall", "Meeting Room" }));
-
         cbAvailable.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         cbAvailable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -280,12 +265,7 @@ public class customerBooking extends javax.swing.JFrame {
                             .addComponent(lblHallType, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbAvailable, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtStartTime)
-                            .addComponent(cbDate, 0, 123, Short.MAX_VALUE)
-                            .addComponent(txtEndTime)
-                            .addComponent(cbHallType, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(cbAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 98, Short.MAX_VALUE)
@@ -324,23 +304,12 @@ public class customerBooking extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(lblEndTime)
                                 .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblHallType)
-                                    .addComponent(cbHallType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblHallType))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cbDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDate1))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(txtStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
-                        .addGap(26, 26, 26)
+                                .addComponent(lblDate1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNoOfGuest)
                             .addComponent(btnAvailability))
@@ -369,17 +338,19 @@ public class customerBooking extends javax.swing.JFrame {
         JSpinner.DateEditor endEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm");
         endTimePicker.setEditor(endEditor);
         
-        getContentPane().remove(cbDate);
-        getContentPane().add(datePicker);
-        datePicker.setBounds(cbDate.getBounds());
+        cbHallType = new javax.swing.JComboBox<>();
+        cbHallType.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        cbHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auditorium", "Banquet Hall", "Meeting Room"}));
         
-        getContentPane().remove(txtStartTime);
+        datePicker.setBounds(240, 120, 150, 30);
+        startTimePicker.setBounds(240, 170, 150, 30);
+        endTimePicker.setBounds(240, 220, 150, 30);
+        cbHallType.setBounds(240, 270, 150, 30);
+        
+        getContentPane().add(datePicker);
         getContentPane().add(startTimePicker);
-        startTimePicker.setBounds(txtStartTime.getBounds());
-
-        getContentPane().remove(txtEndTime);
         getContentPane().add(endTimePicker);
-        endTimePicker.setBounds(txtEndTime.getBounds());
+        getContentPane().add(cbHallType); 
         
     }
     
@@ -450,6 +421,7 @@ public class customerBooking extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -462,8 +434,6 @@ public class customerBooking extends javax.swing.JFrame {
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnUpdateProfile;
     private javax.swing.JComboBox<String> cbAvailable;
-    private javax.swing.JComboBox<String> cbDate;
-    private javax.swing.JComboBox<String> cbHallType;
     private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JScrollPane jScrollPane2;
@@ -480,7 +450,5 @@ public class customerBooking extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsername;
     private javax.swing.JList<String> listPayment;
     private javax.swing.JPanel panelMenu;
-    private javax.swing.JTextField txtEndTime;
-    private javax.swing.JTextField txtStartTime;
     // End of variables declaration//GEN-END:variables
 }
