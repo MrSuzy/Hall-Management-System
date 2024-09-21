@@ -155,7 +155,7 @@ public class customerBookingHistory extends javax.swing.JFrame {
         lblBookingHistory.setForeground(new java.awt.Color(51, 51, 51));
         lblBookingHistory.setText("Booking History:");
 
-        tbHistory.setFont(new java.awt.Font("Gill Sans MT", 0, 36)); // NOI18N
+        tbHistory.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         tbHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -164,7 +164,7 @@ public class customerBookingHistory extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Date", "Hall ID", "Type", "Duration", "Total Payment"
+                "Date", "Hall ID", "Status", "Duration", "Total Payment"
             }
         ));
         jScrollPane1.setViewportView(tbHistory);
@@ -193,6 +193,11 @@ public class customerBookingHistory extends javax.swing.JFrame {
         btnCancel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.setBorder(null);
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnIssue.setBackground(new java.awt.Color(228, 228, 228));
         btnIssue.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -336,6 +341,25 @@ public class customerBookingHistory extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnIssueActionPerformed
 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tbHistory.getSelectedRow();
+        
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Select a booking to cancel");
+            return;
+        }
+        
+        String bookingID = tbHistory.getValueAt(selectedRow, 0).toString();
+        
+        bookingClass.cancelBooking(bookingID, loggedInEmail);
+        
+        List<String[]> booking = bookingClass.viewBooking(true, loggedInEmail);
+        
+        displayTable(booking);
+        
+    }//GEN-LAST:event_btnCancelActionPerformed
+
     
     private void displayTable(List<String[]> booking) {
         DefaultTableModel model = (DefaultTableModel) tbHistory.getModel();
@@ -343,9 +367,11 @@ public class customerBookingHistory extends javax.swing.JFrame {
         
         for (String[] Booking : booking) {
             String duration = Booking[4] + " - " + Booking[5];
-            model.addRow(new Object[]{Booking[3], Booking[2], Booking[1], duration, Booking[6]});
+            model.addRow(new Object[]{Booking[3], Booking[2], Booking[6], duration, Booking[4]});
         }
     }
+    
+    
     /**
      * @param args the command line arguments
      */

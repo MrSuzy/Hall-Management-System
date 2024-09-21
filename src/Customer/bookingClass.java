@@ -266,11 +266,21 @@ public class bookingClass {
                     Date currentDate = new Date();
                     
                     long bookingDateTime = bookingDate.getTime() + startTime.getTime();
+                    long currentDateTime = currentDate.getTime();
+                    
+                    // calculate the difference in days 
+                    long diffMS = bookingDate.getTime() - currentDate.getTime();
+                    long diffDays = diffMS / (1000 * 60 * 60 * 24);
                     
                     // check if booking is upcoming and not cancelled
                     if (bookingDateTime > currentDate.getTime() && !details[8].equals("Cancelled")) {
+                        if (diffDays >= 3) {
                         details[8] = "Cancelled";
                         found = true;
+                            System.out.println("Booking cancelled success");
+                        } else {
+                            System.out.println("Cancellation must be at least 3 days before booking date");
+                        }
                     } else if (details[8].equals("Cancelled")) {
                         System.out.println("The selected booking has already been cancelled");
                     }
