@@ -1,7 +1,20 @@
 package Manager;
 
-
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import static java.lang.invoke.MethodHandles.filterValue;
+import java.util.List;
+import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,6 +26,8 @@ import java.awt.Color;
  * @author khaientiew
  */
 public class managerSales extends javax.swing.JFrame {
+    private managerSalesClass manager = new managerSalesClass(); // Instance of your main class
+
 
     /**
      * Creates new form Manager_Login
@@ -28,8 +43,13 @@ public class managerSales extends javax.swing.JFrame {
         btnMainMenu.setBackground(buttonColor);
         btnLogOut.setBackground(buttonColor);
         CBFilter.setBackground(color);
-    }
-
+        
+        }
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,6 +71,8 @@ public class managerSales extends javax.swing.JFrame {
         btnMainMenu = new javax.swing.JButton();
         btnSales = new javax.swing.JButton();
         btnMaintenance = new javax.swing.JButton();
+        PanelChart = new javax.swing.JPanel();
+        BtnView = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -68,7 +90,7 @@ public class managerSales extends javax.swing.JFrame {
         lblFilter.setText("Filter: ");
 
         CBFilter.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
-        CBFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "year", "month", "date" }));
         CBFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBFilterActionPerformed(evt);
@@ -77,6 +99,11 @@ public class managerSales extends javax.swing.JFrame {
 
         btnLogOut.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         btnLogOut.setText("LogOut");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
 
         lblUsername.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         lblUsername.setText("jLabel4");
@@ -123,7 +150,7 @@ public class managerSales extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(25, 25, 25)
                             .addComponent(btnSales, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,6 +163,26 @@ public class managerSales extends javax.swing.JFrame {
                 .addComponent(btnMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
+
+        PanelChart.setMaximumSize(new java.awt.Dimension(700, 400));
+
+        javax.swing.GroupLayout PanelChartLayout = new javax.swing.GroupLayout(PanelChart);
+        PanelChart.setLayout(PanelChartLayout);
+        PanelChartLayout.setHorizontalGroup(
+            PanelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 466, Short.MAX_VALUE)
+        );
+        PanelChartLayout.setVerticalGroup(
+            PanelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        BtnView.setText("View");
+        BtnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnViewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,15 +199,21 @@ public class managerSales extends javax.swing.JFrame {
                         .addComponent(btnLogOut))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSalesDashboard)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblFilter)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CBFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(CBFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnView))
+                            .addComponent(PanelChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(284, 284, 284)
+                .addComponent(lblSalesDashboard)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,16 +224,21 @@ public class managerSales extends javax.swing.JFrame {
                         .addComponent(btnLogOut)
                         .addComponent(lblUsername))
                     .addComponent(lblCompanyName))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addComponent(lblSalesDashboard)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFilter)
-                            .addComponent(CBFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                            .addComponent(CBFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnView))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(PanelChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -205,46 +263,68 @@ public class managerSales extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CBFilterActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(managerSales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(managerSales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(managerSales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(managerSales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new managerSales().setVisible(true);
+    private void BtnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewActionPerformed
+        // Get the selected filter type from the combo box
+        String filterType = CBFilter.getSelectedItem().toString().toLowerCase(); // year, month, day
+        String filterValue = null;
+
+        // Call the processSalesData method in managerSalesClass to get filtered data
+        List<String[]> filteredData = manager.processSalesData(filterValue, filterType);
+        
+        if(filteredData.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No data found for the selected filter.", "No Data", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // Create a dataset for the chart
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            for (String[] sale : filteredData) {
+                String hallID = sale[0];
+                String price = sale[2]; 
+                dataset.addValue(Double.parseDouble(price), "Sales", hallID);
             }
-        });
-    }
+
+            // Create a bar chart
+            JFreeChart barChart = ChartFactory.createBarChart(
+                "Sales Data", 
+                "Hall ID", 
+                "Sales", 
+                dataset, 
+                PlotOrientation.VERTICAL, 
+                true, true, false);
+
+            CategoryPlot plot = barChart.getCategoryPlot();
+            plot.setRangeGridlinePaint(Color.BLACK);
+            BarRenderer renderer = (BarRenderer) plot.getRenderer();
+            renderer.setSeriesPaint(0, Color.BLUE);
+
+            // Create a ChartPanel and add it to your JPanel (which is in your GUI)
+            ChartPanel chartPanel = new ChartPanel(barChart);
+            chartPanel.setPreferredSize(new Dimension(400, 300));
+
+            // Assuming you have a JPanel named chartPanelContainer to show the chart
+            PanelChart.removeAll(); // Clear any previous chart
+            PanelChart.setLayout(new BorderLayout());
+            PanelChart.add(chartPanel, BorderLayout.CENTER);
+            PanelChart.validate(); // Revalidate the panel to refresh
+        }
+    
+    }//GEN-LAST:event_BtnViewActionPerformed
+
+    
+
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnView;
     private javax.swing.JComboBox<String> CBFilter;
+    private javax.swing.JPanel PanelChart;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnMaintenance;
