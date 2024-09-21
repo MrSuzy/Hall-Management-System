@@ -297,6 +297,15 @@ public class adminEditScheduler extends javax.swing.JFrame {
             return;
         }
         
+        if (newPass.length() < 8) {
+            JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        // validate phone number
+        if (!newPhoneNum.matches("^\\d{3}-\\d{7}$")) {
+            JOptionPane.showMessageDialog(null, "Contact number must be in the format XXX-XXXXXXX!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
         // check for changes
         if (newPhoneNum.isEmpty() || newPass.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No changes have been made.", "Warning", JOptionPane.WARNING_MESSAGE);

@@ -2,6 +2,9 @@ package Admin;
 
 import Login.LoginPage;
 import javax.swing.JOptionPane;
+import com.toedter.calendar.JCalendar;
+import javax.swing.*;
+import java.awt.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -19,12 +22,31 @@ public class adminMainPage extends javax.swing.JFrame {
      */
     public adminMainPage() {
         initComponents();
+        
+        if (panelCalendar == null) {
+            panelCalendar = new JPanel();
+            panelCalendar.setPreferredSize(new Dimension(300, 300));
+        }
+        // align to the right 
+        panelCalendar.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        // add the calendar to the panelCalendar
+        JCalendar calendar = new JCalendar();
+        panelCalendar.add(calendar);
+        // add to the main frame
+        add(panelCalendar, BorderLayout.SOUTH);
+        // ensure the calendar is visible
+        panelCalendar.revalidate();
+        panelCalendar.repaint();
+        setVisible(true);
+        
         adminClass1 Admin = new adminClass1();
         int userCount = Admin.countUsers();
         int staffCount = Admin.countStaff();
+        int bookingCount = Admin.countBookings();
         
         lblStaffNum.setText(String.valueOf(staffCount));
         lblUserNum.setText(String.valueOf(userCount));
+        lblBookings.setText(String.valueOf(bookingCount));
     }
 
     /**
@@ -53,13 +75,8 @@ public class adminMainPage extends javax.swing.JFrame {
         bookingPanel = new javax.swing.JPanel();
         lblInfo3 = new javax.swing.JLabel();
         lblBookings = new javax.swing.JLabel();
-        notiPanel = new javax.swing.JPanel();
-        lblNoti = new javax.swing.JLabel();
-        cbStatus = new javax.swing.JComboBox<>();
-        btnView = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lsNoti = new javax.swing.JList<>();
         btnSuperuser = new javax.swing.JButton();
+        panelCalendar = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -229,52 +246,6 @@ public class adminMainPage extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        notiPanel.setBorder(new javax.swing.border.MatteBorder(null));
-
-        lblNoti.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblNoti.setText("Notifications");
-
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnView.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnView.setText("View");
-
-        lsNoti.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(lsNoti);
-
-        javax.swing.GroupLayout notiPanelLayout = new javax.swing.GroupLayout(notiPanel);
-        notiPanel.setLayout(notiPanelLayout);
-        notiPanelLayout.setHorizontalGroup(
-            notiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(notiPanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(notiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(notiPanelLayout.createSequentialGroup()
-                        .addComponent(lblNoti, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        notiPanelLayout.setVerticalGroup(
-            notiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(notiPanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(notiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNoti)
-                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnView))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
         btnSuperuser.setBackground(new java.awt.Color(227, 242, 253));
         btnSuperuser.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnSuperuser.setText("superuser");
@@ -283,6 +254,17 @@ public class adminMainPage extends javax.swing.JFrame {
                 btnSuperuserActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout panelCalendarLayout = new javax.swing.GroupLayout(panelCalendar);
+        panelCalendar.setLayout(panelCalendarLayout);
+        panelCalendarLayout.setHorizontalGroup(
+            panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelCalendarLayout.setVerticalGroup(
+            panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 213, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -302,7 +284,7 @@ public class adminMainPage extends javax.swing.JFrame {
                                 .addComponent(cusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
                                 .addComponent(bookingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(notiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(panelCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,8 +312,8 @@ public class adminMainPage extends javax.swing.JFrame {
                     .addComponent(cusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(notiPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(directoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(directoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -447,23 +429,18 @@ public class adminMainPage extends javax.swing.JFrame {
     private javax.swing.JButton btnStaff;
     private javax.swing.JButton btnSuperuser;
     private javax.swing.JButton btnUser;
-    private javax.swing.JButton btnView;
-    private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JPanel cusPanel;
     private javax.swing.JPanel directoryPanel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBookings;
     private javax.swing.JLabel lblInfo1;
     private javax.swing.JLabel lblInfo2;
     private javax.swing.JLabel lblInfo3;
-    private javax.swing.JLabel lblNoti;
     private javax.swing.JLabel lblStaffNum;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUserNum;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JList<String> lsNoti;
-    private javax.swing.JPanel notiPanel;
+    private javax.swing.JPanel panelCalendar;
     private javax.swing.JPanel staffPanel;
     // End of variables declaration//GEN-END:variables
 }

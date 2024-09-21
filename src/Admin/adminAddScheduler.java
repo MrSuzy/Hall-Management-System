@@ -284,6 +284,10 @@ public class adminAddScheduler extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Passwords do not match.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        if (password.length() < 8) {
+            JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
         // Validate email
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@"
@@ -293,6 +297,11 @@ public class adminAddScheduler extends javax.swing.JFrame {
         if (!pattern.matcher(email).matches()) {
             JOptionPane.showMessageDialog(null, "Invalid email format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
+        }
+        
+        // validate phone number
+        if (!phoneNum.matches("^\\d{3}-\\d{7}$")) {
+            JOptionPane.showMessageDialog(null, "Contact number must be in the format XXX-XXXXXXX!", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         adminClass1 Admin = new adminClass1(name, phoneNum, email, password, status, role);

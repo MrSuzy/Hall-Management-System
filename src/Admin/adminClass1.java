@@ -104,6 +104,23 @@ public class adminClass1 {
         this.role = role;
     }
     
+    public int countBookings() {
+        int bookingCount = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader ("booking.txt"))) {
+            String line;
+            while((line = br.readLine()) != null) {
+                String[] bookingDetails = line.split(";");
+                String status = bookingDetails[8];
+                if (status.equalsIgnoreCase("paid")) {
+                    bookingCount++;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bookingCount;
+    }
+    
     // count number of users
     public int countUsers() {
         int userCount = 0;
@@ -360,7 +377,7 @@ public class adminClass1 {
     // read all bookings
     public ArrayList<String[]> readBookings() {
         ArrayList<String[]> bookingList = new ArrayList<>();
-        File file = new File("bookings.txt");
+        File file = new File("booking.txt");
         
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
