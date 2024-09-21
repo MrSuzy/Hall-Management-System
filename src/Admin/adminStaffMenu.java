@@ -182,13 +182,13 @@ public class adminStaffMenu extends javax.swing.JFrame {
 
         StaffTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Contact", "Email", "Date Time Created", "Status", "Role"
+                "Name", "Contact", "Email", "Password", "Date Time Created", "Status", "Role"
             }
         ));
         jScrollPane1.setViewportView(StaffTbl);
@@ -376,7 +376,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
         // get the selected status from the cbStatus
         String selectedStatus = cbStatus.getSelectedItem().toString();
         adminClass1 Admin = new adminClass1();
-        Admin.loadUserByRole(selectedRole, selectedStatus, model, false);
+        Admin.loadUserByRole(selectedRole, selectedStatus, model, true);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

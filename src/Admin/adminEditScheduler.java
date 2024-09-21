@@ -33,16 +33,9 @@ public class adminEditScheduler extends javax.swing.JFrame {
         this.password = password;
         this.status = status;
         this.role = role;
-        loadData();
         
-        // set the passed values to each labels, textboxes, and combobox
-        // lblName.setText(name);
-        // lblRole.setText(role);
-        // cbStatus.setSelectedItem(status);
-        // txtContact.setText(phoneNum);
-        // lblEmail.setText(email);
-        // pwdPassword.setText(password);
-        // pwdConfirm.setText(password2);
+        adminClass1 Admin = new adminClass1();
+        loadData();
     }
     
     private void loadData() {
@@ -51,7 +44,10 @@ public class adminEditScheduler extends javax.swing.JFrame {
         lblStatus.setText(status);
         txtContact.setText(phoneNum);
         lblEmail.setText(email);
+        pwdPassword.setText(password);
+        pwdConfirm.setText(password);
     }
+    
     
     public adminEditScheduler() {
         
@@ -291,32 +287,25 @@ public class adminEditScheduler extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        String name = lblName.getText();
-        String email = lblEmail.getText();
-        String role = lblRole.getText();
-        String status = lblStatus.getText();
-        String newPhoneNum = txtContact.getText();
-        String newPass = new String(pwdPassword.getPassword());
+        String newPhoneNum = txtContact.getText().trim();
+        String newPass = new String(pwdPassword.getPassword()).trim();
+        String confirmPass = new String(pwdConfirm.getPassword()).trim();
         
-        // validate if theres changes in the textboxes
-        boolean isModified = false;
-        if (!phoneNum.equals(newPhoneNum) || !password.equals(newPass)) {
-            isModified = true;
+        // validate password and confirm password field 
+        if (!newPass.equals(confirmPass)) {
+            JOptionPane.showMessageDialog(null, "Password do not match!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
-        if (isModified) {
-            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to update the staff details?", "Confirm", JOptionPane.YES_NO_OPTION);
-            
-            if (response == JOptionPane.YES_OPTION) {
-                adminClass1 Admin = new adminClass1();
-                Admin.editStaff(name, role, status, newPhoneNum, email, newPass);
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "Update cancelled.", "Info", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No changes were made.", "Info", JOptionPane.INFORMATION_MESSAGE);
+        // check for changes
+        if (newPhoneNum.isEmpty() || newPass.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No changes have been made.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+        
+        // call the update function
+        adminClass1 Admin = new adminClass1();
+        Admin.updateStaff(name, role, status, newPhoneNum, email, newPass);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**

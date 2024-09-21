@@ -20,10 +20,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class adminClass1 {
     private String name;
@@ -269,8 +271,8 @@ public class adminClass1 {
         }
     }
     
-    // method to edit staff information 
-    public void editStaff (String name, String role, String status, String newPhoneNum, String email, String newPass) {
+    // update user
+    public void updateStaff(String name, String role, String status, String newPhoneNum, String email, String newPass) {
         File file = new File("users.txt");
         File tempFile = new File("tempStaff.txt");
         boolean found = false;
@@ -305,8 +307,6 @@ public class adminClass1 {
             JOptionPane.showMessageDialog(null, "Staff not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
 
     // define user status 
     public enum userStatus {
@@ -357,16 +357,16 @@ public class adminClass1 {
         }
     }
     
-    // method to view bookings 
-    public ArrayList<String[]> viewBooking(String status) {
+    // read all bookings
+    public ArrayList<String[]> readBookings() {
         ArrayList<String[]> bookingList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("bookings.txt"))) {
+        File file = new File("bookings.txt");
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] bookingDetails = line.split(";");
-                if (bookingDetails[5]. equalsIgnoreCase(status)) {
-                    bookingList.add(bookingDetails);
-                }
+                bookingList.add(bookingDetails);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -374,42 +374,48 @@ public class adminClass1 {
         return bookingList;
     }
     
+    
     // filter bookings
-    public ArrayList<String[]> filterBookingByDate(String type) {
-        ArrayList<String[]> filterBooking = new ArrayList<>();
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public ArrayList<String[]> filterBookings(String type) {
+        ArrayList<String[]> filteredList = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date currentDate = new Date();
         
-        try (BufferedReader reader = new BufferedReader(new FileReader("booking.txt"))) {
-            String line;
-            while((line = reader.readLine()) != null) {
-                String[] bookingDetails = line.split(";");
-                LocalDateTime bookingDate = LocalDateTime.parse(bookingDetails[3], formatter);
+        // read all bookings in the bookings.txt
+        ArrayList<String[]> allBookings = readBookings();
+        
+        // filter 
+        for (String[] booking : allBookings) {
+            try {
+                Date bookDate = dateFormat.parse(booking[3]);
+                String bookStatus = booking[8];
                 
-                switch(type.toLowerCase()) {
-                    case "past":
-                        if(bookingDate.isBefore(now)) {
-                            filterBooking.add(bookingDetails);
+                // switch case to filter
+                switch(type) {
+                    case "upcoming":
+                        if (bookDate.after(currentDate)) {
+                            filteredList.add(booking);
                         }
                         break;
-                    case "upcoming":
-                        if (bookingDate.isAfter(now)) {
-                            filterBooking.add(bookingDetails);
+                    case "past":
+                        if (bookDate.before(currentDate)) {
+                            filteredList.add(booking);
                         }
                         break;
                     case "cancelled":
-                        if (bookingDetails[7].equalsIgnoreCase("cancelled")) {
-                            filterBooking.add(bookingDetails);
+                        if (bookStatus.equalsIgnoreCase("Cancelled")) {
+                            filteredList.add(booking);
                         }
                         break;
+                    case "all":
                     default:
-                       JOptionPane.showMessageDialog(null, "Invalid selection");
-                       break;
+                        filteredList.add(booking);
+                        break;
                 }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return filterBooking;
+        return filteredList;
     }
 }
