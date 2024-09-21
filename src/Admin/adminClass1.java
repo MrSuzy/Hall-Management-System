@@ -191,10 +191,6 @@ public class adminClass1 {
                         model.addRow(new Object[]{name, phoneNum, email, dateTime, status, role});
                     }
                 }
-                /*
-                if (role.equalsIgnoreCase(selectedRole) && status.equalsIgnoreCase(selectedStatus)) {
-                    model.addRow(new Object[]{name, phoneNum, email, dateTime, status, role});
-                }*/
             }
             br.close();
         } catch (IOException e) {
@@ -367,7 +363,7 @@ public class adminClass1 {
 
         if (found) {
             if (file.delete() && tempFile.renameTo(file)) {
-                JOptionPane.showMessageDialog(null, "User blocked successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "The action is successful.", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);

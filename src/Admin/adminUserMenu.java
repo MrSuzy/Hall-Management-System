@@ -25,30 +25,6 @@ public class adminUserMenu extends javax.swing.JFrame {
      */
     public adminUserMenu() {
         initComponents();
-        /*
-        try {
-            mainLoginPage login = new mainLoginPage();
-            lblUsername.setText(login.getUsername());
-            DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();
-            model.setRowCount(0);
-            FileReader fr = new FileReader("staff.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String read;
-            while ((read = br.readLine()) != null) {
-                if (read.split(";")[3].equals(login.getUsername())) {
-                    String name = read.split(";")[0];
-                    String password = read.split(";")[1];
-                    String email = read.split(";")[2];
-                    String username = read.split(";")[3];
-                    String dateTime = read.split(";")[4];
-                    String status = read.split(";")[5];
-                    model.addRow(new Object[]{name, password, email, username, dateTime, status});
-                }
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        */
     }
 
     /**
@@ -74,6 +50,7 @@ public class adminUserMenu extends javax.swing.JFrame {
         btnView = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbStaff = new javax.swing.JTable();
+        cbUserStatus = new javax.swing.JComboBox<>();
         lblPageTitle = new javax.swing.JLabel();
         btnBlock = new javax.swing.JButton();
         lblActive = new javax.swing.JLabel();
@@ -179,6 +156,8 @@ public class adminUserMenu extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbStaff);
 
+        cbUserStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive", "Blocked" }));
+
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
         infoPanelLayout.setHorizontalGroup(
@@ -188,7 +167,8 @@ public class adminUserMenu extends javax.swing.JFrame {
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(infoPanelLayout.createSequentialGroup()
-                        .addGap(177, 177, 177)
+                        .addComponent(cbUserStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
                         .addComponent(cbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -200,7 +180,8 @@ public class adminUserMenu extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnView))
+                    .addComponent(btnView)
+                    .addComponent(cbUserStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(10, Short.MAX_VALUE))
@@ -342,7 +323,7 @@ public class adminUserMenu extends javax.swing.JFrame {
         // get the selected role from the cbRole
         String selectedRole = cbUser.getSelectedItem().toString();
         // get the selected status from the cbStatus
-        String selectedStatus = cbStatus.getSelectedItem().toString();
+        String selectedStatus = cbUserStatus.getSelectedItem().toString();
         adminClass1 Admin = new adminClass1();
         Admin.loadUserByRole(selectedRole, selectedStatus, model, false);
     }//GEN-LAST:event_btnViewActionPerformed
@@ -447,6 +428,7 @@ public class adminUserMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnView;
     private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JComboBox<String> cbUser;
+    private javax.swing.JComboBox<String> cbUserStatus;
     private javax.swing.JPanel directoryPanel;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel jPanel1;

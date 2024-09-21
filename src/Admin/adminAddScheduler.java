@@ -302,6 +302,7 @@ public class adminAddScheduler extends javax.swing.JFrame {
         // validate phone number
         if (!phoneNum.matches("^\\d{3}-\\d{7}$")) {
             JOptionPane.showMessageDialog(null, "Contact number must be in the format XXX-XXXXXXX!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         adminClass1 Admin = new adminClass1(name, phoneNum, email, password, status, role);
