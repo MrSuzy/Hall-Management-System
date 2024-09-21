@@ -115,7 +115,7 @@ public class bookingClass {
     }
        
     // view and filter booking method 
-    public static List<bookingClass> viewBooking(String email, boolean upcoming) {
+   /* public static List<bookingClass> viewBooking(String email, boolean upcoming) {
         List<bookingClass> viewBooking = new ArrayList<>();
         Date currentDate = new Date(); // current date
         
@@ -150,7 +150,7 @@ public class bookingClass {
             System.out.println("Error" + e.getMessage());
         }
         return viewBooking;
-    }
+    } */
     
     // perform booking and write details into text file 
     public static void performBooking(String hallID, Date bookingDate, Date startTime, Date endTime, String email, String paymentMethod) {
@@ -165,6 +165,9 @@ public class bookingClass {
         System.out.println("Email: " + email);
         System.out.println("Payment method: paymentMethod");
         
+        List<String> hall = new ArrayList<>();
+        boolean hallUpdate = true;
+        
         try{
             FileReader fr = new FileReader("hall.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -174,15 +177,41 @@ public class bookingClass {
                 String[] details = read.split(";");
                 if (details[0].equals(hallID)) {
                     price = Double.parseDouble(details[2]);
-                    System.out.println("Price of hall" + hallID + "is: " + price);
-                    break;
+                    details[3] = date.format(bookingDate);
+                    details[4] = time.format(startTime);
+                    details[5] = time.format(endTime);
+                    details[7] = "Booked";
+                    
+                    String updatedHall = String.join(";", details);
+                    hall.add(updatedHall);
+                    hallUpdate = true;
+                } else {
+                    hall.add(read);
                 }
+                br.close();
             }
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
             return;
         }
+         
+        // update the hall status to 'booked' in the hall.txt
+        if (hallUpdate) {
+            try{
+                FileWriter fw = new FileWriter("hall.txt");
+                BufferedWriter bw = new BufferedWriter(fw);
+                
+                for (String Hall : hall) {
+                    bw.write(Hall);
+                    bw.newLine();
+                }
+            } catch (IOException e) {
+                System.out.println("Error updating hall.txt" + e.getMessage());
+                return;
+            }
+        }
         
+        // update selected booked hall to booking.txt
         try{
             FileWriter fw = new FileWriter("booking.txt");
             BufferedWriter bw = new BufferedWriter(fw);
@@ -198,7 +227,36 @@ public class bookingClass {
     
     // auto generate booking ID method
     private static String generateBookingID() {
-        return "B" + System.currentTimeMillis();
+        String bookingIDPrefix = "B";
+        int lastNumber = 0;
+        
+        // find highest existing bookingID in booking.txt 
+        try{
+            FileReader fr = new FileReader("booking.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                String currentBookingID = details[0];
+                if (currentBookingID.startsWith(bookingIDPrefix)) {
+                    // convert to int of the extracted number
+                    int LastNumber = Integer.parseInt(currentBookingID.substring(1));
+                    
+                    // update lastNumber if LastNumber is higher
+                    if (LastNumber > lastNumber) {
+                        lastNumber = LastNumber;
+                    }
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error reading booking.txt" + e.getMessage());
+        }
+        
+        lastNumber++;
+        
+        return String.format("B%03d", lastNumber);
     }
     
     // cancel booking method

@@ -220,7 +220,7 @@ public class customerBooking extends javax.swing.JFrame {
         lblAvailable.setText("Available Hall:");
 
         cbAvailable.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        cbAvailable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAvailable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Desired Time & Date to Display" }));
 
         btnBook.setBackground(new java.awt.Color(228, 228, 228));
         btnBook.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
@@ -236,7 +236,7 @@ public class customerBooking extends javax.swing.JFrame {
         lblDate1.setText("Payment Method:");
 
         listPayment.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Debit / Credit Card", "E-Wallet ", "FPX Online Banking" };
+            String[] strings = { "Debit / Credit Card", "E-Wallet", "FPX Online Banking" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -355,9 +355,9 @@ public class customerBooking extends javax.swing.JFrame {
         //cbHallType.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         //cbHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auditorium", "Banquet Hall", "Meeting Room"}));
         
-        datePicker.setBounds(500, 120, 150, 30);
-        startTimePicker.setBounds(240, 170, 150, 30);
-        endTimePicker.setBounds(240, 220, 150, 30);
+        datePicker.setBounds(380, 120, 150, 30);
+        startTimePicker.setBounds(380, 170, 150, 30);
+        endTimePicker.setBounds(380, 220, 150, 30);
         //cbHallType.setBounds(240, 270, 150, 30);
         
         getContentPane().add(datePicker);
