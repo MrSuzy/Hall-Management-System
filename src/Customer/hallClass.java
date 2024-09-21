@@ -135,6 +135,11 @@ public class hallClass {
                     Date startTime = details[4].equals("N/A") ? null : time.parse(details[4]);
                     Date endTime = details[5].equals("N/A") ? null : time.parse(details[5]);
                     
+                    // debug
+                    System.out.println("Hall ID" + hallID);
+                    System.out.println("Type" + type + "Availability" + availability);
+                    System.out.println("Date" + bookingDate + "Start time" + startTime + "End time" + endTime);
+                    
                     // check if hall is available
                     if (type.equals(hallType) && availability.equals("Available")) {
                         // check date first
@@ -143,17 +148,18 @@ public class hallClass {
                         } else {
                             
                             // check time clash
-                            if (selectedEndTime.before(startTime) || selectedStartTime.after(endTime)) {
+                            if (startTime == null || endTime == null || selectedEndTime.before(startTime) || selectedStartTime.after(endTime)) {
                                 available.add(hallID);
                             }
                         }
                     }
                 }
             }
+            br.close();
         } catch (IOException | ParseException e) {
             System.out.println("Error" + e.getMessage());
         }
-        return null;
+        return available;
     }
     
     // write updated availability to text file after booking

@@ -403,9 +403,15 @@ public class customerBooking extends javax.swing.JFrame {
         Date endTime = (Date) endTimePicker.getValue();
         String hallType = (String) cbHallType.getSelectedItem();
         
+        // debug
+        System.out.println("Selected Date: " + selectedDate);
+        System.out.println("Start Time: " + startTime);
+        System.out.println("End Time: " + endTime);
+        System.out.println("Hall Type: " + hallType);
+        
         List<String> available = hallClass.hallAvailability(selectedDate, startTime, endTime, hallType);
         
-        if (!available.isEmpty()) {
+        if (available != null && !available.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Available halls found!");
             
             // display the available halls in the combobox
