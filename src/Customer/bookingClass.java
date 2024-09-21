@@ -120,7 +120,7 @@ public class bookingClass {
         Date currentDate = new Date(); // current date
         
         try{
-            FileReader fr = new FileReader("bookings.txt");
+            FileReader fr = new FileReader("booking.txt");
             BufferedReader br = new BufferedReader(fr);
             String read;
             
@@ -184,7 +184,7 @@ public class bookingClass {
         }
         
         try{
-            FileWriter fw = new FileWriter("bookings.txt", true);
+            FileWriter fw = new FileWriter("booking.txt");
             BufferedWriter bw = new BufferedWriter(fw);
             
             bw.write(bookingID + ";" + email + ";" + hallID + ";" + date.format(bookingDate) + ";" + time.format(startTime) + ";" + time.format(endTime) + ";" + price + ";" + paymentMethod + ";" + paymentStatus);
@@ -214,7 +214,7 @@ public class bookingClass {
             List<bookingClass> booking = new ArrayList<>();
             
             try{
-                FileReader fr = new FileReader("bookings.txt");
+                FileReader fr = new FileReader("booking.txt");
                 BufferedReader br = new BufferedReader(fr);
                 String read;
                 
