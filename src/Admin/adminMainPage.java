@@ -29,24 +29,6 @@ public class adminMainPage extends javax.swing.JFrame {
         gl.setHorizontalGroup(gl.createParallelGroup().addGroup(gl.createSequentialGroup().addComponent(cal)));
         gl.setVerticalGroup(gl.createParallelGroup().addGroup(gl.createSequentialGroup().addComponent(cal)));
         
-        /*
-        if (panelCalendar == null) {
-            panelCalendar = new JPanel();
-            panelCalendar.setPreferredSize(new Dimension(300, 300));
-        }
-        // align to the right 
-        //panelCalendar.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        // add the calendar to the panelCalendar
-        JCalendar calendar = new JCalendar();
-        panelCalendar.add(calendar);
-        // add to the main frame
-        add(panelCalendar, BorderLayout.SOUTH);
-        // ensure the calendar is visible
-        panelCalendar.revalidate();
-        panelCalendar.repaint();
-        setVisible(true);
-        */
-        
         adminClass1 Admin = new adminClass1();
         int userCount = Admin.countUsers();
         int staffCount = Admin.countStaff();
