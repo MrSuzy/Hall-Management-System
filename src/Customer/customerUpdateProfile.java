@@ -49,7 +49,7 @@ public class customerUpdateProfile extends javax.swing.JFrame {
                 if (details[2].equals(loggedInEmail)) {
                     lblName.setText(details[0]);
                     txtContact.setText(details[1]);
-                    txtEmail.setText(details[2]);
+                    lblEmail.setText(details[2]);
                     pwdPassword.setText(details[3]);
                     currentDateTime = details[4];
                     break;
@@ -80,7 +80,6 @@ public class customerUpdateProfile extends javax.swing.JFrame {
         txtContact = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
         panelMenu = new javax.swing.JPanel();
         btnMainMenu = new javax.swing.JButton();
         btnBookingHistory = new javax.swing.JButton();
@@ -88,6 +87,7 @@ public class customerUpdateProfile extends javax.swing.JFrame {
         btnUpdateProfile = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         pwdPassword = new javax.swing.JPasswordField();
+        lblEmail = new javax.swing.JLabel();
 
         jButton8.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jButton8.setText("Hall Booking");
@@ -143,13 +143,6 @@ public class customerUpdateProfile extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
         jLabel8.setText("Password:");
-
-        txtEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
 
         panelMenu.setBackground(new java.awt.Color(228, 228, 228));
         panelMenu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.white, java.awt.Color.lightGray));
@@ -228,6 +221,9 @@ public class customerUpdateProfile extends javax.swing.JFrame {
 
         pwdPassword.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
 
+        lblEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblEmail.setText("(auto)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -254,8 +250,8 @@ public class customerUpdateProfile extends javax.swing.JFrame {
                                     .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -291,8 +287,8 @@ public class customerUpdateProfile extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
+                            .addComponent(lblEmail))
+                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(pwdPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -310,10 +306,6 @@ public class customerUpdateProfile extends javax.swing.JFrame {
     private void txtContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContactActionPerformed
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
@@ -347,7 +339,7 @@ public class customerUpdateProfile extends javax.swing.JFrame {
         // TODO add your handling code here:
         String name = lblName.getText();
         String phoneNum = txtContact.getText();
-        String email = txtEmail.getText();
+        String email = lblEmail.getText();
         String password = new String(pwdPassword.getPassword());
         String status = "Active";
         String role = "Customer";
@@ -382,12 +374,12 @@ public class customerUpdateProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPasswordField pwdPassword;
     private javax.swing.JTextField txtContact;
-    private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 }
