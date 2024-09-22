@@ -7,3 +7,4 @@ Ben;017-9801212;ben678@gmail.com;mark678;2024-07-12 22:14:51;active;scheduler
 Oscar;012-1234321;oscar987@gmail.com;oscar111;2024-08-08 11:23:37;active;customer
 Sean;013-9875412;sean123@gmail.com;sean123;2024-08-08 11:23:37;active;Customer
 coldchocolate;018-0001111;cold123@gmail.com;12345678;2024-09-23 00:15:47;active;scheduler
+warmchocolate;012-3948573;warmchoco99@gmail.com;123456789;2024-09-23 00:40:16;active;customer
