@@ -24,16 +24,18 @@ public class issueClass {
     private Date issueDate;
     private String issueDescription;
     private String issueStatus;
+    private String scheduler;
     
     // format the date
     private static final SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
-    public issueClass(String issueID, String bookingID, Date issueDate, String issueDescription, String issueStatus) {
+    public issueClass(String issueID, String bookingID, Date issueDate, String issueDescription, String issueStatus, String scheduler) {
         this.issueID = issueID;
         this.bookingID = bookingID;
         this.issueDate = issueDate; //set current date 
         this.issueDescription = issueDescription;
         this.issueStatus = issueStatus;
+        this.scheduler = scheduler;
     }
     
     // getters method
@@ -57,6 +59,10 @@ public class issueClass {
         return issueStatus;
     }
     
+    public String getScheduler() {
+        return scheduler;
+    }
+    
     // setters method 
     public void setIssueID(String issueID) {
         this.issueID = issueID;
@@ -78,17 +84,22 @@ public class issueClass {
         this.issueStatus = issueStatus;
     }
     
+    public void setScheduler(String scheduler) {
+        this.scheduler = scheduler;
+    }
+    
     // raise issue method 
     public static void raiseIssue(String bookingID, String issueDescription) {
         String issueID = generateIssueID();
         String issueDate = date.format(new Date());
         String issueStatus = "Open";
+        String scheduler = "na";
         
         try{
             FileWriter fw = new FileWriter("issue.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             
-            bw.write(issueID + ";" + bookingID + ";" + issueDate + ";" + issueDescription + ";" + issueStatus);
+            bw.write(issueID + ";" + bookingID + ";" + issueDate + ";" + issueDescription + ";" + issueStatus + ";" + scheduler);
             bw.newLine();
             bw.flush();
             System.out.println("Issue raised sucessfully");
