@@ -188,7 +188,7 @@ public class managerSales extends javax.swing.JFrame {
         PanelChart.setLayout(PanelChartLayout);
         PanelChartLayout.setHorizontalGroup(
             PanelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 477, Short.MAX_VALUE)
         );
         PanelChartLayout.setVerticalGroup(
             PanelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,8 +241,8 @@ public class managerSales extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(lblCompanyName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
-                        .addComponent(lblUsername)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnLogOut))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -338,29 +338,35 @@ public class managerSales extends javax.swing.JFrame {
 
     private void CBTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTypeActionPerformed
         // TODO add your handling code here:
-        String selectedType = CBType.getSelectedItem().toString();  // Get selected type (Day, Month, Year)
-        CBSpecify.removeAllItems();  // Clear previous items from CBSpecify
+        String selectedType = CBType.getSelectedItem().toString(); 
+        CBSpecify.removeAllItems(); 
 
         File file = new File("booking.txt"); 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             List<String> dateParts = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
-                String[] bookingDetails = line.split(";"); 
-                String date = bookingDetails[3];  // Date is the 4th item in the booking.txt
-                String[] dateSplit = date.split("-");  // Split date into year, month, and day
+            String[] bookingDetails = line.split(";"); 
+            String paymentStatus = bookingDetails[8];  
+            String date = bookingDetails[3];  
 
-                switch (selectedType.toLowerCase()) {
-                    case "day":
-                        dateParts.add(dateSplit[2]);  // Add day part (index 2)
+            if (paymentStatus.equalsIgnoreCase("Paid")) {
+                System.out.println("Print" + date);
+                String[] dateSplit = date.split("-");  // Split date into year, month, day
+
+                switch (selectedType) {
+                    case "Year":
+                        CBSpecify.addItem(dateSplit[0]);  // Add year
                         break;
-                    case "month":
-                        dateParts.add(dateSplit[1]);  // Add month part (index 1)
+                    case "Month":
+                        CBSpecify.addItem(dateSplit[1]);  // Add month
                         break;
-                    case "year":
-                        dateParts.add(dateSplit[0]);  // Add year part (index 0)
+                    case "Day":
+                        CBSpecify.addItem(dateSplit[2]);  // Add day
                         break;
+                }
             }
+        
         }
 
             // Remove duplicates
@@ -388,6 +394,7 @@ public class managerSales extends javax.swing.JFrame {
 
     private void BtnViewCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewCActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_BtnViewCActionPerformed
 
     private void CBSpecifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBSpecifyActionPerformed

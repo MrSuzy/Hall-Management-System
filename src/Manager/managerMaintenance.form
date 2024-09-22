@@ -104,7 +104,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="lblUsername" min="-2" pref="71" max="-2" attributes="0"/>
+                                      <Component id="lblUsername" min="-2" pref="185" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnLogOut" min="-2" max="-2" attributes="0"/>
                                   </Group>
