@@ -34,6 +34,7 @@ public class managerMaintenance extends javax.swing.JFrame {
     public managerMaintenance(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
         initComponents();
+        lblUsername.setText(loggedInEmail);
         loadScheduler();
         Color col = new Color(224, 240, 255);
         Color buttonColor = new Color(228, 228, 228);
@@ -128,6 +129,7 @@ public class managerMaintenance extends javax.swing.JFrame {
         BtnClosed = new javax.swing.JButton();
         BtnCancelled = new javax.swing.JButton();
         BtnOpen = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -309,6 +311,9 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
+        lblUsername.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblUsername.setText("jLabel4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -327,11 +332,6 @@ public class managerMaintenance extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(CBStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnEditStatus)
-                                        .addContainerGap(240, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(CBSchedular, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,12 +339,20 @@ public class managerMaintenance extends javax.swing.JFrame {
                                         .addComponent(btnAssignScheduler)
                                         .addGap(177, 177, 177))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(CBStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnEditStatus))
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnLogOut)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnLogOut))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(BtnAll, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -365,7 +373,9 @@ public class managerMaintenance extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCompanyName)
-                    .addComponent(btnLogOut))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnLogOut)
+                        .addComponent(lblUsername)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnAll)
@@ -574,5 +584,6 @@ public class managerMaintenance extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblMaintenanceList;
+    private javax.swing.JLabel lblUsername;
     // End of variables declaration//GEN-END:variables
 }

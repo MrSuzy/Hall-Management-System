@@ -42,6 +42,7 @@ public class managerSales extends javax.swing.JFrame {
     public managerSales(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
         initComponents();
+        lblUsername.setText(loggedInEmail);
         Color col = new Color(224, 240, 255);
         Color buttonColor = new Color(228, 228, 228);
         Color color = new Color(242, 242, 242);
