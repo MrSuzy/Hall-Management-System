@@ -388,7 +388,51 @@ public class managerSales extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void BtnViewRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewRActionPerformed
-        
+        String selectedDatePart = CBSpecify.getSelectedItem().toString();  
+        String selectedType = CBType.getSelectedItem().toString();  
+    
+        int bookingCount = 0;  
+        double totalAmount = 0.0;  
+    
+        File file = new File("booking.txt");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] bookingDetails = line.split(";"); 
+                String paymentStatus = bookingDetails[8];  
+                String date = bookingDetails[3];    
+
+                if (paymentStatus.equalsIgnoreCase("Paid")) {
+                    String[] dateParts = date.split("-");  
+                
+                    // Check if the selected type and date part match the current row
+                    boolean match = false;
+                    switch (selectedType) {
+                    case "Year":
+                        match = dateParts[0].equals(selectedDatePart);
+                        break;
+                    case "Month":
+                        match = dateParts[1].equals(selectedDatePart);
+                        break;
+                    case "Day":
+                        match = dateParts[2].equals(selectedDatePart);
+                        break;
+                }
+                    
+                    // If the date part matches, count the booking and add the amount
+                if (match) {
+                    bookingCount++;  // Increment booking count
+                    totalAmount += Double.parseDouble(bookingDetails[6]);  // Add the booking price to total
+                }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Display the report
+        txtBooked.setText(Integer.toString(bookingCount));
+        txtAmount.setText(Double.toString(totalAmount));
     
     }//GEN-LAST:event_BtnViewRActionPerformed
 
