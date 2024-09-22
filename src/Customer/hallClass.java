@@ -140,18 +140,19 @@ public class hallClass {
                     System.out.println("Type" + type + "Availability" + availability);
                     System.out.println("Date" + bookingDate + "Start time" + startTime + "End time" + endTime);
                     
-                    // check if hall is available
-                    if (type.equals(hallType) && availability.equals("Available")) {
+                    // check hall type
+                    if (type.equals(hallType)) {
                         // check date first
-                        if (bookingDate == null || !bookingDate.equals(selectedDate)) {
-                            available.add(hallID);
-                        } else {
+                        if (bookingDate != null && bookingDate.equals(selectedDate) && availability.equals("Booked")) {
                             
                             // check time clash
-                            if (startTime == null || endTime == null || selectedEndTime.before(startTime) || selectedStartTime.after(endTime)) {
-                                available.add(hallID);
+                            if (!(selectedEndTime.before(startTime) || selectedStartTime.after(endTime))) {
+                                continue;
                             }
+
                         }
+                        
+                        available.add(hallID);
                     }
                 }
             }
