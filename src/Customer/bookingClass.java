@@ -282,6 +282,7 @@ public class bookingClass {
                     if (bookingDateTime > currentDateTime && !details[8].equals("Cancelled")) {
                         if (diffDays >= 3) {
                         details[8] = "Cancelled";
+                        hallID = details[2];
                         found = true;
                             System.out.println("Booking cancelled success");
                         } else {
