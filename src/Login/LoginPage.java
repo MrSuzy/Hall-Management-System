@@ -241,7 +241,7 @@ public class LoginPage extends javax.swing.JFrame {
                        new customerMainMenu(loggedInEmail).setVisible(true);
                        break;
                    case "admin":
-                       new adminMainPage().setVisible(true);
+                       new adminMainPage(loggedInEmail).setVisible(true);
                        break;
                    case "manager":
                        new managerMainMenu().setVisible(true);

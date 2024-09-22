@@ -2,7 +2,6 @@ package Customer;
 
 
 import java.awt.Color;
-import Login.LoginPage;
 import Customer.customerClass;
 import java.io.BufferedReader;
 import java.io.FileReader;

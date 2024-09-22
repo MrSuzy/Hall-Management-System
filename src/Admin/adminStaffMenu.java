@@ -19,12 +19,14 @@ import javax.swing.table.DefaultTableModel;
  * @author jason
  */
 public class adminStaffMenu extends javax.swing.JFrame {
+    private String loggedInEmail;
 
     /**
      * Creates new form adminStaff
      */
-    public adminStaffMenu() {
+    public adminStaffMenu(String loggedInEmail) {
         initComponents();
+        this.loggedInEmail = loggedInEmail;
     }
 
     /**
@@ -318,19 +320,19 @@ public class adminStaffMenu extends javax.swing.JFrame {
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new adminMainPage().setVisible(true);
+        new adminMainPage(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new adminUserMenu().setVisible(true);
+        new adminUserMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnUserActionPerformed
 
     private void btnHallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new adminHallManage().setVisible(true);
+        new adminHallManage(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnHallActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -401,44 +403,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(adminStaffMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(adminStaffMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(adminStaffMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(adminStaffMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new adminStaffMenu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable StaffTbl;

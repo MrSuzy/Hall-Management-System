@@ -16,11 +16,12 @@ import java.awt.*;
  * @author jason
  */
 public class adminMainPage extends javax.swing.JFrame {
-    
+    private String loggedInEmail;
     /**
      * Creates new form adminStaff
      */
-    public adminMainPage() {
+    public adminMainPage(String loggedInEmail) {
+        this.loggedInEmail = loggedInEmail;
         initComponents();
         
         JCalendar cal = new JCalendar();
@@ -323,19 +324,19 @@ public class adminMainPage extends javax.swing.JFrame {
     private void btnStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStaffActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new adminStaffMenu().setVisible(true);
+        new adminStaffMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnStaffActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new adminUserMenu().setVisible(true);
+        new adminUserMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnUserActionPerformed
 
     private void btnHallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new adminHallManage().setVisible(true);
+        new adminHallManage(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnHallActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -355,7 +356,7 @@ public class adminMainPage extends javax.swing.JFrame {
         // match the input and the password
         if (inputPass != null && inputPass.equals(superPass)) {
             this.dispose();
-            adminSuper superadmin = new adminSuper();
+            adminSuper superadmin = new adminSuper(loggedInEmail);
             superadmin.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Incorrect password. Access denied", "Error", JOptionPane.ERROR_MESSAGE);
@@ -365,52 +366,7 @@ public class adminMainPage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(adminMainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(adminMainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(adminMainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(adminMainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new adminMainPage().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bookingPanel;
