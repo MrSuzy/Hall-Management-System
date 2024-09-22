@@ -25,8 +25,11 @@ public class adminEditScheduler extends javax.swing.JFrame {
     private String role;
     private String password;
     
-    public adminEditScheduler(String name, String phoneNum, String email, String password, String status, String role) {
+    public adminEditScheduler(String name, String phoneNum, String email, String password, String status, String role, String loggedInEmail) {
         initComponents();
+        
+        this.loggedInEmail = loggedInEmail;
+        lblUsername.setText(loggedInEmail);
         
         this.name = name;
         this.phoneNum = phoneNum;

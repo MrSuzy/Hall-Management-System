@@ -6,4 +6,4 @@ Hot_Chocolate;015-1623487;hc789@gmail.com;hc789;2024-08-08 11:23:37;blocked;mana
 Ben;017-9801212;ben678@gmail.com;mark678;2024-07-12 22:14:51;active;scheduler
 zach;012-8974321;zach123@gmail.com;qwerty;2024-09-19 18:55:58;active;manager
 Oscar;012-1234321;oscar987@gmail.com;oscar111;2024-08-08 11:23:37;active;customer
-Sean;013-9875412;sean123@gmail.com;sean123;2024-08-08 11:23:37;blocked;Customer
+Sean;013-9875412;sean123@gmail.com;sean123;2024-08-08 11:23:37;active;Customer

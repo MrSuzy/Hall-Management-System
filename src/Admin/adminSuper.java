@@ -387,13 +387,13 @@ public class adminSuper extends javax.swing.JFrame {
         adminClass1 Admin = new adminClass1();
         
         this.dispose();
-        new adminEditScheduler(name, phoneNum, email, password, status, role).setVisible(true);
+        new adminEditScheduler(name, phoneNum, email, password, status, role, loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new adminAddScheduler().setVisible(true);
+        new adminAddScheduler(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed

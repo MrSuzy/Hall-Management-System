@@ -25,15 +25,18 @@ public class adminAddScheduler extends javax.swing.JFrame {
     /**
      * Creates new form adminAddScheduler
      */
-    public adminAddScheduler() {
-        initComponents();
-    }
-    
     public adminAddScheduler(String loggedInEmail) {
         initComponents();
         this.loggedInEmail = loggedInEmail;
         lblUsername.setText(loggedInEmail);
     }
+    
+    /*
+    public adminAddScheduler(String loggedInEmail) {
+        initComponents();
+        this.loggedInEmail = loggedInEmail;
+        lblUsername.setText(loggedInEmail);
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
