@@ -9,7 +9,7 @@ import Customer.customerMainMenu;
 import Customer.customerClass;
 import Admin.adminClass1;
 import Admin.adminMainPage;
-import Manager.managerClass;
+import Manager.managerLoginClass;
 import Manager.managerMainMenu;
 import Scheduler.schedulerMainMenu;
 import java.io.BufferedReader;
@@ -228,7 +228,7 @@ public class LoginPage extends javax.swing.JFrame {
                    role = "customer";
                } else if (user instanceof adminClass1) {
                    role = "admin";
-               } else if (user instanceof managerClass) {
+               } else if (user instanceof managerLoginClass) {
                    role = "manager";
                }
                
@@ -287,7 +287,7 @@ public class LoginPage extends javax.swing.JFrame {
                         case "admin":
                             return new adminClass1(name, phoneNum, email, password, status, role);
                         case "manager":
-                            return new managerClass(name, phoneNum, email, password, status, role);
+                            return new managerLoginClass(name, phoneNum, email, password, status, role);
                         default:
                             return null;
                     }
