@@ -50,11 +50,7 @@ public class managerMaintenance extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     
-    private void buttonClick(String type) {
-        managerMaintenanceClass issue = new managerMaintenanceClass();
-        ArrayList<String[]> IssueList = issue.readIssues();
-        loadTable(IssueList);
-    }
+    
     
     private void loadTable(ArrayList<String[]> issues) {
         DefaultTableModel model = (DefaultTableModel) TbMaintenance.getModel();
@@ -226,6 +222,11 @@ public class managerMaintenance extends javax.swing.JFrame {
         CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Open", "Pending", "Close" }));
 
         BtnView.setText("View");
+        BtnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnViewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -326,6 +327,13 @@ public class managerMaintenance extends javax.swing.JFrame {
         this.dispose();
         new Login.LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void BtnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewActionPerformed
+        // TODO add your handling code here:
+        managerMaintenanceClass issue = new managerMaintenanceClass();
+        ArrayList<String[]> IssueList = issue.readIssues();
+        loadTable(IssueList);
+    }//GEN-LAST:event_BtnViewActionPerformed
 
     /**
      * @param args the command line arguments
