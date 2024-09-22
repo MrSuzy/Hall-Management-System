@@ -23,6 +23,8 @@ public class customerMainMenu extends javax.swing.JFrame {
         this.loggedInEmail = loggedInEmail;
         initComponents();
         
+        lblUsername.setText(loggedInEmail);
+        
         Color col = new Color(224, 240, 255); //red, green and blue values
         getContentPane().setBackground(col);
     }

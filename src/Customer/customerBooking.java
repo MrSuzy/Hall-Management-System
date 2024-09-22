@@ -34,6 +34,7 @@ public class customerBooking extends javax.swing.JFrame {
         this.loggedInEmail = loggedInEmail;
         initComponents();
         initCustomComponents();
+        lblUsername.setText(loggedInEmail);
         Color col = new Color(224, 240, 255); //red, green and blue values
         getContentPane().setBackground(col);
 
