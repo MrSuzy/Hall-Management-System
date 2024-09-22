@@ -81,7 +81,7 @@ public class customerBookingHistory extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(51, 51, 51));
         lblUsername.setText("username");
 

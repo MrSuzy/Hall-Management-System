@@ -56,7 +56,7 @@ public class customerMainMenu extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
         lblTitle.setText("Hall Symphony Inc");
 
-        lblUsername.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         lblUsername.setText("username");
 
         btnLogOut.setBackground(new java.awt.Color(228, 228, 228));
