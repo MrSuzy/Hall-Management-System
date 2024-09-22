@@ -273,15 +273,15 @@ public class bookingClass {
                     long diffDays = diffMS / (1000 * 60 * 60 * 24);
                     
                     // check if booking is upcoming and not cancelled
-                    if (bookingDateTime > currentDateTime && !details[8].equals("Cancelled")) {
+                    if (bookingDateTime > currentDateTime && !details[7].equals("Cancelled")) {
                         if (diffDays >= 3) {
-                        details[8] = "Cancelled";
+                        details[7] = "Cancelled";
                         found = true;
                             System.out.println("Booking cancelled success");
                         } else {
                             System.out.println("Cancellation must be at least 3 days before booking date");
                         }
-                    } else if (details[8].equals("Cancelled")) {
+                    } else if (details[7].equals("Cancelled")) {
                         System.out.println("The selected booking has already been cancelled");
                     }
                 }
