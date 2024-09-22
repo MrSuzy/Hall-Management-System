@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import static java.lang.invoke.MethodHandles.filterValue;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -55,8 +56,9 @@ public class managerSales extends javax.swing.JFrame {
         btnMaintenance.setBackground(buttonColor);
         btnMainMenu.setBackground(buttonColor);
         btnLogOut.setBackground(buttonColor);
-        CBType.setBackground(color);
-        CBSpecify.setBackground(color);
+        CBY.setBackground(color);
+        CBM.setBackground(color);
+        CBD.setBackground(color);
         BtnViewR.setBackground(buttonColor);
         BtnViewC.setBackground(buttonColor);
         }
@@ -78,8 +80,8 @@ public class managerSales extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         lblCompanyName = new javax.swing.JLabel();
         lblSalesDashboard = new javax.swing.JLabel();
-        lblFilter = new javax.swing.JLabel();
-        CBType = new javax.swing.JComboBox<>();
+        lblY = new javax.swing.JLabel();
+        CBY = new javax.swing.JComboBox<>();
         btnLogOut = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -93,8 +95,10 @@ public class managerSales extends javax.swing.JFrame {
         txtBooked = new javax.swing.JTextField();
         lblAmount = new javax.swing.JLabel();
         txtAmount = new javax.swing.JTextField();
-        lblFilter1 = new javax.swing.JLabel();
-        CBSpecify = new javax.swing.JComboBox<>();
+        lblM = new javax.swing.JLabel();
+        CBM = new javax.swing.JComboBox<>();
+        lblD = new javax.swing.JLabel();
+        CBD = new javax.swing.JComboBox<>();
 
         jMenu1.setText("jMenu1");
 
@@ -108,14 +112,13 @@ public class managerSales extends javax.swing.JFrame {
         lblSalesDashboard.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         lblSalesDashboard.setText("Sales Dashboard");
 
-        lblFilter.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
-        lblFilter.setText("Type : ");
+        lblY.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblY.setText("Year : ");
 
-        CBType.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
-        CBType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "Month", "Day" }));
-        CBType.addActionListener(new java.awt.event.ActionListener() {
+        CBY.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBTypeActionPerformed(evt);
+                CBYActionPerformed(evt);
             }
         });
 
@@ -225,13 +228,23 @@ public class managerSales extends javax.swing.JFrame {
 
         txtAmount.setText("jTextField1");
 
-        lblFilter1.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
-        lblFilter1.setText("Specify : ");
+        lblM.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblM.setText("Month :");
 
-        CBSpecify.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
-        CBSpecify.addActionListener(new java.awt.event.ActionListener() {
+        CBM.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBSpecifyActionPerformed(evt);
+                CBMActionPerformed(evt);
+            }
+        });
+
+        lblD.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblD.setText("Day : ");
+
+        CBD.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBDActionPerformed(evt);
             }
         });
 
@@ -240,33 +253,40 @@ public class managerSales extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(lblCompanyName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLogOut))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(PanelChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(28, 28, 28))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(PanelChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lblCompanyName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLogOut))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblSalesDashboard)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblFilter)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(CBType, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblFilter1)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblM)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblSalesDashboard)
+                                                .addGap(29, 29, 29)
+                                                .addComponent(lblY)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(CBSpecify, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(CBY, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(CBM, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblD)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CBD, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(35, 35, 35)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(BtnViewR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(BtnViewC, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -277,8 +297,8 @@ public class managerSales extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtBooked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(28, 28, 28)))
+                                    .addComponent(txtBooked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -292,16 +312,7 @@ public class managerSales extends javax.swing.JFrame {
                     .addComponent(lblCompanyName))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(lblSalesDashboard)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblFilter)
-                            .addComponent(CBType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFilter1)
-                            .addComponent(CBSpecify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
@@ -314,12 +325,31 @@ public class managerSales extends javax.swing.JFrame {
                             .addComponent(BtnViewC)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblAmount)
-                                .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                                .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSalesDashboard)
+                            .addComponent(lblY)
+                            .addComponent(CBY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblM)
+                            .addComponent(CBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblD)
+                            .addComponent(CBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(PanelChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
 
         pack();
@@ -340,48 +370,29 @@ public class managerSales extends javax.swing.JFrame {
         new managerMaintenance(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnMaintenanceActionPerformed
 
-    private void CBTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTypeActionPerformed
+    private void CBYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBYActionPerformed
         // TODO add your handling code here:
-        String selectedType = CBType.getSelectedItem().toString(); 
-        TreeSet<String> datePartsSet = new TreeSet<>();  // TreeSet will ensure unique and sorted values
-        CBSpecify.removeAllItems(); 
-
-        File file = new File("booking.txt"); 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+       Set<String> years = new TreeSet<>(); // TreeSet for automatic sorting
+        try (BufferedReader br = new BufferedReader(new FileReader("booking.txt"))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-            String[] bookingDetails = line.split(";"); 
-            String paymentStatus = bookingDetails[8];  
-            String date = bookingDetails[3];  
-
-            if (paymentStatus.equalsIgnoreCase("Paid")) {
-                System.out.println("Print" + date);
-                String[] dateSplit = date.split("-");  // Split date into year, month, day
-
-                String datePart = "";
-                switch (selectedType) {
-                    case "Year":
-                        datePart = dateSplit[0];
-                        break;
-                    case "Month":
-                        datePart = dateSplit[1];
-                        break;
-                    case "Day":
-                        datePart = dateSplit[2];
-                        break;
-                    }
-                datePartsSet.add(datePart);
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(";");
+                String status = parts[8]; // Payment status
+                String date = parts[3]; // Date
+                if ("Paid".equals(status)) {
+                    String year = date.split("-")[0];
+                    years.add(year);
                 }
-        
             }
-            for (String datePart : datePartsSet) {
-                CBSpecify.addItem(datePart);
-    }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    }   catch (IOException ex) {
-                ex.printStackTrace();
-            }
-    }//GEN-LAST:event_CBTypeActionPerformed
+        CBY.removeAllItems(); // Clear existing items
+        for (String year : years) {
+            CBY.addItem(year);
+        }
+    }//GEN-LAST:event_CBYActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         // TODO add your handling code here:
@@ -390,8 +401,8 @@ public class managerSales extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void BtnViewRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewRActionPerformed
-        String selectedDatePart = CBSpecify.getSelectedItem().toString();  
-        String selectedType = CBType.getSelectedItem().toString();  
+        String selectedDatePart = CBM.getSelectedItem().toString();  
+        String selectedType = CBY.getSelectedItem().toString();  
     
         int bookingCount = 0;  
         double totalAmount = 0.0;  
@@ -440,7 +451,7 @@ public class managerSales extends javax.swing.JFrame {
 
     private void BtnViewCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewCActionPerformed
         // TODO add your handling code here:
-        String selectedType = CBType.getSelectedItem().toString(); 
+        String selectedType = CBY.getSelectedItem().toString(); 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset(); 
 
         File file = new File("booking.txt");
@@ -493,17 +504,67 @@ public class managerSales extends javax.swing.JFrame {
                 "Value",  // Y-axis Label
                 dataset  // Dataset for the chart
         );
+        
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        chartPanel.setPreferredSize(new Dimension(PanelChart.getWidth(), PanelChart.getHeight())); // Ensure it fits the panel
 
-        // Remove existing chart and display the new chart
-        JPanel chartPanel = new ChartPanel(barChart);
-        PanelChart.removeAll();
-        PanelChart.add(chartPanel, BorderLayout.CENTER);
-        PanelChart.validate();
+        PanelChart.removeAll();  // Clear any existing components
+        PanelChart.setLayout(new BorderLayout());  // Set layout to BorderLayout to properly fit the chart
+        PanelChart.add(chartPanel, BorderLayout.CENTER);  // Add the chart panel in the center
+        PanelChart.revalidate();  // Revalidate to refresh the layout
+        PanelChart.repaint();  // Repaint to ensure the chart is displayed
     }//GEN-LAST:event_BtnViewCActionPerformed
 
-    private void CBSpecifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBSpecifyActionPerformed
+    private void CBMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CBSpecifyActionPerformed
+        String selectedYear = (String) CBY.getSelectedItem();
+        Set<String> months = new TreeSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("booking.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(";");
+                String status = parts[8]; // Payment status
+                String date = parts[3]; // Date
+                if ("Paid".equals(status) && date.startsWith(selectedYear)) {
+                    String month = date.split("-")[1];
+                    months.add(month);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        CBM.removeAllItems(); // Clear existing items
+        for (String month : months) {
+            CBM.addItem(month);
+        }
+    }//GEN-LAST:event_CBMActionPerformed
+
+    private void CBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBDActionPerformed
+        // TODO add your handling code here:
+        String selectedYear = (String) CBY.getSelectedItem();
+        String selectedMonth = (String) CBM.getSelectedItem();
+        Set<String> days = new TreeSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("booking.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(";");
+                String status = parts[8]; // Payment status
+                String date = parts[3]; // Date
+                if ("Paid".equals(status) && date.startsWith(selectedYear + "-" + selectedMonth)) {
+                    String day = date.split("-")[2];
+                    days.add(day);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        CBD.removeAllItems(); // Clear existing items
+        for (String day : days) {
+            CBD.addItem(day);
+        }
+    }//GEN-LAST:event_CBDActionPerformed
 
     
 
@@ -514,8 +575,9 @@ public class managerSales extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnViewC;
     private javax.swing.JButton BtnViewR;
-    private javax.swing.JComboBox<String> CBSpecify;
-    private javax.swing.JComboBox<String> CBType;
+    private javax.swing.JComboBox<String> CBD;
+    private javax.swing.JComboBox<String> CBM;
+    private javax.swing.JComboBox<String> CBY;
     private javax.swing.JPanel PanelChart;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMainMenu;
@@ -527,10 +589,11 @@ public class managerSales extends javax.swing.JFrame {
     private javax.swing.JLabel lblAmount;
     private javax.swing.JLabel lblBooked;
     private javax.swing.JLabel lblCompanyName;
-    private javax.swing.JLabel lblFilter;
-    private javax.swing.JLabel lblFilter1;
+    private javax.swing.JLabel lblD;
+    private javax.swing.JLabel lblM;
     private javax.swing.JLabel lblSalesDashboard;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JLabel lblY;
     private javax.swing.JTextField txtAmount;
     private javax.swing.JTextField txtBooked;
     // End of variables declaration//GEN-END:variables
