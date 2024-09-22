@@ -24,7 +24,7 @@ public class customerUpdateProfile extends javax.swing.JFrame {
     /**
      * Creates new form adminMainMenu
      */
-    public customerUpdateProfile(String loggenInEmail) {
+    public customerUpdateProfile(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
         initComponents();
         lblUsername.setText(loggedInEmail);
