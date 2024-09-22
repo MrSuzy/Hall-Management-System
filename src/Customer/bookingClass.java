@@ -169,7 +169,10 @@ public class bookingClass {
             FileWriter fw = new FileWriter("booking.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             
-            bw.write(bookingID + ";" + email + ";" + hallID + ";" + date.format(bookingDate) + ";" + time.format(startTime) + ";" + time.format(endTime) + ";" + price + ";" + paymentMethod + ";" + paymentStatus);
+            bw.write(bookingID + ";" + email + ";" + hallID + ";" + 
+                    date.format(bookingDate) + ";" + 
+                    time.format(startTime) + ";" + time.format(endTime) + ";" + 
+                    price + ";" + paymentMethod + ";" + paymentStatus);
             bw.newLine();
             bw.flush();
         } catch (IOException e) {
@@ -248,6 +251,7 @@ public class bookingClass {
         return booking;
     }
     
+    // cancel booking method
     public static void cancelBooking(String bookingID, String loggedInEmail) {
         StringBuilder booking = new StringBuilder();
         boolean found = false;

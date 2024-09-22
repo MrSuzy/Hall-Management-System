@@ -106,11 +106,12 @@ public class customerClass {
             bw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + ";" +  status + ";" + role + ";");
             bw.flush();
         } catch (IOException e) {
-            System.out.println("Exception error." + e.getMessage());
+            System.out.println("Error writing users.txt" + e.getMessage());
 
         }
     }
     
+    // profile update method
     public static void updateProfile(customerClass updated) {
         List<customerClass> customer = new ArrayList<>();
         
@@ -124,12 +125,17 @@ public class customerClass {
                 String[] details = read.split(";");
                 if (details.length >= 7) {
                 if (details[0].equals(updated.getName())) {
-                    customer.add(new customerClass(updated.getName(), updated.getPhoneNum(), updated.getEmail(), updated.getPassword(), details[4], updated.getStatus(), updated.getRole()));
+                    customer.add(new customerClass(updated.getName(), 
+                            updated.getPhoneNum(), 
+                            updated.getEmail(), 
+                            updated.getPassword(), 
+                            details[4], 
+                            updated.getStatus(), 
+                            updated.getRole()));
                 } else {
                     customer.add(new customerClass(details[0], details[1], details[2], details[3], details[4], details[5], details[6]));
+                    }
                 }
-                
-            }
             }
             br.close();
         } catch (IOException e) {
@@ -141,7 +147,13 @@ public class customerClass {
             FileWriter fw = new FileWriter("users.txt");
             BufferedWriter bw = new BufferedWriter(fw);
             for (customerClass updateCustomer : customer) {
-                bw.write(updateCustomer.getName() + ";" + updateCustomer.getPhoneNum() + ";" + updateCustomer.getEmail() + ";" + updateCustomer.getPassword() + ";" + updateCustomer.getCurrentDateTime() + ";" + updateCustomer.getStatus() + ";" + updateCustomer.getRole() + ";");
+                bw.write(updateCustomer.getName() + ";" + 
+                         updateCustomer.getPhoneNum() + ";" + 
+                         updateCustomer.getEmail() + ";" + 
+                         updateCustomer.getPassword() + ";" + 
+                         updateCustomer.getCurrentDateTime() + ";" + 
+                         updateCustomer.getStatus() + ";" + 
+                         updateCustomer.getRole() + ";");
                 bw.newLine();
                 bw.flush();
             }

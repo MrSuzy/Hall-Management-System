@@ -193,6 +193,11 @@ public class customerRegistration extends javax.swing.JFrame {
             return;
         }
         
+        if (!phoneNumCriteria(phoneNum)) {
+            JOptionPane.showMessageDialog(null, "Contact number must be in the format XXX-XXXXXXX!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         if (!emailCriteria(email)) {
             JOptionPane.showMessageDialog(this, "Email field must be a valid format.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -202,6 +207,8 @@ public class customerRegistration extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Password must be at least 8 characters.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        
         
         // get current datetime of the customer registration 
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -230,6 +237,11 @@ public class customerRegistration extends javax.swing.JFrame {
     // name criteria method 
     private boolean nameCriteria(String name) {
         return name.matches("[A-Za-z]+");
+    }
+    
+    // phone number criteria method
+    private boolean phoneNumCriteria(String phoneNum) {
+        return phoneNum.matches("^\\d{3}-\\d{7}$");
     }
     
     // email criteria method 

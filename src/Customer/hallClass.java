@@ -199,7 +199,9 @@ public class hallClass {
             BufferedWriter bw = new BufferedWriter(fw);
             
             for (hallClass halls : hall) {
-                bw.write(halls.getHallID() + ";" + halls.getHallType() + ";" + halls.getPrice() + ";" + date.format(halls.getBookingDate()) + ";" + time.format(halls.getStartTime()) + ";" + time.format(halls.getEndTime()) + ";" + halls.getCapacity() + ";" + halls.getAvailabilty());
+                bw.write(halls.getHallID() + ";" + halls.getHallType() + ";" + halls.getPrice() + ";" + 
+                        date.format(halls.getBookingDate()) + ";" + time.format(halls.getStartTime()) + ";" + 
+                        time.format(halls.getEndTime()) + ";" + halls.getCapacity() + ";" + halls.getAvailabilty());
                 bw.newLine();
             }
         } catch (IOException e) {
