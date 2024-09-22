@@ -56,10 +56,6 @@ public class adminUserMenu extends javax.swing.JFrame {
         cbUserStatus = new javax.swing.JComboBox<>();
         lblPageTitle = new javax.swing.JLabel();
         btnBlock = new javax.swing.JButton();
-        lblActive = new javax.swing.JLabel();
-        lblBlocked = new javax.swing.JLabel();
-        lblNumActive = new javax.swing.JLabel();
-        lblNumBlocked = new javax.swing.JLabel();
         btnUnblock = new javax.swing.JButton();
 
         cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "blocked" }));
@@ -201,18 +197,6 @@ public class adminUserMenu extends javax.swing.JFrame {
             }
         });
 
-        lblActive.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblActive.setText("Active Users: ");
-
-        lblBlocked.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblBlocked.setText("Blocked Users: ");
-
-        lblNumActive.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblNumActive.setText("600");
-
-        lblNumBlocked.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblNumBlocked.setText("20");
-
         btnUnblock.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnUnblock.setText("Unblock");
         btnUnblock.addActionListener(new java.awt.event.ActionListener() {
@@ -230,22 +214,13 @@ public class adminUserMenu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(directoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnUnblock, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBlock, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(infoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPageTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblActive, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(lblNumActive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblBlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblNumBlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41))))
+                            .addComponent(lblPageTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,13 +242,7 @@ public class adminUserMenu extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblPageTitle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblActive)
-                            .addComponent(lblNumActive)
-                            .addComponent(lblBlocked)
-                            .addComponent(lblNumBlocked))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(34, 34, 34)
                         .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -390,10 +359,6 @@ public class adminUserMenu extends javax.swing.JFrame {
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblActive;
-    private javax.swing.JLabel lblBlocked;
-    private javax.swing.JLabel lblNumActive;
-    private javax.swing.JLabel lblNumBlocked;
     private javax.swing.JLabel lblPageTitle;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;

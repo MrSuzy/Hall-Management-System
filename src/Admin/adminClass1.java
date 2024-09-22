@@ -450,7 +450,7 @@ public class adminClass1 {
                 // switch case to filter based on the specified type
                 switch(type) {
                     case "upcoming":
-                        if (bookDate.after(currentDate)) {
+                        if (bookDate.after(currentDate) && bookStatus.equalsIgnoreCase("Paid")) {
                             filteredList.add(booking);
                         }
                         break;
