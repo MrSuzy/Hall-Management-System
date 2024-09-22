@@ -292,7 +292,7 @@ public class bookingClass {
             return;
         }
         
-        if (found) {
+       /* if (found) {
             try{
                 FileWriter fw = new FileWriter("booking.txt");
                 BufferedWriter bw = new BufferedWriter(fw);
@@ -307,5 +307,7 @@ public class bookingClass {
             System.out.println("No such booking found.");
         }
     }
+*/
+}
 }
  
