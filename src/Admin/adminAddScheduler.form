@@ -85,8 +85,8 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="lblTitle" min="-2" pref="345" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
-                          <Component id="lblUsername" min="-2" pref="97" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                          <Component id="lblUsername" min="-2" pref="170" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnLogout" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>

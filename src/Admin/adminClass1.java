@@ -431,20 +431,23 @@ public class adminClass1 {
     
     // filter bookings
     public ArrayList<String[]> filterBookings(String type) {
+        // create empty arrayList to store filtered booking details
         ArrayList<String[]> filteredList = new ArrayList<>();
+        // create a SimpleDateFormat object to parse dates
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        // get the current date
         Date currentDate = new Date();
         
         // read all bookings in the bookings.txt
         ArrayList<String[]> allBookings = readBookings();
         
-        // filter 
+        // filter based on the specified type
         for (String[] booking : allBookings) {
             try {
                 Date bookDate = dateFormat.parse(booking[3]);
                 String bookStatus = booking[8];
                 
-                // switch case to filter
+                // switch case to filter based on the specified type
                 switch(type) {
                     case "upcoming":
                         if (bookDate.after(currentDate)) {
@@ -470,6 +473,7 @@ public class adminClass1 {
                 e.printStackTrace();
             }
         }
+        // return the filtered list of booking details
         return filteredList;
     }
 }

@@ -23,7 +23,7 @@ public class adminMainPage extends javax.swing.JFrame {
     public adminMainPage(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
         initComponents();
-        lblUsername.setText(loggedInEmail);
+        btnSuperuser.setText(loggedInEmail);
         
         JCalendar cal = new JCalendar();
         javax.swing.GroupLayout gl = (javax.swing.GroupLayout)panelCalendar.getLayout();
@@ -56,7 +56,6 @@ public class adminMainPage extends javax.swing.JFrame {
         btnUser = new javax.swing.JButton();
         btnHall = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
-        lblUsername = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         staffPanel = new javax.swing.JPanel();
         lblInfo1 = new javax.swing.JLabel();
@@ -126,9 +125,6 @@ public class adminMainPage extends javax.swing.JFrame {
 
         lblTitle.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
         lblTitle.setText("Hall Symphony Inc");
-
-        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblUsername.setText("username");
 
         btnLogout.setBackground(new java.awt.Color(227, 242, 253));
         btnLogout.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
@@ -280,10 +276,8 @@ public class adminMainPage extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSuperuser, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSuperuser, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 16, Short.MAX_VALUE))
@@ -293,7 +287,6 @@ public class adminMainPage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 14, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsername)
                     .addComponent(btnLogout)
                     .addComponent(lblTitle)
                     .addComponent(btnSuperuser))
@@ -302,7 +295,7 @@ public class adminMainPage extends javax.swing.JFrame {
                     .addComponent(staffPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bookingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(36, 36, 36)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(directoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -386,7 +379,6 @@ public class adminMainPage extends javax.swing.JFrame {
     private javax.swing.JLabel lblStaffNum;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUserNum;
-    private javax.swing.JLabel lblUsername;
     private javax.swing.JPanel panelCalendar;
     private javax.swing.JPanel staffPanel;
     // End of variables declaration//GEN-END:variables
