@@ -104,7 +104,7 @@ public class managerSales extends javax.swing.JFrame {
         lblD = new javax.swing.JLabel();
         CBDay = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TbBooking = new javax.swing.JTable();
 
         jMenu1.setText("jMenu1");
 
@@ -122,6 +122,7 @@ public class managerSales extends javax.swing.JFrame {
         lblY.setText("Year : ");
 
         CBYear.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", " " }));
         CBYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBYearActionPerformed(evt);
@@ -172,15 +173,12 @@ public class managerSales extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnSales, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSales, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -217,6 +215,7 @@ public class managerSales extends javax.swing.JFrame {
         lblM.setText("Month :");
 
         CBMonth.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", " " }));
         CBMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBMonthActionPerformed(evt);
@@ -227,13 +226,14 @@ public class managerSales extends javax.swing.JFrame {
         lblD.setText("Day : ");
 
         CBDay.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", " " }));
         CBDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBDayActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TbBooking.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -244,7 +244,7 @@ public class managerSales extends javax.swing.JFrame {
                 "Book ID", "User", "Hall ID", "Date", "Start", "End", "Price", "Method", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TbBooking);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -381,18 +381,18 @@ public class managerSales extends javax.swing.JFrame {
 
                 boolean matches = true;
 
-                // Match the year
-                if (!year.equals(selectedYear)) {
+                // Match the year if selected
+                if (selectedYear != null && !selectedYear.equals("All") && !year.equals(selectedYear)) {
                     matches = false;
                 }
 
                 // Match the month if selected
-                if (selectedMonth != null && !month.equals(selectedMonth)) {
+                if (selectedMonth != null && !selectedMonth.equals("All") && !month.equals(selectedMonth)) {
                     matches = false;
                 }
 
                 // Match the day if selected
-                if (selectedDay != null && !day.equals(selectedDay)) {
+                if (selectedDay != null && !selectedDay.equals("All") && !day.equals(selectedDay)) {
                     matches = false;
                 }
 
@@ -405,10 +405,13 @@ public class managerSales extends javax.swing.JFrame {
             // Display the total bookings and amount
             txtBooked.setText(String.valueOf(bookingCount));
             txtAmount.setText(String.valueOf(totalAmount));
+            
+            manager.populateBookingTable(selectedYear, selectedMonth, selectedDay, TbBooking);
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error reading booking file", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
 
 
     
@@ -435,6 +438,7 @@ public class managerSales extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CBDay;
     private javax.swing.JComboBox<String> CBMonth;
     private javax.swing.JComboBox<String> CBYear;
+    private javax.swing.JTable TbBooking;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnMaintenance;
@@ -443,7 +447,6 @@ public class managerSales extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAmount;
     private javax.swing.JLabel lblBooked;
     private javax.swing.JLabel lblCompanyName;

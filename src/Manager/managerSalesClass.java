@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class managerSalesClass {
     private final Set<String> years;        // Set for unique years
@@ -59,6 +60,7 @@ public class managerSalesClass {
     // Populate the year combo box
     public void populateYearCombo(javax.swing.JComboBox<String> cbyComboBox) {
         DefaultComboBoxModel<String> yearModel = new DefaultComboBoxModel<>();
+        yearModel.addElement("All"); // Add the "All" option at the top
         for (String year : years) {
             yearModel.addElement(year);
         }
@@ -70,14 +72,26 @@ public class managerSalesClass {
         months.clear(); // Clear previous months
         ArrayList<String[]> allBooking = readBooking();
 
-        for (String[] booking : allBooking) {
-            if (booking[8].equals("Paid") && booking[3].startsWith(selectedYear)) {
-                String[] dateParts = booking[3].split("-");
-                months.add(dateParts[1]);
+        if (selectedYear.equals("All")) {
+            // If "All" is selected for year, show all months
+            for (String[] booking : allBooking) {
+                if (booking[8].equals("Paid")) {
+                    String[] dateParts = booking[3].split("-");
+                    months.add(dateParts[1]);
+                }
+            }
+        } else {
+            // If a specific year is selected, filter months by that year
+            for (String[] booking : allBooking) {
+                if (booking[8].equals("Paid") && booking[3].startsWith(selectedYear)) {
+                    String[] dateParts = booking[3].split("-");
+                    months.add(dateParts[1]);
+                }
             }
         }
 
         DefaultComboBoxModel<String> monthModel = new DefaultComboBoxModel<>();
+        monthModel.addElement("All"); // Add the "All" option at the top
         for (String month : months) {
             monthModel.addElement(month);
         }
@@ -89,17 +103,77 @@ public class managerSalesClass {
         days.clear(); // Clear previous days
         ArrayList<String[]> allBooking = readBooking();
 
-        for (String[] booking : allBooking) {
-            if (booking[8].equals("Paid") && booking[3].startsWith(selectedYear + "-" + selectedMonth)) {
-                String[] dateParts = booking[3].split("-");
-                days.add(dateParts[2]);
+        if (selectedYear.equals("All") && selectedMonth.equals("All")) {
+            // If "All" is selected for both year and month, show all days
+            for (String[] booking : allBooking) {
+                if (booking[8].equals("Paid")) {
+                    String[] dateParts = booking[3].split("-");
+                    days.add(dateParts[2]);
+                }
+            }
+        } else if (selectedMonth.equals("All")) {
+            // If "All" is selected for month, filter days by year
+            for (String[] booking : allBooking) {
+                if (booking[8].equals("Paid") && booking[3].startsWith(selectedYear)) {
+                    String[] dateParts = booking[3].split("-");
+                    days.add(dateParts[2]);
+                }
+            }
+        } else {
+            // If specific year and month are selected, filter days by year and month
+            for (String[] booking : allBooking) {
+                if (booking[8].equals("Paid") && booking[3].startsWith(selectedYear + "-" + selectedMonth)) {
+                    String[] dateParts = booking[3].split("-");
+                    days.add(dateParts[2]);
+                }
             }
         }
 
         DefaultComboBoxModel<String> dayModel = new DefaultComboBoxModel<>();
+        dayModel.addElement("All"); // Add the "All" option at the top
         for (String day : days) {
             dayModel.addElement(day);
         }
         cbdComboBox.setModel(dayModel);
+    }
+    
+    // Method to populate the booking table based on filters
+    public void populateBookingTable(String selectedYear, String selectedMonth, String selectedDay, javax.swing.JTable tbBooking) {
+        // Clear the previous data in the table
+        DefaultTableModel model = (DefaultTableModel) tbBooking.getModel();
+        model.setRowCount(0); // Clear the table
+
+        ArrayList<String[]> allBooking = readBooking();
+
+        // Loop through bookings and apply the filters for year, month, and day
+        for (String[] booking : allBooking) {
+            String bookingDate = booking[3]; // Assuming booking date is at index 3
+            String[] dateParts = bookingDate.split("-");
+            String year = dateParts[0];
+            String month = dateParts[1];
+            String day = dateParts[2];
+
+            boolean matches = true;
+
+            // Match the year if not "All"
+            if (!"All".equals(selectedYear) && !year.equals(selectedYear)) {
+                matches = false;
+            }
+
+            // Match the month if not "All"
+            if (!"All".equals(selectedMonth) && !month.equals(selectedMonth)) {
+                matches = false;
+            }
+
+            // Match the day if not "All"
+            if (!"All".equals(selectedDay) && !day.equals(selectedDay)) {
+                matches = false;
+            }
+
+            // If booking matches the selected filters, add to table
+            if (matches) {
+                model.addRow(booking); // Assuming 'booking' array has the same structure as the table's columns
+            }
+        }
     }
 }
