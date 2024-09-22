@@ -9,10 +9,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import static java.lang.invoke.MethodHandles.filterValue;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -339,12 +343,12 @@ public class managerSales extends javax.swing.JFrame {
     private void CBTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTypeActionPerformed
         // TODO add your handling code here:
         String selectedType = CBType.getSelectedItem().toString(); 
+        TreeSet<String> datePartsSet = new TreeSet<>();  // TreeSet will ensure unique and sorted values
         CBSpecify.removeAllItems(); 
 
         File file = new File("booking.txt"); 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-            List<String> dateParts = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
             String[] bookingDetails = line.split(";"); 
             String paymentStatus = bookingDetails[8];  
@@ -354,28 +358,26 @@ public class managerSales extends javax.swing.JFrame {
                 System.out.println("Print" + date);
                 String[] dateSplit = date.split("-");  // Split date into year, month, day
 
+                String datePart = "";
                 switch (selectedType) {
                     case "Year":
-                        CBSpecify.addItem(dateSplit[0]);  // Add year
+                        datePart = dateSplit[0];
                         break;
                     case "Month":
-                        CBSpecify.addItem(dateSplit[1]);  // Add month
+                        datePart = dateSplit[1];
                         break;
                     case "Day":
-                        CBSpecify.addItem(dateSplit[2]);  // Add day
+                        datePart = dateSplit[2];
                         break;
+                    }
+                datePartsSet.add(datePart);
                 }
-            }
         
-        }
-
-            // Remove duplicates
-            Set<String> uniqueParts = new HashSet<>(dateParts);
-
-            // Add the unique date parts to the CBSpecify combo box
-            for (String part : uniqueParts) {
-                CBSpecify.addItem(part);
             }
+            for (String datePart : datePartsSet) {
+                CBSpecify.addItem(datePart);
+    }
+
     }   catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -438,7 +440,65 @@ public class managerSales extends javax.swing.JFrame {
 
     private void BtnViewCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewCActionPerformed
         // TODO add your handling code here:
-        
+        String selectedType = CBType.getSelectedItem().toString(); 
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset(); 
+
+        File file = new File("booking.txt");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            Map<String, Integer> bookingCountMap = new HashMap<>();
+            Map<String, Double> totalAmountMap = new HashMap<>();
+
+            while ((line = reader.readLine()) != null) {
+                String[] bookingDetails = line.split(";");
+                String date = bookingDetails[3];  
+                String paymentStatus = bookingDetails[8]; 
+
+                if (paymentStatus.equalsIgnoreCase("Paid")) {
+                    String[] dateParts = date.split("-");  
+                    String key = "";
+
+                    switch (selectedType) {
+                        case "Year":
+                            key = dateParts[0]; 
+                            break;
+                        case "Month":
+                            key = dateParts[1];
+                            break;
+                        case "Day":
+                            key = dateParts[2];
+                            break;
+                    }
+
+                    // Update the booking count and total amount maps
+                    bookingCountMap.put(key, bookingCountMap.getOrDefault(key, 0) + 1);
+                    totalAmountMap.put(key, totalAmountMap.getOrDefault(key, 0.0) + Double.parseDouble(bookingDetails[6]));
+            }
+        }
+
+            // Populate the dataset for the chart
+            for (String key : bookingCountMap.keySet()) {
+                dataset.addValue(bookingCountMap.get(key), "Number of Bookings", key);  // Add booking count
+                dataset.addValue(totalAmountMap.get(key), "Total Amount", key);  // Add total amount
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Create the bar chart
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "Booking Analysis (" + selectedType + ")",  // Chart title
+                selectedType,  // X-axis Label (Year, Month, Day)
+                "Value",  // Y-axis Label
+                dataset  // Dataset for the chart
+        );
+
+        // Remove existing chart and display the new chart
+        JPanel chartPanel = new ChartPanel(barChart);
+        PanelChart.removeAll();
+        PanelChart.add(chartPanel, BorderLayout.CENTER);
+        PanelChart.validate();
     }//GEN-LAST:event_BtnViewCActionPerformed
 
     private void CBSpecifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBSpecifyActionPerformed
