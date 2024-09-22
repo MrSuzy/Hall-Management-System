@@ -244,7 +244,7 @@ public class LoginPage extends javax.swing.JFrame {
                        new adminMainPage(loggedInEmail).setVisible(true);
                        break;
                    case "manager":
-                       new managerMainMenu().setVisible(true);
+                       new managerMainMenu(loggedInEmail).setVisible(true);
                        break;
                    default:
                        JOptionPane.showMessageDialog(null, "Invalid role.");

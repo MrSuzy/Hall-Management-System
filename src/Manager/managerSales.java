@@ -3,8 +3,15 @@ package Manager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import static java.lang.invoke.MethodHandles.filterValue;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -26,13 +33,14 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author khaientiew
  */
 public class managerSales extends javax.swing.JFrame {
-    private managerSalesClass manager = new managerSalesClass(); // Instance of your main class
+    private String loggedInEmail;
 
 
     /**
      * Creates new form Manager_Login
      */
-    public managerSales() {
+    public managerSales(String loggedInEmail) {
+        this.loggedInEmail = loggedInEmail;
         initComponents();
         Color col = new Color(224, 240, 255);
         Color buttonColor = new Color(228, 228, 228);
@@ -42,8 +50,10 @@ public class managerSales extends javax.swing.JFrame {
         btnMaintenance.setBackground(buttonColor);
         btnMainMenu.setBackground(buttonColor);
         btnLogOut.setBackground(buttonColor);
-        CBFilter.setBackground(color);
-        
+        CBType.setBackground(color);
+        CBSpecify.setBackground(color);
+        BtnViewR.setBackground(buttonColor);
+        BtnViewC.setBackground(buttonColor);
         }
     
     
@@ -64,7 +74,7 @@ public class managerSales extends javax.swing.JFrame {
         lblCompanyName = new javax.swing.JLabel();
         lblSalesDashboard = new javax.swing.JLabel();
         lblFilter = new javax.swing.JLabel();
-        CBFilter = new javax.swing.JComboBox<>();
+        CBType = new javax.swing.JComboBox<>();
         btnLogOut = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -72,7 +82,14 @@ public class managerSales extends javax.swing.JFrame {
         btnSales = new javax.swing.JButton();
         btnMaintenance = new javax.swing.JButton();
         PanelChart = new javax.swing.JPanel();
-        BtnView = new javax.swing.JButton();
+        BtnViewR = new javax.swing.JButton();
+        BtnViewC = new javax.swing.JButton();
+        lblBooked = new javax.swing.JLabel();
+        txtBooked = new javax.swing.JTextField();
+        lblAmount = new javax.swing.JLabel();
+        txtAmount = new javax.swing.JTextField();
+        lblFilter1 = new javax.swing.JLabel();
+        CBSpecify = new javax.swing.JComboBox<>();
 
         jMenu1.setText("jMenu1");
 
@@ -87,13 +104,13 @@ public class managerSales extends javax.swing.JFrame {
         lblSalesDashboard.setText("Sales Dashboard");
 
         lblFilter.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
-        lblFilter.setText("Filter: ");
+        lblFilter.setText("Type : ");
 
-        CBFilter.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
-        CBFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "year", "month", "date" }));
-        CBFilter.addActionListener(new java.awt.event.ActionListener() {
+        CBType.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "Month", "Day" }));
+        CBType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBFilterActionPerformed(evt);
+                CBTypeActionPerformed(evt);
             }
         });
 
@@ -155,7 +172,7 @@ public class managerSales extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSales, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,17 +187,46 @@ public class managerSales extends javax.swing.JFrame {
         PanelChart.setLayout(PanelChartLayout);
         PanelChartLayout.setHorizontalGroup(
             PanelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 466, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         PanelChartLayout.setVerticalGroup(
             PanelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 295, Short.MAX_VALUE)
         );
 
-        BtnView.setText("View");
-        BtnView.addActionListener(new java.awt.event.ActionListener() {
+        BtnViewR.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnViewR.setText("View Report");
+        BtnViewR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnViewActionPerformed(evt);
+                BtnViewRActionPerformed(evt);
+            }
+        });
+
+        BtnViewC.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnViewC.setText("View Chart");
+        BtnViewC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnViewCActionPerformed(evt);
+            }
+        });
+
+        lblBooked.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblBooked.setText("Total Hall Booked: ");
+
+        txtBooked.setText("jTextField1");
+
+        lblAmount.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblAmount.setText("Total Amount:");
+
+        txtAmount.setText("jTextField1");
+
+        lblFilter1.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblFilter1.setText("Specify : ");
+
+        CBSpecify.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBSpecify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBSpecifyActionPerformed(evt);
             }
         });
 
@@ -189,31 +235,46 @@ public class managerSales extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addComponent(lblCompanyName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
                         .addComponent(lblUsername)
                         .addGap(18, 18, 18)
                         .addComponent(btnLogOut))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblFilter)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CBFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnView))
-                            .addComponent(PanelChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(PanelChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblSalesDashboard)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblFilter)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(CBType, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblFilter1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CBSpecify, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(BtnViewR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(BtnViewC, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblBooked)
+                                    .addComponent(lblAmount))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtBooked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(28, 28, 28)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(284, 284, 284)
-                .addComponent(lblSalesDashboard)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,21 +285,36 @@ public class managerSales extends javax.swing.JFrame {
                         .addComponent(btnLogOut)
                         .addComponent(lblUsername))
                     .addComponent(lblCompanyName))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(15, 15, 15)
                         .addComponent(lblSalesDashboard)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFilter)
-                            .addComponent(CBFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnView))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(PanelChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                            .addComponent(CBType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFilter1)
+                            .addComponent(CBSpecify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(BtnViewR))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtBooked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblBooked)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnViewC)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblAmount)
+                                .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanelChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -246,22 +322,57 @@ public class managerSales extends javax.swing.JFrame {
 
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         this.dispose();
-        new managerMainMenu().setVisible(true);
+        new managerMainMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
     private void btnSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalesActionPerformed
         this.dispose();
-        new managerSales().setVisible(true);
+        new managerSales(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnSalesActionPerformed
 
     private void btnMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaintenanceActionPerformed
         this.dispose();
-        new managerMaintenance().setVisible(true);
+        new managerMaintenance(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnMaintenanceActionPerformed
 
-    private void CBFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBFilterActionPerformed
+    private void CBTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CBFilterActionPerformed
+        String selectedType = CBType.getSelectedItem().toString();  // Get selected type (Day, Month, Year)
+        CBSpecify.removeAllItems();  // Clear previous items from CBSpecify
+
+        File file = new File("booking.txt"); 
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            List<String> dateParts = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+                String[] bookingDetails = line.split(";"); 
+                String date = bookingDetails[3];  // Date is the 4th item in the booking.txt
+                String[] dateSplit = date.split("-");  // Split date into year, month, and day
+
+                switch (selectedType.toLowerCase()) {
+                    case "day":
+                        dateParts.add(dateSplit[2]);  // Add day part (index 2)
+                        break;
+                    case "month":
+                        dateParts.add(dateSplit[1]);  // Add month part (index 1)
+                        break;
+                    case "year":
+                        dateParts.add(dateSplit[0]);  // Add year part (index 0)
+                        break;
+            }
+        }
+
+            // Remove duplicates
+            Set<String> uniqueParts = new HashSet<>(dateParts);
+
+            // Add the unique date parts to the CBSpecify combo box
+            for (String part : uniqueParts) {
+                CBSpecify.addItem(part);
+            }
+    }   catch (IOException ex) {
+                ex.printStackTrace();
+            }
+    }//GEN-LAST:event_CBTypeActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         // TODO add your handling code here:
@@ -269,51 +380,18 @@ public class managerSales extends javax.swing.JFrame {
         new Login.LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogOutActionPerformed
 
-    private void BtnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewActionPerformed
-        // Get the selected filter type from the combo box
-        String filterType = CBFilter.getSelectedItem().toString().toLowerCase(); // year, month, day
-        String filterValue = null;
-
-        // Call the processSalesData method in managerSalesClass to get filtered data
-        List<String[]> filteredData = manager.processSalesData(filterValue, filterType);
+    private void BtnViewRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewRActionPerformed
         
-        if(filteredData.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No data found for the selected filter.", "No Data", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            // Create a dataset for the chart
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            for (String[] sale : filteredData) {
-                String hallID = sale[0];
-                String price = sale[2]; 
-                dataset.addValue(Double.parseDouble(price), "Sales", hallID);
-            }
-
-            // Create a bar chart
-            JFreeChart barChart = ChartFactory.createBarChart(
-                "Sales Data", 
-                "Hall ID", 
-                "Sales", 
-                dataset, 
-                PlotOrientation.VERTICAL, 
-                true, true, false);
-
-            CategoryPlot plot = barChart.getCategoryPlot();
-            plot.setRangeGridlinePaint(Color.BLACK);
-            BarRenderer renderer = (BarRenderer) plot.getRenderer();
-            renderer.setSeriesPaint(0, Color.BLUE);
-
-            // Create a ChartPanel and add it to your JPanel (which is in your GUI)
-            ChartPanel chartPanel = new ChartPanel(barChart);
-            chartPanel.setPreferredSize(new Dimension(400, 300));
-
-            // Assuming you have a JPanel named chartPanelContainer to show the chart
-            PanelChart.removeAll(); // Clear any previous chart
-            PanelChart.setLayout(new BorderLayout());
-            PanelChart.add(chartPanel, BorderLayout.CENTER);
-            PanelChart.validate(); // Revalidate the panel to refresh
-        }
     
-    }//GEN-LAST:event_BtnViewActionPerformed
+    }//GEN-LAST:event_BtnViewRActionPerformed
+
+    private void BtnViewCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnViewCActionPerformed
+
+    private void CBSpecifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBSpecifyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBSpecifyActionPerformed
 
     
 
@@ -322,8 +400,10 @@ public class managerSales extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnView;
-    private javax.swing.JComboBox<String> CBFilter;
+    private javax.swing.JButton BtnViewC;
+    private javax.swing.JButton BtnViewR;
+    private javax.swing.JComboBox<String> CBSpecify;
+    private javax.swing.JComboBox<String> CBType;
     private javax.swing.JPanel PanelChart;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMainMenu;
@@ -332,9 +412,14 @@ public class managerSales extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblAmount;
+    private javax.swing.JLabel lblBooked;
     private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblFilter;
+    private javax.swing.JLabel lblFilter1;
     private javax.swing.JLabel lblSalesDashboard;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JTextField txtAmount;
+    private javax.swing.JTextField txtBooked;
     // End of variables declaration//GEN-END:variables
 }
