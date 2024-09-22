@@ -283,9 +283,9 @@ public class LoginPage extends javax.swing.JFrame {
                     String status = details[5];
                     String role = details[6];
                     
-                    if (status.equals("blocked")) {
-                        JOptionPane.showMessageDialog(null, "Your account has been blocked.", "Account Blocked", JOptionPane.ERROR_MESSAGE);
-                        return null;
+                if (status.equals("blocked")) {
+                    JOptionPane.showMessageDialog(null, "Your account has been blocked.", "Account Blocked", JOptionPane.ERROR_MESSAGE);
+                    return null;
                     }
                     
                     switch (role.toLowerCase()) {
