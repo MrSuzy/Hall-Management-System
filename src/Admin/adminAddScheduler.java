@@ -28,15 +28,8 @@ public class adminAddScheduler extends javax.swing.JFrame {
     public adminAddScheduler(String loggedInEmail) {
         initComponents();
         this.loggedInEmail = loggedInEmail;
-        lblUsername.setText(loggedInEmail);
+        lblLoggedInEmail.setText(loggedInEmail);
     }
-    
-    /*
-    public adminAddScheduler(String loggedInEmail) {
-        initComponents();
-        this.loggedInEmail = loggedInEmail;
-        lblUsername.setText(loggedInEmail);
-    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,7 +42,7 @@ public class adminAddScheduler extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
-        lblUsername = new javax.swing.JLabel();
+        lblLoggedInEmail = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         lblPageTitle = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
@@ -75,8 +68,8 @@ public class adminAddScheduler extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
         lblTitle.setText("Hall Symphony Inc");
 
-        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lblUsername.setText("username");
+        lblLoggedInEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblLoggedInEmail.setText("username");
 
         btnLogout.setBackground(new java.awt.Color(227, 242, 253));
         btnLogout.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
@@ -188,7 +181,7 @@ public class adminAddScheduler extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58)
-                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblLoggedInEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -199,7 +192,7 @@ public class adminAddScheduler extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitle)
-                    .addComponent(lblUsername)
+                    .addComponent(lblLoggedInEmail)
                     .addComponent(btnLogout))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -346,9 +339,9 @@ public class adminAddScheduler extends javax.swing.JFrame {
     private javax.swing.JLabel lblInfo5;
     private javax.swing.JLabel lblInfo6;
     private javax.swing.JLabel lblInfo7;
+    private javax.swing.JLabel lblLoggedInEmail;
     private javax.swing.JLabel lblPageTitle;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JLabel lblUsername;
     private javax.swing.JPasswordField pwdConfirm;
     private javax.swing.JPasswordField pwdPassword;
     private javax.swing.JTextField txtContact;
