@@ -4,11 +4,15 @@ package Manager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +32,7 @@ public class managerMaintenance extends javax.swing.JFrame {
      */
     public managerMaintenance() {
         initComponents();
+        loadScheduler();
         Color col = new Color(224, 240, 255);
         Color buttonColor = new Color(228, 228, 228);
         Color color = new Color(242, 242, 242);
@@ -36,11 +41,15 @@ public class managerMaintenance extends javax.swing.JFrame {
         btnMaintenance.setBackground(buttonColor);
         btnMainMenu.setBackground(buttonColor);
         btnLogOut.setBackground(buttonColor);
-        btnResponse.setBackground(buttonColor);
         btnAssignScheduler.setBackground(buttonColor);
         btnEditStatus.setBackground(buttonColor);
         TbMaintenance.setBackground(color);
-        
+        BtnAll.setBackground(buttonColor);
+        BtnIP.setBackground(buttonColor);
+        BtnDone.setBackground(buttonColor);
+        BtnClosed.setBackground(buttonColor);
+        BtnCancelled.setBackground(buttonColor);
+        BtnOpen.setBackground(buttonColor);
     }
 
     /**
@@ -51,6 +60,11 @@ public class managerMaintenance extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     
     
+    private void buttonClick(String type) {
+        managerMaintenanceClass manager = new managerMaintenanceClass();
+        ArrayList<String[]> filteredBookings = manager.filterIssue(type);
+        loadTable(filteredBookings);
+    }
     
     private void loadTable(ArrayList<String[]> issues) {
         DefaultTableModel model = (DefaultTableModel) TbMaintenance.getModel();
@@ -58,6 +72,29 @@ public class managerMaintenance extends javax.swing.JFrame {
         
         for (String[] issue : issues) {
             model.addRow(issue);
+        }
+    }
+    
+    private void loadScheduler(){
+        CBSchedular.removeAllItems();
+        
+        File file = new File("users.txt");
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] userDetails = line.split(";");
+                String name = userDetails[0];
+                String role = userDetails[6];
+                
+                System.out.println("Scheduler: " + name);
+
+                // Check if the role is "scheduler"
+                if (role.equalsIgnoreCase("scheduler")) {
+                    CBSchedular.addItem(name);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
@@ -76,7 +113,6 @@ public class managerMaintenance extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         TbMaintenance = new javax.swing.JTable();
         btnAssignScheduler = new javax.swing.JButton();
-        btnResponse = new javax.swing.JButton();
         btnEditStatus = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnMainMenu = new javax.swing.JButton();
@@ -84,7 +120,12 @@ public class managerMaintenance extends javax.swing.JFrame {
         btnMaintenance = new javax.swing.JButton();
         CBStatus = new javax.swing.JComboBox<>();
         CBSchedular = new javax.swing.JComboBox<>();
-        BtnView = new javax.swing.JButton();
+        BtnAll = new javax.swing.JButton();
+        BtnIP = new javax.swing.JButton();
+        BtnDone = new javax.swing.JButton();
+        BtnClosed = new javax.swing.JButton();
+        BtnCancelled = new javax.swing.JButton();
+        BtnOpen = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -120,20 +161,20 @@ public class managerMaintenance extends javax.swing.JFrame {
         lblMaintenanceList.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         lblMaintenanceList.setText("Maintenance Operations List");
 
-        TbMaintenance.setFont(new java.awt.Font("Apple LiGothic", 1, 18)); // NOI18N
+        TbMaintenance.setFont(new java.awt.Font("Helvetica", 0, 12)); // NOI18N
         TbMaintenance.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Ticket ID", "HallID", "Date/Time", "Issue", "Status"
+                "Ticket ID", "HallID", "Date/Time", "Issue", "Status", "Scheduler"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -147,15 +188,6 @@ public class managerMaintenance extends javax.swing.JFrame {
         btnAssignScheduler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAssignSchedulerActionPerformed(evt);
-            }
-        });
-
-        btnResponse.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
-        btnResponse.setText("Response");
-        btnResponse.setSize(new java.awt.Dimension(78, 21));
-        btnResponse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResponseActionPerformed(evt);
             }
         });
 
@@ -200,31 +232,78 @@ public class managerMaintenance extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSales, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(14, 14, 14)
                 .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSales, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Open", "Pending", "Close" }));
+        CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Done", "Closed", "Cancelled", " " }));
 
-        BtnView.setText("View");
-        BtnView.addActionListener(new java.awt.event.ActionListener() {
+        CBSchedular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnViewActionPerformed(evt);
+                CBSchedularActionPerformed(evt);
+            }
+        });
+
+        BtnAll.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnAll.setText("All");
+        BtnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAllActionPerformed(evt);
+            }
+        });
+
+        BtnIP.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnIP.setText("In Progress");
+        BtnIP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnIPActionPerformed(evt);
+            }
+        });
+
+        BtnDone.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnDone.setText("Done");
+        BtnDone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDoneActionPerformed(evt);
+            }
+        });
+
+        BtnClosed.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnClosed.setText("Closed");
+        BtnClosed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnClosedActionPerformed(evt);
+            }
+        });
+
+        BtnCancelled.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnCancelled.setText("Cancelled");
+        BtnCancelled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelledActionPerformed(evt);
+            }
+        });
+
+        BtnOpen.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnOpen.setText("Open");
+        BtnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnOpenActionPerformed(evt);
             }
         });
 
@@ -233,34 +312,45 @@ public class managerMaintenance extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(lblCompanyName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLogOut))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addComponent(btnLogOut)
+                        .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblMaintenanceList))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblMaintenanceList)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnView))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnAssignScheduler)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnResponse))
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(CBSchedular, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(24, 24, 24))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEditStatus)
-                    .addComponent(CBStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(CBSchedular, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAssignScheduler))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(CBStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnEditStatus))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BtnAll)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnOpen)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnIP)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnDone)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnClosed)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnCancelled)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,27 +359,31 @@ public class managerMaintenance extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCompanyName)
                     .addComponent(btnLogOut))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblMaintenanceList)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnAll)
+                            .addComponent(BtnIP)
+                            .addComponent(BtnDone)
+                            .addComponent(BtnClosed)
+                            .addComponent(BtnCancelled)
+                            .addComponent(BtnOpen))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMaintenanceList)
-                            .addComponent(BtnView))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditStatus)
-                    .addComponent(btnAssignScheduler)
-                    .addComponent(btnResponse))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CBStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CBSchedular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                            .addComponent(CBStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditStatus))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(CBSchedular, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAssignScheduler))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -312,14 +406,87 @@ public class managerMaintenance extends javax.swing.JFrame {
 
     private void btnAssignSchedulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignSchedulerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAssignSchedulerActionPerformed
+        int selectedRow = TbMaintenance.getSelectedRow();  // Get the selected row from the table
+        if (selectedRow != -1) {
+            String selectedStatus = "InProgress";  // Get the selected status from the comboBox
+            String id = TbMaintenance.getValueAt(selectedRow, 0).toString();  // Get the ID of the selected row
+            String selectedScheduler = CBSchedular.getSelectedItem().toString();
+            
+            // Now update the status in the file
+            File file = new File("issue.txt"); 
+            List<String> lines = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] splitLine = line.split(";"); 
+                    if (splitLine[0].equals(id)) {
+                        splitLine[4] = selectedStatus;
+                        splitLine[5] = selectedScheduler;
+                    }
+                    lines.add(String.join(";", splitLine));  // Reconstruct the line
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
-    private void btnResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResponseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResponseActionPerformed
+            // Write the updated lines back to the file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                for (String line : lines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            // Update the table to reflect the changes
+            TbMaintenance.setValueAt(selectedStatus, selectedRow, 2);
+            TbMaintenance.setValueAt(selectedScheduler, selectedRow, 5);
+            JOptionPane.showMessageDialog(null, "Status and Scheduler updated successfully!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row to update.");
+        }
+    }//GEN-LAST:event_btnAssignSchedulerActionPerformed
 
     private void btnEditStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditStatusActionPerformed
         // TODO add your handling code here:
+        int selectedRow = TbMaintenance.getSelectedRow();  // Get the selected row from the table
+        if (selectedRow != -1) {
+            String selectedStatus = CBStatus.getSelectedItem().toString();  // Get the selected status from the comboBox
+            String id = TbMaintenance.getValueAt(selectedRow, 0).toString();  // Get the ID of the selected row
+            
+            // Now update the status in the file
+            File file = new File("issue.txt"); 
+            List<String> lines = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] splitLine = line.split(";"); 
+                    if (splitLine[0].equals(id)) {
+                        splitLine[4] = selectedStatus;  // Update the status
+                    }
+                    lines.add(String.join(";", splitLine));  // Reconstruct the line
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            // Write the updated lines back to the file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                for (String line : lines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            // Update the table to reflect the changes
+            TbMaintenance.setValueAt(selectedStatus, selectedRow, 2);
+            JOptionPane.showMessageDialog(null, "Status updated successfully!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row to update.");
+        }
     }//GEN-LAST:event_btnEditStatusActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
@@ -328,12 +495,43 @@ public class managerMaintenance extends javax.swing.JFrame {
         new Login.LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogOutActionPerformed
 
-    private void BtnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewActionPerformed
+    private void BtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAllActionPerformed
         // TODO add your handling code here:
-        managerMaintenanceClass issue = new managerMaintenanceClass();
-        ArrayList<String[]> IssueList = issue.readIssues();
+        managerMaintenanceClass manager = new managerMaintenanceClass();
+        ArrayList<String[]> IssueList = manager.readIssues();
         loadTable(IssueList);
-    }//GEN-LAST:event_BtnViewActionPerformed
+    }//GEN-LAST:event_BtnAllActionPerformed
+
+    private void BtnIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIPActionPerformed
+        // TODO add your handling code here:
+        buttonClick("InProgress");
+    }//GEN-LAST:event_BtnIPActionPerformed
+
+    private void BtnDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDoneActionPerformed
+        // TODO add your handling code here:
+        buttonClick("Done");
+    }//GEN-LAST:event_BtnDoneActionPerformed
+
+    private void BtnClosedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClosedActionPerformed
+        // TODO add your handling code here:
+        buttonClick("Closed");
+    }//GEN-LAST:event_BtnClosedActionPerformed
+
+    private void BtnCancelledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelledActionPerformed
+        // TODO add your handling code here:
+        buttonClick("Cancelled");
+    }//GEN-LAST:event_BtnCancelledActionPerformed
+
+    private void CBSchedularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBSchedularActionPerformed
+        // TODO add your handling code here:
+        
+    
+    }//GEN-LAST:event_CBSchedularActionPerformed
+
+    private void BtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnOpenActionPerformed
+        // TODO add your handling code here:
+        buttonClick("Open");
+    }//GEN-LAST:event_BtnOpenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,7 +579,12 @@ public class managerMaintenance extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnView;
+    private javax.swing.JButton BtnAll;
+    private javax.swing.JButton BtnCancelled;
+    private javax.swing.JButton BtnClosed;
+    private javax.swing.JButton BtnDone;
+    private javax.swing.JButton BtnIP;
+    private javax.swing.JButton BtnOpen;
     private javax.swing.JComboBox<String> CBSchedular;
     private javax.swing.JComboBox<String> CBStatus;
     private javax.swing.JTable TbMaintenance;
@@ -390,7 +593,6 @@ public class managerMaintenance extends javax.swing.JFrame {
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnMaintenance;
-    private javax.swing.JButton btnResponse;
     private javax.swing.JButton btnSales;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

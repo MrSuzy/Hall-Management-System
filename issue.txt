@@ -1,1 +1,6 @@
-I001;B001;2024-09-22 02:41:46;hall dirty;Open
+I001;B001;2024-09-22 02:41:46;hall dirty;Closed;na
+I002;B001;2024-09-22 02:41:46;broken windows;Done;na
+I003;B001;2024-09-22 02:41:46;messy;Done;na
+I004;B001;2024-09-22 02:41:46;not clean;Cancelled;na
+I005;B001;2024-09-22 02:41:46;broken door;InProgress;Ben
+I006;B001;2024-09-22 02:41:46;wash lantai;Open;na
