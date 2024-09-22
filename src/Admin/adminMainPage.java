@@ -23,6 +23,7 @@ public class adminMainPage extends javax.swing.JFrame {
     public adminMainPage(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
         initComponents();
+        lblUsername.setText(loggedInEmail);
         
         JCalendar cal = new JCalendar();
         javax.swing.GroupLayout gl = (javax.swing.GroupLayout)panelCalendar.getLayout();

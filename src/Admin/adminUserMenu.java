@@ -27,6 +27,7 @@ public class adminUserMenu extends javax.swing.JFrame {
     public adminUserMenu(String loggedInEmail) {
         initComponents();
         this.loggedInEmail = loggedInEmail;
+        lblUsername.setText(loggedInEmail);
     }
 
     /**

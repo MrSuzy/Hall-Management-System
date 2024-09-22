@@ -22,6 +22,7 @@ public class adminHallManage extends javax.swing.JFrame {
     public adminHallManage(String loggedInEmail) {
         initComponents();
         this.loggedInEmail = loggedInEmail;
+        lblUsername.setText(loggedInEmail);
     }
 
     /**

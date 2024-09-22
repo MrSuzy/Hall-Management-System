@@ -23,6 +23,7 @@ public class adminSuper extends javax.swing.JFrame {
     public adminSuper(String loggedInEmail) {
         initComponents();
         this.loggedInEmail = loggedInEmail;
+        lblUsername.setText(loggedInEmail);
         
     }
 

@@ -32,6 +32,7 @@ public class adminAddScheduler extends javax.swing.JFrame {
     public adminAddScheduler(String loggedInEmail) {
         initComponents();
         this.loggedInEmail = loggedInEmail;
+        lblUsername.setText(loggedInEmail);
     }
 
     /**
