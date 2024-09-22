@@ -405,7 +405,7 @@ public class adminSuper extends javax.swing.JFrame {
     private void btnManagerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagerMenuActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new managerMainMenu().setVisible(true);
+        new managerMainMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnManagerMenuActionPerformed
 
     private void btnSchedulerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSchedulerMenuActionPerformed
