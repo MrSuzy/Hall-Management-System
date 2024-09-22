@@ -352,6 +352,13 @@ public class customerBookingHistory extends javax.swing.JFrame {
         
         String bookingID = tbHistory.getValueAt(selectedRow, 0).toString();
         
+        System.out.println("Selected Row: " + selectedRow);
+        System.out.println("Booking ID: " + bookingID);
+        
+        for (int column = 0; column < tbHistory.getColumnCount(); column++) {
+    System.out.println("Column " + column + ": " + tbHistory.getValueAt(selectedRow, column).toString());
+}
+        
         bookingClass.cancelBooking(bookingID, loggedInEmail);
         
         List<String[]> booking = bookingClass.viewBooking(true, loggedInEmail);
