@@ -349,12 +349,9 @@ public class managerSales extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMaintenanceActionPerformed
 
     private void CBYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBYearActionPerformed
-        // Get the selected year from the year combo box
         String selectedYear = (String) CBYear.getSelectedItem();
-        // Populate the month combo box based on the selected year
         manager.populateMonthCombo(selectedYear, CBMonth);
-        // Clear the day combo box
-        CBDay.setModel(new DefaultComboBoxModel<>());
+        CBDay.setModel(new DefaultComboBoxModel<>()); // Clear day combo box
     }//GEN-LAST:event_CBYearActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
@@ -364,59 +361,62 @@ public class managerSales extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void BtnViewBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewBookingActionPerformed
-        String selectedDatePart = CBMonth.getSelectedItem().toString();  
-        String selectedType = CBYear.getSelectedItem().toString();  
-    
+        String selectedYear = (String) CBYear.getSelectedItem();
+        String selectedMonth = (String) CBMonth.getSelectedItem();
+        String selectedDay = (String) CBDay.getSelectedItem();  
+
         int bookingCount = 0;  
         double totalAmount = 0.0;  
-    
+
         File file = new File("booking.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] bookingDetails = line.split(";"); 
-                String paymentStatus = bookingDetails[8];  
-                String date = bookingDetails[3];    
+                String bookingDate = bookingDetails[3]; // Assuming the date is at index 3
+                String[] dateParts = bookingDate.split("-"); // Assuming the date format is YYYY-MM-DD
+                String year = dateParts[0];
+                String month = dateParts[1];
+                String day = dateParts[2];
 
-                if (paymentStatus.equalsIgnoreCase("Paid")) {
-                    String[] dateParts = date.split("-");  
-                
-                    // Check if the selected type and date part match the current row
-                    boolean match = false;
-                    switch (selectedType) {
-                    case "Year":
-                        match = dateParts[0].equals(selectedDatePart);
-                        break;
-                    case "Month":
-                        match = dateParts[1].equals(selectedDatePart);
-                        break;
-                    case "Day":
-                        match = dateParts[2].equals(selectedDatePart);
-                        break;
+                boolean matches = true;
+
+                // Match the year
+                if (!year.equals(selectedYear)) {
+                    matches = false;
                 }
-                    
-                    // If the date part matches, count the booking and add the amount
-                if (match) {
-                    bookingCount++;  // Increment booking count
-                    totalAmount += Double.parseDouble(bookingDetails[6]);  // Add the booking price to total
+
+                // Match the month if selected
+                if (selectedMonth != null && !month.equals(selectedMonth)) {
+                    matches = false;
                 }
+
+                // Match the day if selected
+                if (selectedDay != null && !day.equals(selectedDay)) {
+                    matches = false;
+                }
+
+                if (matches) {
+                    bookingCount++;
+                    totalAmount += Double.parseDouble(bookingDetails[6]); // Assuming price is at index 6
                 }
             }
+
+            // Display the total bookings and amount
+            txtBooked.setText(String.valueOf(bookingCount));
+            txtAmount.setText(String.valueOf(totalAmount));
+
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error reading booking file", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Display the report
-        txtBooked.setText(Integer.toString(bookingCount));
-        txtAmount.setText(Double.toString(totalAmount));
+
     
     }//GEN-LAST:event_BtnViewBookingActionPerformed
 
     private void CBMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMonthActionPerformed
-        // Get the selected year and month
         String selectedYear = (String) CBYear.getSelectedItem();
         String selectedMonth = (String) CBMonth.getSelectedItem();
-        // Populate the day combo box based on the selected year and month
         manager.populateDayCombo(selectedYear, selectedMonth, CBDay);
     }//GEN-LAST:event_CBMonthActionPerformed
 
