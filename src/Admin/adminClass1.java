@@ -105,13 +105,17 @@ public class adminClass1 {
         this.role = role;
     }
     
+    // count number of bookings
     public int countBookings() {
+        // set count to 0
         int bookingCount = 0;
+        // read 'booking.txt'
         try (BufferedReader br = new BufferedReader(new FileReader ("booking.txt"))) {
             String line;
             while((line = br.readLine()) != null) {
                 String[] bookingDetails = line.split(";");
                 String status = bookingDetails[8];
+                // filter for each line that has the value 'paid' in the status column, add 1 to the count
                 if (status.equalsIgnoreCase("paid")) {
                     bookingCount++;
                 }
@@ -124,12 +128,15 @@ public class adminClass1 {
     
     // count number of users
     public int countUsers() {
+        // set count to 0
         int userCount = 0;
+        // read 'users.txt'
         try (BufferedReader br = new BufferedReader(new FileReader ("users.txt"))) {
             String line;
             while((line = br.readLine()) != null) {
                 String[] userDetails = line.split(";");
                 String role = userDetails[6];
+                // filter for each line that has the value 'customer' in the role column, add 1 to the count
                 if (role.equalsIgnoreCase("customer")) {
                     userCount++;
                 }
@@ -142,12 +149,15 @@ public class adminClass1 {
     
     // count number of staff
     public int countStaff() {
+        // set count to 0
         int staffCount = 0;
+        // read 'users.txt'
         try (BufferedReader br = new BufferedReader(new FileReader ("users.txt"))) {
             String line;
             while((line = br.readLine()) != null) {
                 String[] userDetails = line.split(";");
                 String role = userDetails[6];
+                // filter for each line that has the value 'admin', 'scheduler', 'manager' in the role column, add 1 to the count
                 if (role.equalsIgnoreCase("admin") ||
                     role.equalsIgnoreCase("scheduler") ||
                     role.equalsIgnoreCase("manager")) {
@@ -163,6 +173,7 @@ public class adminClass1 {
     // load users to display in table
     public void loadUserByRole(String selectedRole, String selectedStatus, DefaultTableModel model, boolean showPass) {
         try {
+            // read 'users.txt'
             FileReader fr = new FileReader("users.txt");
             BufferedReader br = new BufferedReader(fr);
             String read;
@@ -172,6 +183,7 @@ public class adminClass1 {
             
             // read the txt file into the table
             while ((read = br.readLine()) != null) {
+                // split the line using the ';'
                 String name = read.split(";")[0];
                 String phoneNum = read.split(";")[1];
                 String email = read.split(";")[2];
@@ -180,12 +192,15 @@ public class adminClass1 {
                 String status = read.split(";")[5];
                 String role = read.split(";")[6];
                 
+                // check if the selected role matches the user's role or if 'all' is selected
                 boolean roleMatch = selectedRole.equalsIgnoreCase("all") || role.equalsIgnoreCase(selectedRole);
+                // check if the selected status matches the user's status or if 'all' is selected
                 boolean statusMatch = selectedStatus.equalsIgnoreCase("all") || status.equalsIgnoreCase(selectedStatus);
                 
                 // match selected role
                 if (roleMatch && statusMatch) {
                     if (showPass) {
+                        // add with the password column
                         model.addRow(new Object[]{name, phoneNum, email, password, dateTime, status, role});
                     } else { 
                         // exclude the password column
@@ -201,14 +216,18 @@ public class adminClass1 {
 
     // method to check if staff exists
     private boolean isStaffExists (String name, String email) {
+        // read 'users.txt'
         try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                // split the line using the ';'
                 String[] staffDetails = line.split(";");
                 
+                // extract the existing staff name and email excluding whitespace
                 String existName = staffDetails[0].trim();
                 String existEmail = staffDetails[2].trim();
                 
+                // check if the input name or email matches the existing staff details
                 if (existName.equals(name.trim()) || existEmail.equals(email.trim())){
                     return true;
                 }
@@ -223,6 +242,7 @@ public class adminClass1 {
     // method to add new scheduler staff
     public void addStaff (String name, String phoneNum, String email, String password, String role, String status) {
         try {
+            // call the method to verify staff existence
             if (isStaffExists(name, email)) {
                 JOptionPane.showMessageDialog(null, "Staff with same name or email already exists.", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -236,7 +256,9 @@ public class adminClass1 {
             // set status to active
             status = "active";
             
+            // add the new staff member to the 'users.txt' file
             try (FileWriter fw = new FileWriter("users.txt", true)) {
+                // write the staff details to the file in the following format
                 fw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + formattedDateTime + ";" + status + ";" + role + ";" +  "\n");
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
@@ -255,25 +277,31 @@ public class adminClass1 {
         // if yes
         if (confirm == JOptionPane.YES_OPTION) {
             File file = new File("users.txt");
+            // create a temporary file
             File tempfile = new File("tempUsers.txt");
             boolean found = false;
         
             try(BufferedReader reader = new BufferedReader(new FileReader(file));
                     BufferedWriter writer = new BufferedWriter(new FileWriter(tempfile))) {
+                // read original file
                 String line;
                 while((line = reader.readLine()) != null) {
                     String[] details = line.split(";");
+                    // Check email matching
                     if(details[2].equals(email)) {
                         found = true;
                         continue;
                     }
+                    // write line to the temporary file
                     writer.write(line + "\n");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             
+            // if the user was found and deleted
             if (found) {
+                // delete the original users.txt file and rename the temporary file to the users.txt
                 if(file.delete() && tempfile.renameTo(file)) {
                     JOptionPane.showMessageDialog(null, "User deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -288,15 +316,17 @@ public class adminClass1 {
     // update user
     public void updateStaff(String name, String role, String status, String newPhoneNum, String email, String newPass) {
         File file = new File("users.txt");
+        // create a temporary file
         File tempFile = new File("tempStaff.txt");
         boolean found = false;
         
         try (BufferedReader reader = new BufferedReader(new FileReader(file));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-            
+            // read original file
             String line;
             while ((line = reader. readLine()) != null) {
                 String [] staffDetails = line.split(";");
+                // Check name & role matching
                 if (staffDetails[0].equals(name) && staffDetails[6].equalsIgnoreCase(role)) {
                     staffDetails[1] = newPhoneNum;
                     staffDetails[2] = email;
@@ -305,13 +335,16 @@ public class adminClass1 {
                     found = true; 
                 }
 
+                // write line to the temporary file
                 writer.write(String.join(";", staffDetails) + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         
+        // if the user was found and updated
         if (found) {
+            // delete the original users.txt file and rename the temporary file to the users.txt
             if (file.delete() && tempFile.renameTo(file)) {
                 JOptionPane.showMessageDialog(null, "Staff information updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -340,22 +373,25 @@ public class adminClass1 {
     }
     
     // method to update status 
-    // can be reused if want to set user to active inactive block
     public void updateUserStatus(String email, userStatus newStatus) {
         File file = new File("users.txt");
+        // create a temporary file
         File tempFile = new File("tempUser.txt");
         boolean found = false;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
 
+            // read original file
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] userDetails = line.split(";");
                 if (userDetails[2].equals(email)) { // check username based on the index
+                    // update user status
                     userDetails[5] = newStatus.getStatus(); // status at index 5
                     found = true;
                 }
+                // write line to the temporary file
                 writer.write(String.join(";", userDetails) + "\n");
             }
         } catch (IOException e) {
@@ -363,6 +399,7 @@ public class adminClass1 {
         }
 
         if (found) {
+            // delete the original users.txt file and rename the temporary file to the users.txt
             if (file.delete() && tempFile.renameTo(file)) {
                 JOptionPane.showMessageDialog(null, "The action is successful.", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -373,6 +410,7 @@ public class adminClass1 {
     
     // read all bookings
     public ArrayList<String[]> readBookings() {
+        // create empty arrayList to store booking details 
         ArrayList<String[]> bookingList = new ArrayList<>();
         File file = new File("booking.txt");
         
@@ -380,11 +418,13 @@ public class adminClass1 {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] bookingDetails = line.split(";");
+                // add details into arrayList
                 bookingList.add(bookingDetails);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // return arrayList of booking details 
         return bookingList;
     }
     
