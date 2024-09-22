@@ -265,6 +265,8 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Customer.customerRegistration().setVisible(true);
     }//GEN-LAST:event_btnSignupActionPerformed
 
     private Object authenticate(String email, String password) throws FileNotFoundException, IOException {
@@ -280,6 +282,11 @@ public class LoginPage extends javax.swing.JFrame {
                     String currentDateTime = details[4];
                     String status = details[5];
                     String role = details[6];
+                    
+                    if (status.equals("blocked")) {
+                        JOptionPane.showMessageDialog(null, "Your account has been blocked.", "Account Blocked", JOptionPane.ERROR_MESSAGE);
+                        return null;
+                    }
                     
                     switch (role.toLowerCase()) {
                         case "customer":
