@@ -177,8 +177,8 @@ public class customerRegistration extends javax.swing.JFrame {
         String phoneNum = txtContact.getText();
         String email = txtEmail.getText();
         String password = new String(pwdPassword.getPassword());
-        String status = "Active";
-        String role = "Customer";
+        String status = "active";
+        String role = "customer";
         
         // ensure that fields cannot be empty
         if (name.isEmpty() || phoneNum.isEmpty() || email.isEmpty() || password.isEmpty()) {

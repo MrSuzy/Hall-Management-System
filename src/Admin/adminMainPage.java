@@ -16,7 +16,7 @@ import java.awt.*;
  * @author jason
  */
 public class adminMainPage extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form adminStaff
      */

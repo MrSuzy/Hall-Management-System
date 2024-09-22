@@ -3,6 +3,7 @@ package Customer;
 
 import java.awt.Color;
 import Login.LoginPage;
+import com.toedter.calendar.JCalendar;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -24,6 +25,11 @@ public class customerMainMenu extends javax.swing.JFrame {
         initComponents();
         
         lblUsername.setText(loggedInEmail);
+        JCalendar cal = new JCalendar();
+        javax.swing.GroupLayout gl = (javax.swing.GroupLayout)panelCalendar.getLayout();
+        panelCalendar.setSize(400, 250);
+        gl.setHorizontalGroup(gl.createParallelGroup().addGroup(gl.createSequentialGroup().addComponent(cal)));
+        gl.setVerticalGroup(gl.createParallelGroup().addGroup(gl.createSequentialGroup().addComponent(cal)));
         
         Color col = new Color(224, 240, 255); //red, green and blue values
         getContentPane().setBackground(col);
@@ -46,10 +52,7 @@ public class customerMainMenu extends javax.swing.JFrame {
         btnBooking = new javax.swing.JButton();
         btnUpdateProfile = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        panelNotifcation = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        lstBoxNotification = new javax.swing.JList<>();
-        lblNotification = new javax.swing.JLabel();
+        panelCalendar = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,50 +137,15 @@ public class customerMainMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelNotifcation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panelNotifcation.setForeground(new java.awt.Color(242, 242, 242));
-        panelNotifcation.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                panelNotifcationAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        lstBoxNotification.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        lstBoxNotification.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(lstBoxNotification);
-
-        lblNotification.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
-        lblNotification.setText("Notification");
-
-        javax.swing.GroupLayout panelNotifcationLayout = new javax.swing.GroupLayout(panelNotifcation);
-        panelNotifcation.setLayout(panelNotifcationLayout);
-        panelNotifcationLayout.setHorizontalGroup(
-            panelNotifcationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNotifcationLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelNotifcationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(panelNotifcationLayout.createSequentialGroup()
-                        .addComponent(lblNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 202, Short.MAX_VALUE)))
-                .addContainerGap())
+        javax.swing.GroupLayout panelCalendarLayout = new javax.swing.GroupLayout(panelCalendar);
+        panelCalendar.setLayout(panelCalendarLayout);
+        panelCalendarLayout.setHorizontalGroup(
+            panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 350, Short.MAX_VALUE)
         );
-        panelNotifcationLayout.setVerticalGroup(
-            panelNotifcationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNotifcationLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(lblNotification)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                .addContainerGap())
+        panelCalendarLayout.setVerticalGroup(
+            panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 272, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,9 +164,9 @@ public class customerMainMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelNotifcation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addComponent(panelCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,21 +176,18 @@ public class customerMainMenu extends javax.swing.JFrame {
                     .addComponent(lblTitle)
                     .addComponent(lblUsername)
                     .addComponent(btnLogOut))
-                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(panelNotifcation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(34, 34, 34)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(panelCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void panelNotifcationAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_panelNotifcationAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelNotifcationAncestorAdded
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         // TODO add your handling code here:
@@ -264,11 +229,8 @@ public class customerMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnUpdateProfile;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblNotification;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JList<String> lstBoxNotification;
-    private javax.swing.JPanel panelNotifcation;
+    private javax.swing.JPanel panelCalendar;
     // End of variables declaration//GEN-END:variables
 }
