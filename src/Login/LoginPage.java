@@ -320,6 +320,7 @@ public class LoginPage extends javax.swing.JFrame {
                         details[3] = newPassword;
                         
                         JOptionPane.showMessageDialog(null, "Password resetted. Please login again.");
+                        found = true;
                     } else {
                         JOptionPane.showMessageDialog(null, "Phone number incorrect");
                     }
