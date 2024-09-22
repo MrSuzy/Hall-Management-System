@@ -251,6 +251,7 @@ public class bookingClass {
     public static void cancelBooking(String bookingID, String loggedInEmail) {
         StringBuilder booking = new StringBuilder();
         boolean found = false;
+        String hallID = "";
         
         try{
             FileReader fr = new FileReader("booking.txt");
@@ -278,15 +279,15 @@ public class bookingClass {
                     
                     
                     // check if booking is upcoming and not cancelled
-                    if (bookingDateTime > currentDateTime && !details[7].equals("Cancelled")) {
+                    if (bookingDateTime > currentDateTime && !details[8].equals("Cancelled")) {
                         if (diffDays >= 3) {
-                        details[7] = "Cancelled";
+                        details[8] = "Cancelled";
                         found = true;
                             System.out.println("Booking cancelled success");
                         } else {
                             System.out.println("Cancellation must be at least 3 days before booking date");
                         }
-                    } else if (details[7].equals("Cancelled")) {
+                    } else if (details[8].equals("Cancelled")) {
                         System.out.println("The selected booking has already been cancelled");
                     }
                 }
@@ -307,6 +308,39 @@ public class bookingClass {
                 System.out.println("Booking cancelled successfully");
             } catch (IOException e) {
                 System.out.println("Error writing booking.txt" + e.getMessage());
+            }
+            
+            // change back to 'available' in hall.txt
+            try{
+                FileReader fr = new FileReader("hall.txt");
+                BufferedReader br = new BufferedReader(fr);
+                StringBuilder hall = new StringBuilder();
+                String read;
+                
+                while ((read = br.readLine()) != null) {
+                    String[] details = read.split(";");
+                    
+                    // checking for matching hallID with selected one
+                    if (details[0].equals(hallID)) {
+                        details[3] = "N/A";
+                        details[4] = "N/A";
+                        details[5] = "N/A";
+                        details[7] = "Available";
+                        System.out.println("Hall is available to book again");
+                    }
+                    
+                    hall.append(String.join(";", details)).append(System.lineSeparator());
+                }
+                br.close();
+                
+                FileWriter fw = new FileWriter("hall.txt");
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(hall.toString());
+                bw.flush();
+                bw.close();
+                System.out.println("Updated hall.txt successfully");
+            } catch (IOException e) {
+                System.out.println("Error writing hall.txt" + e.getMessage());
             }
         } else {
             System.out.println("No such booking found.");
