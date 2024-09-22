@@ -13,8 +13,10 @@ import Manager.managerLoginClass;
 import Manager.managerMainMenu;
 import Scheduler.schedulerMainMenu;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -56,6 +58,8 @@ public class LoginPage extends javax.swing.JFrame {
         lblEmail = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
         btnSignup = new javax.swing.JButton();
+        lblSignup1 = new javax.swing.JLabel();
+        btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,7 +133,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addComponent(lblEmailInfo)
                 .addGap(18, 18, 18)
                 .addComponent(lblOperatingHours)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         lblEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
@@ -146,6 +150,17 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
+        lblSignup1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblSignup1.setText("Forgotten password?");
+
+        btnReset.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnReset.setText("RESET");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,24 +173,27 @@ public class LoginPage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblSignup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(97, 97, 97))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(pwdPass, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(btnSignup)
-                                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSignup))
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnReset)
+                                    .addComponent(lblSignup1))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -198,10 +216,14 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(btnLogin)
                 .addGap(18, 18, 18)
-                .addComponent(lblSignup)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSignup)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSignup1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSignup)
+                    .addComponent(btnReset))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -269,6 +291,59 @@ public class LoginPage extends javax.swing.JFrame {
         new Customer.customerRegistration().setVisible(true);
     }//GEN-LAST:event_btnSignupActionPerformed
 
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        String email = txtEmail.getText().trim();
+        
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter email to reset");
+            return;
+        }
+        
+        boolean found = false;
+        StringBuilder user = new StringBuilder();
+        
+        try{
+            FileReader fr = new FileReader("users.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                if (details.length >= 7 && details[2].equals(email)) {
+                    // email found in user.txt, prompt for phone number verification 
+                    String phoneNumber = JOptionPane.showInputDialog("Enter phone number for verification: ");
+                    
+                    if (phoneNumber.equals(details[1])) {
+                        String newPassword = JOptionPane.showInputDialog("Enter new password: ");
+                        
+                        details[3] = newPassword;
+                        
+                        JOptionPane.showMessageDialog(null, "Password resetted. Please login again.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Phone number incorrect");
+                    }
+                }
+                    
+                    user.append(String.join(";", details)).append(System.lineSeparator());
+                }
+                br.close();
+
+                if (!found) {
+                    JOptionPane.showMessageDialog(null, "User does not exists");
+            } else {
+                    FileWriter fw = new FileWriter("users.txt");
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    
+                    bw.write(user.toString());
+                    bw.flush();
+                    bw.close();
+                } 
+        } catch (IOException e) {
+            System.out.println("Error reading users.txt" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnResetActionPerformed
+
     private Object authenticate(String email, String password) throws FileNotFoundException, IOException {
         try{
             FileReader fr = new FileReader("users.txt");
@@ -284,8 +359,8 @@ public class LoginPage extends javax.swing.JFrame {
                     String role = details[6];
                     
                 if (status.equals("blocked")) {
-                    JOptionPane.showMessageDialog(null, "Your account has been blocked.", "Account Blocked", JOptionPane.ERROR_MESSAGE);
-                    return null;
+                        JOptionPane.showMessageDialog(null, "Your account has been blocked.", "Account Blocked", JOptionPane.ERROR_MESSAGE);
+                        return null;
                     }
                     
                     switch (role.toLowerCase()) {
@@ -346,6 +421,7 @@ public class LoginPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSignup;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblContact;
@@ -357,6 +433,7 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblQuote;
     private javax.swing.JLabel lblSignup;
+    private javax.swing.JLabel lblSignup1;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPasswordField pwdPass;
     private javax.swing.JTextField txtEmail;
