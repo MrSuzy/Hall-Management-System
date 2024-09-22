@@ -260,7 +260,6 @@ public class bookingClass {
             while ((read = br.readLine()) != null) {
                 String[] details = read.split(";");
                 
-                System.out.println("Checking bookingID: " + details[0] + " with loggedInEmail: " + details[1]);
                 
                 if (details[0].equals(bookingID) && details[1].equals(loggedInEmail)) {
                     System.out.println("Booking matched for ID: " + bookingID);
@@ -268,18 +267,15 @@ public class bookingClass {
                     Date startTime = time.parse(details[4]);
                     Date currentDate = new Date();
                     
-                    System.out.println("Booking Date: " + bookingDate + ", Start Time: " + startTime + ", Current Date: " + currentDate);
                     
                     long bookingDateTime = bookingDate.getTime() + startTime.getTime();
                     long currentDateTime = currentDate.getTime();
                     
-                    System.out.println("Booking DateTime (ms): " + bookingDateTime + ", Current DateTime (ms): " + currentDateTime);
                     
                     // calculate the difference in days 
                     long diffMS = bookingDate.getTime() - currentDate.getTime();
                     long diffDays = diffMS / (1000 * 60 * 60 * 24);
                     
-                    System.out.println("Difference in days: " + diffDays);
                     
                     // check if booking is upcoming and not cancelled
                     if (bookingDateTime > currentDateTime && !details[7].equals("Cancelled")) {
@@ -301,7 +297,7 @@ public class bookingClass {
             return;
         }
         
-      /*  if (found) {
+        if (found) {
             try{
                 FileWriter fw = new FileWriter("booking.txt");
                 BufferedWriter bw = new BufferedWriter(fw);
@@ -316,9 +312,9 @@ public class bookingClass {
             System.out.println("No such booking found.");
         }
     }
-*/
+
 
 }
-}
+
 
  
