@@ -103,7 +103,7 @@ public class customerClass {
             FileWriter fw = new FileWriter("users.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             
-            bw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + ";" +  status + ";" + role + ";");
+            bw.write(name + ";" + phoneNum + ";" + email + ";" + password + ";" + currentDateTime + ";" +  status + ";" + role + ";");
             bw.flush();
         } catch (IOException e) {
             System.out.println("Error writing users.txt" + e.getMessage());
