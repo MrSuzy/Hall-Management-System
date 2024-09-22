@@ -214,7 +214,8 @@ public class managerMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
-        
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**

@@ -231,7 +231,7 @@ public class customerMainMenu extends javax.swing.JFrame {
     private void btnBookingHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingHistoryActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new customerBookingHistory().setVisible(true);
+        new customerBookingHistory(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnBookingHistoryActionPerformed
 
     private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed

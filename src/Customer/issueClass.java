@@ -23,19 +23,20 @@ public class issueClass {
     private String bookingID;
     private Date issueDate;
     private String issueDescription;
-    private String status;
+    private String issueStatus;
     
     // format the date
     private static final SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
-    public issueClass(String issueID, String bookingID, String issueDescription) {
+    public issueClass(String issueID, String bookingID, Date issueDate, String issueDescription, String issueStatus) {
         this.issueID = issueID;
         this.bookingID = bookingID;
-        this.issueDate = new Date(); //set current date 
+        this.issueDate = issueDate; //set current date 
         this.issueDescription = issueDescription;
-        this.status = "Open";
+        this.issueStatus = issueStatus;
     }
     
+    // getters method
     public String getIssueID() {
         return issueID;
     }
@@ -52,67 +53,81 @@ public class issueClass {
         return issueDescription;
     }
     
-    public String getStatus() {
-        return status;
+    public String getIssueStatus() {
+        return issueStatus;
+    }
+    
+    // setters method 
+    public void setIssueID(String issueID) {
+        this.issueID = issueID;
+    }
+    
+    public void setBookingID(String bookingID) {
+        this.bookingID = bookingID;
+    }
+    
+    public void setIssueDate(Date issueDate) {
+        this.issueDate = issueDate;
+    }
+    
+    public void setIssueDescription(String issueDescription) {
+        this.issueDescription = issueDescription;
+    }
+    
+    public void setIssueStatus(String issueStatus) {
+        this.issueStatus = issueStatus;
     }
     
     // raise issue method 
-    public void raiseIssue() {
+    public static void raiseIssue(String bookingID, String issueDescription) {
+        String issueID = generateIssueID();
+        String issueDate = date.format(new Date());
+        String issueStatus = "Open";
+        
         try{
-            FileWriter fw = new FileWriter("issues.txt");
+            FileWriter fw = new FileWriter("issue.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(issueID + ";" + bookingID + ";" + date.format(issueDate) + ";" + issueDescription + ";" + status);
+            
+            bw.write(issueID + ";" + bookingID + ";" + issueDate + ";" + issueDescription + ";" + issueStatus);
             bw.newLine();
-            System.out.println("Issue raised successfully");
+            bw.flush();
+            System.out.println("Issue raised sucessfully");
         } catch (IOException e) {
-            System.out.println("Error" + e.getMessage());
+            System.out.println("Error writing issue.txt" + e.getMessage());
         }
     }
     
-    // update issue status method
-    public void updateStatus(String updatedStatus) {
-        this.status = updatedStatus;
-    }
-    
-    // write record into text file 
-    private void recordIssue() {
-        List<String> issue = new ArrayList<>();
+    private static String generateIssueID() {
+        String issueIDPrefix = "I";
+        int lastNumber = 0;
         
-        // read records from text file 
+        // check for highest number of Payment ID in payment.txt
         try{
-            FileReader fr = new FileReader("issues.txt");
+            FileReader fr = new FileReader("issue.txt");
             BufferedReader br = new BufferedReader(fr);
             String read;
             
             while ((read = br.readLine()) != null) {
                 String[] details = read.split(";");
-                if (details.length == 5) {
-                    String issueID = details[0];
+                String currentIssueID = details[0];
+                
+                if (currentIssueID.startsWith(issueIDPrefix)) {
+                    // ccnvert to integer
+                    int LastNumber = Integer.parseInt(currentIssueID.substring(1));
                     
-                    if (issueID.equals(this.issueID)) {
-                        details[4] = this.status;
-                        read = String.join(";", details);
+                    // update lastNumber if LastNumber is higher
+                    if (LastNumber > lastNumber) {
+                        lastNumber = LastNumber;
                     }
                 }
             }
-            
-            issue.add(read);
         } catch (IOException e) {
-            System.out.println("Error" + e.getMessage());
+            System.out.println("Error reading payment.txt" + e.getMessage());
         }
         
-        try{
-            FileWriter fw = new FileWriter("issues.txt");
-            BufferedWriter bw = new BufferedWriter(fw);
-            
-            for (String record : issue) {
-                bw.write(record);
-                bw.newLine();
-            }
-            
-            System.out.println("Issue is: " + status);
-        } catch (IOException e) {
-            System.out.println("Error" + e.getMessage());
-        }
+        lastNumber++;
+        
+        return String.format("I%03d", lastNumber);
     }
 }
+
