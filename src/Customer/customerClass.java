@@ -130,10 +130,10 @@ public class customerClass {
                 }
                 
             }
-            br.close();
             }
+            br.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error reading users.txt" + e.getMessage());
         }
         
         // write the updated profile details into the text file
@@ -147,7 +147,7 @@ public class customerClass {
             }
             bw.close();
         } catch (IOException e) {
-            System.out.println("Error" + e.getMessage());
+            System.out.println("Error writing users.txt" + e.getMessage());
         }
     }
     
