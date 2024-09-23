@@ -328,7 +328,7 @@ public class customerBookingHistory extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selectedRow = tbHistory.getSelectedRow();
         if (selectedRow != -1) {
-            String bookingID = (String) tbHistory.getValueAt(selectedRow, 1);
+            String bookingID = (String) tbHistory.getValueAt(selectedRow, 0);
             String issueDescription = JOptionPane.showInputDialog(this, "Enter issue description: ");
             
             if (issueDescription != null && !issueDescription.isEmpty()) {
@@ -352,7 +352,6 @@ public class customerBookingHistory extends javax.swing.JFrame {
         }
         
         String bookingID = tbHistory.getValueAt(selectedRow, 0).toString();
-        JOptionPane.showMessageDialog(this, "You have selected Booking ID: " + bookingID);
                 
         bookingClass.cancelBooking(bookingID, loggedInEmail);
         
