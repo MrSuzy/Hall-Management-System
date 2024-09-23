@@ -244,7 +244,6 @@ public class hallClass {
         System.out.println("Error parsing date/time: " + e.getMessage());
     }
     
-    System.out.println("Total halls read: " + hallList.size()); // Debug statement
     return hallList.toArray(new Object[0][]);
 }
     
