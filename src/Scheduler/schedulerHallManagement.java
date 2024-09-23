@@ -66,6 +66,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         btnHallMaintenance = new javax.swing.JButton();
         txtSearchField = new javax.swing.JTextField();
         btnSearchInHallTable = new javax.swing.JButton();
+        btnResetSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(227, 242, 253));
@@ -113,23 +114,17 @@ public class schedulerHallManagement extends javax.swing.JFrame {
 
         tableHallManagement.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Hall ID", "Type", "Capacity", "Price (per hour)"
+                "Hall ID", "Type", "Capacity", "Price (per hour)", "Availability"
             }
         ));
         jScrollPane1.setViewportView(tableHallManagement);
-        if (tableHallManagement.getColumnModel().getColumnCount() > 0) {
-            tableHallManagement.getColumnModel().getColumn(0).setHeaderValue("Hall ID");
-            tableHallManagement.getColumnModel().getColumn(1).setHeaderValue("Type");
-            tableHallManagement.getColumnModel().getColumn(2).setHeaderValue("Capacity");
-            tableHallManagement.getColumnModel().getColumn(3).setHeaderValue("Price (per hour)");
-        }
 
         btnMainMenu.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMainMenu.setText("Main Menu");
@@ -181,6 +176,13 @@ public class schedulerHallManagement extends javax.swing.JFrame {
             }
         });
 
+        btnResetSearch.setText("Reset");
+        btnResetSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -194,14 +196,16 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                             .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(83, 83, 83)
                                 .addComponent(txtSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnResetSearch)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnSearchInHallTable))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(87, 87, 87)
@@ -229,8 +233,9 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd)
                             .addComponent(btnSearchInHallTable)
-                            .addComponent(txtSearchField))
-                        .addGap(18, 18, 18)
+                            .addComponent(txtSearchField)
+                            .addComponent(btnResetSearch))
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnEdit)
@@ -335,6 +340,17 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         sorter.setRowFilter(RowFilter.regexFilter(keyword));
     }//GEN-LAST:event_btnSearchInHallTableActionPerformed
 
+    private void btnResetSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetSearchActionPerformed
+        txtSearchField.setText("");
+        
+        DefaultTableModel model = (DefaultTableModel) tableHallManagement.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        tableHallManagement.setRowSorter(sorter); // Set the sorter on the table
+
+        // Create a RowFilter to filter the rows based on the keyword
+        sorter.setRowFilter(RowFilter.regexFilter(""));
+    }//GEN-LAST:event_btnResetSearchActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -378,6 +394,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnHallMaintenance;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMainMenu;
+    private javax.swing.JButton btnResetSearch;
     private javax.swing.JButton btnSearchInHallTable;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;

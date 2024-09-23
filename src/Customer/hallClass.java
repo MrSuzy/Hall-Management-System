@@ -236,7 +236,7 @@ public class hallClass {
             int capacity = Integer.parseInt(details[6]);
             String availability = details[7];
 
-            hallList.add(new Object[]{hallID, hallType, capacity, price});
+            hallList.add(new Object[]{hallID, hallType, capacity, price, availability});
         }
     } catch (IOException e) {
         System.out.println("Error reading hall file: " + e.getMessage());
