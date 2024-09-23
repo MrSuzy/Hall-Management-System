@@ -7,6 +7,7 @@ package Scheduler;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -34,15 +35,27 @@ public class maintenanceClass {
     }
     
     public String createMaintenanceRecord(String hallID, Date maintenanceDate, Date startTime, Date endTime, String remarks) {
-        String fileName = "maintenance.txt";
-        String content = hallID + ";" + maintenanceDate + ";" + startTime + ";" + endTime + ";" + remarks + System.lineSeparator();
-        
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(content);
-            return "success"; // Indicate that the record was saved successfully
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "error"; // Indicate that there was an error saving the record
-        }
+    String fileName = "maintenance.txt";
+    
+    // Set up date formats
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+    
+    // Format the dates
+    String formattedDate = dateFormat.format(maintenanceDate);
+    String formattedStartTime = timeFormat.format(startTime);
+    String formattedEndTime = timeFormat.format(endTime);
+    
+    // Prepare the content
+    String content = hallID + ";" + formattedDate + ";" + formattedStartTime + ";" + formattedEndTime + ";" + remarks + System.lineSeparator();
+
+    // Write to the file
+    try (FileWriter writer = new FileWriter(fileName, true)) {
+        writer.write(content);
+        return "success";
+    } catch (IOException e) {
+        e.printStackTrace();
+        return "error";
     }
+}
 }

@@ -6,6 +6,7 @@ package Customer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class hallClass {
     // time formatter
     private static final SimpleDateFormat time = new SimpleDateFormat("HH:mm");
     
-    public hallClass(String hallID, String hallType, double price, Date bookingDate, Date startTime, Date endtime, int capacity, String availability) {
+    public hallClass(String hallID, String hallType, double price, Date bookingDate, Date startTime, Date endTime, int capacity, String availability) {
         this.hallID = hallID;
         this.hallType = hallType;
         this.price = price;
@@ -115,7 +116,79 @@ public class hallClass {
     public void setAvailabiliy(String availability) {
         this.availability = availability;
     }
+   public List<String> getAllHallIDs() {
+       String fileName = "hall.txt";
+       List<String> hallIDs = new ArrayList<>();
+       
+       try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+           String line;
+           while ((line = reader.readLine()) != null) {
+               String[] details = line.split(";");
+               if (details.length > 0) {
+                   hallIDs.add(details[0]);    
+               }
+           }
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+       
+       return hallIDs;
+   }
+    
+   public String updateMaintenanceRecord(String hallID, Date bookingDate, Date startTime, Date endTime) {
+    String fileName = "hall.txt";
+    File file = new File(fileName);
+    List<String> fileContent = new ArrayList<>();
+    boolean recordUpdated = false;
+
+    // Format for writing dates and times
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        String line;
         
+        // Read the file line by line
+        while ((line = reader.readLine()) != null) {
+            String[] fields = line.split(";");  // Assuming fields are separated by semicolons (;)
+            
+            // Check if this line matches the hallID
+            if (fields[0].equals(hallID)) {
+                // Modify the line with new values for bookingDate, startTime, and endTime
+                fields[3] = dateFormat.format(bookingDate); // Booking Date
+                fields[4] = timeFormat.format(startTime);   // Start Time
+                fields[5] = timeFormat.format(endTime);     // End Time
+                fields[7] = "Maintenance";
+                
+                // Rebuild the updated line
+                line = String.join(";", fields);
+                recordUpdated = true;
+            }
+            
+            // Add the (modified or unmodified) line back to fileContent
+            fileContent.add(line);
+        }
+        
+    } catch (IOException e) {
+        return "Error reading the file: " + e.getMessage();
+    }
+
+    // If the record was updated, write the updated content back to the file
+    if (recordUpdated) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (String fileLine : fileContent) {
+                writer.write(fileLine);
+                writer.newLine();
+            }
+            return "success";
+        } catch (IOException e) {
+            return "Error writing to the file: " + e.getMessage();
+        }
+    } else {
+        return "Hall ID not found.";
+    }
+}
+   
    public Object[] getSpecificHallDetails(String hallID) {
     String fileName = "hall.txt";
     Object[] hallDetails = null;
@@ -359,7 +432,6 @@ public class hallClass {
     
     public static void main(String[] args) {
         hallClass hall = new hallClass();
-        String hallID = "M001";
-        Object[] result = hall.getSpecificHallDetails(hallID);
+        List<String> result = hall.getAllHallIDs();
     }
 }
