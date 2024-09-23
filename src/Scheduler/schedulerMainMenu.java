@@ -32,7 +32,6 @@ public class schedulerMainMenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnHallManagement = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnHallScheduling = new javax.swing.JButton();
         btnHallMaintenance = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
@@ -69,9 +68,6 @@ public class schedulerMainMenu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
         jLabel1.setText("Hall Symphony Inc");
-
-        btnHallScheduling.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnHallScheduling.setText("Hall Scheduling");
 
         btnHallMaintenance.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnHallMaintenance.setText("Hall Maintenance");
@@ -154,8 +150,7 @@ public class schedulerMainMenu extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnHallManagement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnHallScheduling, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnHallMaintenance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnHallMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(43, 43, 43)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 49, Short.MAX_VALUE))))
@@ -173,11 +168,9 @@ public class schedulerMainMenu extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnHallManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(btnHallScheduling, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16)
-                .addComponent(btnHallMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                        .addGap(28, 28, 28)
+                        .addComponent(btnHallMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -198,14 +191,20 @@ public class schedulerMainMenu extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnHallMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallMaintenanceActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new schedulerHallMaintenance().setVisible(true);
     }//GEN-LAST:event_btnHallMaintenanceActionPerformed
 
     private void btnHallManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallManagementActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new schedulerHallManagement().setVisible(true);
     }//GEN-LAST:event_btnHallManagementActionPerformed
 
     /**
@@ -246,7 +245,6 @@ public class schedulerMainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHallMaintenance;
     private javax.swing.JButton btnHallManagement;
-    private javax.swing.JButton btnHallScheduling;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnView;
     private javax.swing.JLabel jLabel1;

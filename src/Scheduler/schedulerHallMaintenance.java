@@ -50,8 +50,6 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnMainMenu = new javax.swing.JButton();
         btnHallManagement = new javax.swing.JButton();
-        btnHallScheduling = new javax.swing.JButton();
-        btnHallMaintenance = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,13 +131,6 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
             }
         });
 
-        btnHallScheduling.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnHallScheduling.setText("Hall Scheduling");
-        btnHallScheduling.setToolTipText("");
-
-        btnHallMaintenance.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnHallMaintenance.setText("Hall Maintenance");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -147,9 +138,7 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnHallScheduling, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHallManagement)
-                    .addComponent(btnHallMaintenance)
                     .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -160,11 +149,7 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
                 .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnHallManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnHallScheduling, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnHallMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addGap(163, 163, 163))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -287,18 +272,24 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
 
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new schedulerMainMenu().setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnHallManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallManagementActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new schedulerHallManagement().setVisible(true);
     }//GEN-LAST:event_btnHallManagementActionPerformed
 
     private void btnScheduleMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleMaintenanceActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnScheduleMaintenanceActionPerformed
 
     /**
@@ -337,9 +328,7 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnHallMaintenance;
     private javax.swing.JButton btnHallManagement;
-    private javax.swing.JButton btnHallScheduling;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnScheduleMaintenance;

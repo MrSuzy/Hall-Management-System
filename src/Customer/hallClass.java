@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +47,8 @@ public class hallClass {
         this.capacity = capacity;
         this.availability = availability;
     }
+    
+    public hallClass() {}
     
     // getters method
     public String getHallID() {
@@ -112,7 +115,152 @@ public class hallClass {
     public void setAvailabiliy(String availability) {
         this.availability = availability;
     }
+        
+   public Object[] getSpecificHallDetails(String hallID) {
+    String fileName = "hall.txt";
+    Object[] hallDetails = null;
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            String[] details = line.split(";"); // Split the line by semicolon
+            if (details[0].equals(hallID)) { // Check if the first element matches the hallID
+                hallDetails = new Object[4]; // Create an array for the details
+                hallDetails[0] = details[0]; // Hall ID
+                hallDetails[1] = details[1]; // Hall Type
+                hallDetails[2] = Double.valueOf(details[2]); // Price
+                hallDetails[3] = Integer.valueOf(details[6]); // Capacity (second last column)
+                break; // Exit loop once found
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace(); // Optionally log the error
+    }
+
+    return hallDetails; // Returns null if not found
+}
+   public Object[][] getHallDetails() {
+    List<Object[]> hallList = new ArrayList<>();
     
+    try (BufferedReader reader = new BufferedReader(new FileReader("hall.txt"))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] details = line.split(";");
+
+            // Additional check to ensure we have enough details
+            if (details.length < 8) {
+                continue;
+            }
+
+            // Parse data to create hallClass objects
+            String hallID = details[0];
+            String hallType = details[1];
+            double price = Double.parseDouble(details[2]);
+            Date bookingDate = details[3].equals("null") ? null : date.parse(details[3]);
+            Date startTime = details[4].equals("null") ? null : time.parse(details[4]);
+            Date endTime = details[5].equals("null") ? null : time.parse(details[5]);
+            int capacity = Integer.parseInt(details[6]);
+            String availability = details[7];
+
+            hallList.add(new Object[]{hallID, hallType, capacity, price});
+        }
+    } catch (IOException e) {
+        System.out.println("Error reading hall file: " + e.getMessage());
+    } catch (ParseException e) {
+        System.out.println("Error parsing date/time: " + e.getMessage());
+    }
+    
+    System.out.println("Total halls read: " + hallList.size()); // Debug statement
+    return hallList.toArray(new Object[0][]);
+}
+    
+   public String editHall(String hallID, String hallType, double price, int capacity) {
+    String fileName = "hall.txt";
+    StringBuilder updatedData = new StringBuilder();
+    boolean hallFound = false;
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            String[] details = line.split(";");
+
+            // Check if the current hall matches the hallID
+            if (details[0].equals(hallID)) {
+                // Update hall details
+                details[1] = hallType; // Update hall type
+                details[2] = String.valueOf(price); // Update price
+                details[6] = String.valueOf(capacity); // Update capacity
+                hallFound = true;
+            }
+
+            // Append the (potentially updated) line to the updatedData
+            updatedData.append(String.join(";", details)).append("\n");
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+        return "error";
+    }
+
+    // If the hall was found and updated, write the changes back to the file
+    if (hallFound) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(updatedData.toString());
+            return "success";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error";
+        }
+    } else {
+        return "hall not found"; // If no hall matched the hallID
+    }
+}
+    public String addHall(String hallID, String hallType,  double price, Date bookingDate, Date startTime, Date endTime, int capacity, String availability) {
+        String fileName = "hall.txt";
+        String content = hallID + ";" + hallType + ";" + price + ";" + bookingDate + ";" + startTime + ";" + endTime + ";" + capacity + ";" + availability + System.lineSeparator();
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            writer.write(content);
+            return "success";
+        } catch (IOException e) {
+            e.printStackTrace(); // Optionally log the error
+            return "Error while adding hall.";
+        }
+    }
+    
+    public String deleteHall(String hallID) {
+    String fileName = "hall.txt";
+    StringBuilder fileContents = new StringBuilder();
+    boolean found = false;
+
+    // Read the existing halls
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] hallDetails = line.split(";");
+            if (!hallDetails[0].equals(hallID)) {
+                fileContents.append(line).append(System.lineSeparator());
+            } else {
+                found = true; // Hall found and will be deleted
+            }
+        }
+    } catch (IOException e) {
+        return "Error while reading the hall file.";
+    }
+
+    // If the hall was found, write the new contents back to the file
+    if (found) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(fileContents.toString());
+        } catch (IOException e) {
+            return "Error while writing to the hall file.";
+        }
+        return "success";
+    } else {
+        return "Hall not found.";
+    }
+}
     
     // check hall availabilty before booking method 
     public static List<String> hallAvailability(Date selectedDate, Date selectedStartTime, Date selectedEndTime, String hallType) {
@@ -207,7 +355,11 @@ public class hallClass {
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
         }
-    } 
-
+    }
     
+    public static void main(String[] args) {
+        hallClass hall = new hallClass();
+        String hallID = "M001";
+        Object[] result = hall.getSpecificHallDetails(hallID);
+    }
 }

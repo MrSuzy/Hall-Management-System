@@ -321,9 +321,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnHallScheduling" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                           <Component id="btnHallManagement" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnHallMaintenance" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="btnMainMenu" min="-2" pref="160" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="20" max="32767" attributes="0"/>
@@ -337,11 +335,7 @@
                       <Component id="btnMainMenu" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnHallManagement" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnHallScheduling" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnHallMaintenance" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -368,23 +362,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHallManagementActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnHallScheduling">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Gill Sans MT" size="18" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Hall Scheduling"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnHallMaintenance">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Gill Sans MT" size="18" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Hall Maintenance"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

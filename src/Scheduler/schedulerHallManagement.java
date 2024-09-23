@@ -1,6 +1,15 @@
 package Scheduler;
 
+import Customer.hallClass;
 import Login.LoginPage;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -17,8 +26,22 @@ public class schedulerHallManagement extends javax.swing.JFrame {
      */
     public schedulerHallManagement() {
         initComponents();
+        populateTable();
     }
+    
+        private void populateTable() {
+    DefaultTableModel model = (DefaultTableModel) tableHallManagement.getModel();
+    model.setRowCount(0);
 
+    hallClass hall = new hallClass();
+    Object[][] halls = hall.getHallDetails(); // Get the hall details as a 2D array
+
+    for (Object[] hallDetails : halls) {
+        model.addRow(hallDetails); // Add each row of details directly to the table
+    
+}
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,8 +56,6 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        choiceFilter = new java.awt.Choice();
-        jLabel3 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -42,9 +63,9 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         tableHallManagement = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnMainMenu = new javax.swing.JButton();
-        btnHallManagement = new javax.swing.JButton();
-        btnHallScheduling = new javax.swing.JButton();
         btnHallMaintenance = new javax.swing.JButton();
+        txtSearchField = new javax.swing.JTextField();
+        btnSearchInHallTable = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(227, 242, 253));
@@ -66,11 +87,13 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         jLabel2.setText("username");
 
-        jLabel3.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jLabel3.setText("Filter:");
-
         btnAdd.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnEdit.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnEdit.setText("Edit");
@@ -101,6 +124,12 @@ public class schedulerHallManagement extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tableHallManagement);
+        if (tableHallManagement.getColumnModel().getColumnCount() > 0) {
+            tableHallManagement.getColumnModel().getColumn(0).setHeaderValue("Hall ID");
+            tableHallManagement.getColumnModel().getColumn(1).setHeaderValue("Type");
+            tableHallManagement.getColumnModel().getColumn(2).setHeaderValue("Capacity");
+            tableHallManagement.getColumnModel().getColumn(3).setHeaderValue("Price (per hour)");
+        }
 
         btnMainMenu.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMainMenu.setText("Main Menu");
@@ -110,20 +139,13 @@ public class schedulerHallManagement extends javax.swing.JFrame {
             }
         });
 
-        btnHallManagement.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnHallManagement.setText("Hall Management");
-        btnHallManagement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHallManagementActionPerformed(evt);
-            }
-        });
-
-        btnHallScheduling.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnHallScheduling.setText("Hall Scheduling");
-        btnHallScheduling.setToolTipText("");
-
         btnHallMaintenance.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnHallMaintenance.setText("Hall Maintenance");
+        btnHallMaintenance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHallMaintenanceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -132,8 +154,6 @@ public class schedulerHallManagement extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnHallScheduling, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHallManagement)
                     .addComponent(btnHallMaintenance)
                     .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -144,13 +164,22 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                 .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnHallManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnHallScheduling, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnHallMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addGap(163, 163, 163))
         );
+
+        txtSearchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchFieldActionPerformed(evt);
+            }
+        });
+
+        btnSearchInHallTable.setText("Search");
+        btnSearchInHallTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchInHallTableActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,15 +190,19 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(choiceFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(btnSearchInHallTable))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,30 +226,35 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAdd)
+                            .addComponent(btnSearchInHallTable)
+                            .addComponent(txtSearchField))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(2, 2, 2)
-                                .addComponent(choiceFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAdd)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEdit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnDelete)))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDelete))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,23 +262,78 @@ public class schedulerHallManagement extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tableHallManagement.getSelectedRow();
+        
+        if (selectedRow >= 0) {
+            String hallID = tableHallManagement.getValueAt(selectedRow, 0).toString();
+            
+            this.dispose();
+            new Scheduler.schedulerEditHall(hallID).setVisible(true);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new schedulerMainMenu().setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
-    private void btnHallManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallManagementActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHallManagementActionPerformed
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tableHallManagement.getSelectedRow();
+        
+        if (selectedRow >= 0) {
+            String hallID = tableHallManagement.getValueAt(selectedRow, 0).toString();
+            
+            int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this hall?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            
+            if (confirmation == JOptionPane.YES_OPTION) {
+                hallClass hall = new hallClass();
+                String result = hall.deleteHall(hallID);
+                if (result.equals("success")) {
+                    JOptionPane.showMessageDialog(null, "Hall deleted successfully.");
+                    populateTable(); // Refresh the table after deletion
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error deleting hall: " + result);
+                }
+            }
+            
+            
+            
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new schedulerAddHall().setVisible(true);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnHallMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallMaintenanceActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new schedulerHallMaintenance().setVisible(true);
+    }//GEN-LAST:event_btnHallMaintenanceActionPerformed
+
+    private void txtSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchFieldActionPerformed
+
+    private void btnSearchInHallTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchInHallTableActionPerformed
+        String keyword = txtSearchField.getText();
+        
+        // Assuming you have a DefaultTableModel for your table
+        DefaultTableModel model = (DefaultTableModel) tableHallManagement.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        tableHallManagement.setRowSorter(sorter); // Set the sorter on the table
+
+        // Create a RowFilter to filter the rows based on the keyword
+        sorter.setRowFilter(RowFilter.regexFilter(keyword));
+    }//GEN-LAST:event_btnSearchInHallTableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,7 +365,8 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new schedulerHallManagement().setVisible(true);
+                schedulerHallManagement management = new schedulerHallManagement();
+                management.setVisible(true);
             }
         });
     }
@@ -282,18 +376,16 @@ public class schedulerHallManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHallMaintenance;
-    private javax.swing.JButton btnHallManagement;
-    private javax.swing.JButton btnHallScheduling;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMainMenu;
-    private java.awt.Choice choiceFilter;
+    private javax.swing.JButton btnSearchInHallTable;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableHallManagement;
+    private javax.swing.JTextField txtSearchField;
     // End of variables declaration//GEN-END:variables
 }
