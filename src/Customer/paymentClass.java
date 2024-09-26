@@ -4,17 +4,20 @@
  */
 package Customer;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.io.source.OutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
-import javax.swing.JFrame;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  *
@@ -97,6 +100,42 @@ public class paymentClass {
                 "Price: RM" + this.price + "\n" + 
                 "Payment Date: " + this.paymentDate + "\n" + 
                 "Payment Method: " + this.paymentMethod + "\n", "Receipt", JOptionPane.INFORMATION_MESSAGE);
+        
+        JFileChooser file = new JFileChooser();
+        file.setDialogTitle("Save Receipt as PDF");
+        file.setFileFilter(new FileNameExtensionFilter("PDF documents", "pdf"));
+        
+        int select = file.showSaveDialog(null);
+        
+        if (select == JFileChooser.APPROVE_OPTION) {
+            try{
+                // save file at selected path
+                String path = file.getSelectedFile().getAbsolutePath();
+                
+                // make sure its a pdf file 
+                if (!path.endsWith(".pdf")) {
+                    path += ".pdf";
+                }
+                
+                PdfWriter writer = new PdfWriter(path);
+                PdfDocument pdf = new PdfDocument(writer);
+                Document document = new Document(pdf);
+                
+                document.add(new Paragraph("Official Receipt"));
+                document.add(new Paragraph("Payment ID: " + this.paymentID));
+                document.add(new Paragraph("Booking ID: " + this.bookingID));
+                document.add(new Paragraph("Price: RM" + this.price));
+                document.add(new Paragraph("Payment Date: " + this.paymentDate));
+                document.add(new Paragraph("Payment Method: " + this.paymentMethod));
+                
+                document.close();
+                
+                JOptionPane.showMessageDialog(null, "Recipt saved at" + path, "Success", JOptionPane.INFORMATION_MESSAGE);
+                
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error saving receipt: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
         
         try{
             FileWriter fw = new FileWriter("payment.txt");
