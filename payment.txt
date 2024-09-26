@@ -1,1 +1,1 @@
-P001;B002;300.0;2024-09-22 00:06:53;FPX Online Banking
+P002;B011;50.0;2024-09-26 14:32:28;Debit / Credit Card
