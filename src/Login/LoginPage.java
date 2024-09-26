@@ -377,6 +377,8 @@ public class LoginPage extends javax.swing.JFrame {
                             return new adminClass1(name, phoneNum, email, password, status, role);
                         case "manager":
                             return new managerLoginClass(name, phoneNum, email, password, status, role);
+                        case "scheduler":
+                            return new schedulerLoginClass(name, phoneNum, email, password, status, role);
                         default:
                             return null;
                     }
