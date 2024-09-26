@@ -351,9 +351,9 @@ public class hallClass {
                     String availability = details[7];
                     
                     // parse date and time 
-                    Date bookingDate = details[3].equals("N/A") ? null : date.parse(details[3]);
-                    Date startTime = details[4].equals("N/A") ? null : time.parse(details[4]);
-                    Date endTime = details[5].equals("N/A") ? null : time.parse(details[5]);
+                    Date bookingDate = details[3].equals("null") ? null : date.parse(details[3]);
+                    Date startTime = details[4].equals("null") ? null : time.parse(details[4]);
+                    Date endTime = details[5].equals("null") ? null : time.parse(details[5]);
                     
                     // debug
                     System.out.println("Hall ID" + hallID);

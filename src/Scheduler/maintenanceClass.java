@@ -39,7 +39,7 @@ public class maintenanceClass {
     
     // Set up date formats
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+    SimpleDateFormat    timeFormat = new SimpleDateFormat("HH:mm");
     
     // Format the dates
     String formattedDate = dateFormat.format(maintenanceDate);

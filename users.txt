@@ -8,4 +8,5 @@ Oscar;012-1234321;oscar987@gmail.com;oscar111;2024-08-08 11:23:37;active;custome
 Sean;013-9875412;sean123@gmail.com;sean123;2024-08-08 11:23:37;active;Customer
 coldchocolate;018-0001111;cold123@gmail.com;12345678;2024-09-23 00:15:47;active;scheduler
 warmchocolate;012-3948573;warmchoco99@gmail.com;123456789;2024-09-23 00:40:16;active;customer
-testScheduler;012-2345678;testS@gmail.com;12345678;2024-09-26 12:34:40;active;scheduler;
+testScheduler;012-2345678;testS@gmail.com;12345678;2024-09-26 12:34:40;active;scheduler
+jason;012-1234567;jason123@gmail.com;123;2024-09-26 13:32:23;active;manager;
