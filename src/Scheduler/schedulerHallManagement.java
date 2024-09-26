@@ -26,8 +26,8 @@ public class schedulerHallManagement extends javax.swing.JFrame {
      */
     public schedulerHallManagement(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
-        lblUsername.setText(loggedInEmail);
         initComponents();
+        lblUsername.setText(loggedInEmail);
         populateTable();
     }
     

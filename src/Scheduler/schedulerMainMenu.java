@@ -17,8 +17,9 @@ public class schedulerMainMenu extends javax.swing.JFrame {
      */
     public schedulerMainMenu(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
-        lblUsername.setText(loggedInEmail);
         initComponents();
+        lblUsername.setText(loggedInEmail);
+
     }
 
     /**

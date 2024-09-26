@@ -25,8 +25,8 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
      */
     public schedulerHallMaintenance(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
-        lblUsername.setText(loggedInEmail);
         initComponents();
+        lblUsername.setText(loggedInEmail);
         populateIDComboBox();
         populateDateComboBox();
     }
