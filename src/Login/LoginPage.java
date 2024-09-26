@@ -11,6 +11,7 @@ import Admin.adminClass1;
 import Admin.adminMainPage;
 import Manager.managerLoginClass;
 import Manager.managerMainMenu;
+import Scheduler.schedulerLoginClass;
 import Scheduler.schedulerMainMenu;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -252,6 +253,8 @@ public class LoginPage extends javax.swing.JFrame {
                    role = "admin";
                } else if (user instanceof managerLoginClass) {
                    role = "manager";
+               } else if (user instanceof schedulerLoginClass) {
+                   role = "scheduler";
                }
                
                JOptionPane.showMessageDialog(null, "Login Successful");
@@ -267,6 +270,9 @@ public class LoginPage extends javax.swing.JFrame {
                        break;
                    case "manager":
                        new managerMainMenu(loggedInEmail).setVisible(true);
+                       break;
+                   case "scheduler":
+                       new schedulerMainMenu(loggedInEmail).setVisible(true);
                        break;
                    default:
                        JOptionPane.showMessageDialog(null, "Invalid role.");

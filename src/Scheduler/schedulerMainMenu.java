@@ -11,11 +11,13 @@ import Login.LoginPage;
  * @author Huawei
  */
 public class schedulerMainMenu extends javax.swing.JFrame {
-
+    private String loggedInEmail;
     /**
      * Creates new form schedulerMainMenu
      */
-    public schedulerMainMenu() {
+    public schedulerMainMenu(String loggedInEmail) {
+        this.loggedInEmail = loggedInEmail;
+        lblUsername.setText(loggedInEmail);
         initComponents();
     }
 
@@ -198,49 +200,19 @@ public class schedulerMainMenu extends javax.swing.JFrame {
     private void btnHallMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallMaintenanceActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new schedulerHallMaintenance().setVisible(true);
+        new schedulerHallMaintenance(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnHallMaintenanceActionPerformed
 
     private void btnHallManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallManagementActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new schedulerHallManagement().setVisible(true);
+        new schedulerHallManagement(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnHallManagementActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(schedulerMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(schedulerMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(schedulerMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(schedulerMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new schedulerMainMenu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHallMaintenance;

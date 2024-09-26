@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  * @author Huawei
  */
 public class schedulerEditHall extends javax.swing.JFrame {
+    private String loggedInEmail;
     /**
      * Creates new form schedulerEditHall
      * @param hallID
@@ -171,7 +172,7 @@ public class schedulerEditHall extends javax.swing.JFrame {
         txtEditCapacity.setText("");
         txtEditPrice.setText("");
         
-        new Scheduler.schedulerHallManagement().setVisible(true);
+        new Scheduler.schedulerHallManagement(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void txtEditHallIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEditHallIDActionPerformed
@@ -208,7 +209,7 @@ public class schedulerEditHall extends javax.swing.JFrame {
         this.dispose();
 
         // Create a new scheduler management window
-        schedulerHallManagement scheduler = new schedulerHallManagement();
+        schedulerHallManagement scheduler = new schedulerHallManagement(loggedInEmail);
         scheduler.setVisible(true);
     }//GEN-LAST:event_btnSaveActionPerformed
 

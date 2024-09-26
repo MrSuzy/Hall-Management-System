@@ -20,11 +20,13 @@ import javax.swing.table.TableRowSorter;
  * @author Huawei
  */
 public class schedulerHallManagement extends javax.swing.JFrame {
-
+    private String loggedInEmail;
     /**
      * Creates new form schedulerHallManagement
      */
-    public schedulerHallManagement() {
+    public schedulerHallManagement(String loggedInEmail) {
+        this.loggedInEmail = loggedInEmail;
+        lblUsername.setText(loggedInEmail);
         initComponents();
         populateTable();
     }
@@ -55,7 +57,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -85,8 +87,8 @@ public class schedulerHallManagement extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jLabel2.setText("username");
+        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblUsername.setText("username");
 
         btnAdd.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnAdd.setText("Add");
@@ -211,7 +213,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                         .addGap(87, 87, 87)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
+                        .addComponent(lblUsername)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLogout)))
                 .addGap(32, 32, 32))
@@ -223,7 +225,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLogout)
-                    .addComponent(jLabel2))
+                    .addComponent(lblUsername))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
@@ -285,7 +287,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new schedulerMainMenu().setVisible(true);
+        new schedulerMainMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -315,13 +317,13 @@ public class schedulerHallManagement extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new schedulerAddHall().setVisible(true);
+        new schedulerAddHall(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnHallMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallMaintenanceActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new schedulerHallMaintenance().setVisible(true);
+        new schedulerHallMaintenance(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnHallMaintenanceActionPerformed
 
     private void txtSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchFieldActionPerformed
@@ -354,38 +356,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(schedulerHallManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(schedulerHallManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(schedulerHallManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(schedulerHallManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                schedulerHallManagement management = new schedulerHallManagement();
-                management.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -398,10 +369,10 @@ public class schedulerHallManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnSearchInHallTable;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JTable tableHallManagement;
     private javax.swing.JTextField txtSearchField;
     // End of variables declaration//GEN-END:variables

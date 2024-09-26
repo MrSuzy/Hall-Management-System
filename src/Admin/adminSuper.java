@@ -411,7 +411,7 @@ public class adminSuper extends javax.swing.JFrame {
     private void btnSchedulerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSchedulerMenuActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new schedulerMainMenu().setVisible(true);
+        new schedulerMainMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnSchedulerMenuActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
