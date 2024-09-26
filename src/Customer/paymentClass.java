@@ -130,7 +130,7 @@ public class paymentClass {
                 
                 document.close();
                 
-                JOptionPane.showMessageDialog(null, "Recipt saved at" + path, "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Recipt saved at: " + path, "Success", JOptionPane.INFORMATION_MESSAGE);
                 
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error saving receipt: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

@@ -12,3 +12,5 @@ B011;sean123@gmail.com;M007;2024-09-30;10:00;12:00;50.0;Debit / Credit Card;Paid
 B012;sean123@gmail.com;M007;2024-09-30;10:00;12:00;50.0;FPX Online Banking;Paid
 B013;sean123@gmail.com;A005;2024-09-30;10:00;12:00;100.0;FPX Online Banking;Paid
 B014;sean123@gmail.com;A005;2024-09-30;10:00;12:00;100.0;FPX Online Banking;Paid
+B015;sean123@gmail.com;A005;2024-09-30;10:00;12:00;100.0;E-Wallet;Paid
+B016;sean123@gmail.com;M007;2024-09-30;10:00;12:00;50.0;FPX Online Banking;Paid
