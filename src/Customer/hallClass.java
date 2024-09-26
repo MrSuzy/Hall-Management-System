@@ -116,7 +116,8 @@ public class hallClass {
     public void setAvailabiliy(String availability) {
         this.availability = availability;
     }
-   public List<String> getAllHallIDs() {
+ 
+    public List<String> getAllHallIDs() {
        String fileName = "hall.txt";
        List<String> hallIDs = new ArrayList<>();
        
@@ -230,9 +231,6 @@ public class hallClass {
             String hallID = details[0];
             String hallType = details[1];
             double price = Double.parseDouble(details[2]);
-            Date bookingDate = details[3].equals("null") ? null : date.parse(details[3]);
-            Date startTime = details[4].equals("null") ? null : time.parse(details[4]);
-            Date endTime = details[5].equals("null") ? null : time.parse(details[5]);
             int capacity = Integer.parseInt(details[6]);
             String availability = details[7];
 
@@ -240,8 +238,6 @@ public class hallClass {
         }
     } catch (IOException e) {
         System.out.println("Error reading hall file: " + e.getMessage());
-    } catch (ParseException e) {
-        System.out.println("Error parsing date/time: " + e.getMessage());
     }
     
     return hallList.toArray(new Object[0][]);
@@ -290,7 +286,7 @@ public class hallClass {
 }
     public String addHall(String hallID, String hallType,  double price, Date bookingDate, Date startTime, Date endTime, int capacity, String availability) {
         String fileName = "hall.txt";
-        String content = hallID + ";" + hallType + ";" + price + ";" + bookingDate + ";" + startTime + ";" + endTime + ";" + capacity + ";" + availability + System.lineSeparator();
+        String content = hallID + ";" + hallType + ";" + price + ";" + (bookingDate != null ? date.format(bookingDate) : "N/A") + ";" + (startTime != null ? time.format(startTime) : "N/A") + ";" + (endTime != null ? time.format(endTime) : "N/A") + ";" + capacity + ";" + availability + System.lineSeparator();
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(content);
@@ -333,7 +329,7 @@ public class hallClass {
         return "Hall not found.";
     }
 }
-    
+
     // check hall availabilty before booking method 
     public static List<String> hallAvailability(Date selectedDate, Date selectedStartTime, Date selectedEndTime, String hallType) {
         List<String> available = new ArrayList<>();
@@ -351,14 +347,14 @@ public class hallClass {
                     String availability = details[7];
                     
                     // parse date and time 
-                    Date bookingDate = details[3].equals("null") ? null : date.parse(details[3]);
-                    Date startTime = details[4].equals("null") ? null : time.parse(details[4]);
-                    Date endTime = details[5].equals("null") ? null : time.parse(details[5]);
+                    Date bookingDate = details[3].equals("N/A") ? null : date.parse(details[3]);
+                    Date startTime = details[4].equals("N/A") ? null : time.parse(details[4]);
+                    Date endTime = details[5].equals("N/A") ? null : time.parse(details[5]);
                     
                     // debug
                     System.out.println("Hall ID" + hallID);
                     System.out.println("Type" + type + "Availability" + availability);
-                    System.out.println("Date" + bookingDate + "Start time" + startTime + "End time" + endTime);
+                    System.out.println("Date " + bookingDate + "Start time " + startTime + "End time " + endTime);
                     
                     // check hall type
                     if (type.equals(hallType)) {
@@ -429,8 +425,8 @@ public class hallClass {
         }
     }
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         hallClass hall = new hallClass();
         List<String> result = hall.getAllHallIDs();
-    }
+    }*/
 }
