@@ -3,6 +3,9 @@ package Customer;
 
 import java.awt.Color;
 import Login.LoginPage;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +31,25 @@ public class customerBookingHistory extends javax.swing.JFrame {
         Color col = new Color(224, 240, 255); //red, green and blue values
         getContentPane().setBackground(col);
 
+    }
+     
+    // helper method to check for duplicate issues
+    private boolean issue(String bookingID) {
+        try{
+            FileReader fr = new FileReader("issue.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                if (details.length > 1 && details[1].equals(bookingID) && details[4].equals("Open")) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading issue.txt" + e.getMessage());
+        }
+        return false;
     }
 
     /**
@@ -332,10 +354,14 @@ public class customerBookingHistory extends javax.swing.JFrame {
             String issueDescription = JOptionPane.showInputDialog(this, "Enter issue description: ");
             
             if (issueDescription != null && !issueDescription.isEmpty()) {
-                issueClass.raiseIssue(bookingID, issueDescription);
-                JOptionPane.showMessageDialog(this, "Issue raised successfully!");
+                if (issue(bookingID)) {
+                    JOptionPane.showMessageDialog(this, "Issue already raised!");
+                } else {
+                    issueClass.raiseIssue(bookingID, issueDescription);
+                    JOptionPane.showMessageDialog(this, "Issue raised sucessfully!");
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Description cannot be empty");
+                JOptionPane.showMessageDialog(this, "Description cannot be empty!");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Please select a booking to raise issue");
