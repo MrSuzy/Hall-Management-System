@@ -150,11 +150,10 @@ public class managerMaintenance extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblCompanyName.setFont(new java.awt.Font("Bradley Hand", 0, 36)); // NOI18N
+        lblCompanyName.setFont(new java.awt.Font("Bradley Hand ITC", 0, 36)); // NOI18N
         lblCompanyName.setText("Hall Symphony Inc.");
-        lblCompanyName.setLocation(new java.awt.Point(0, 25));
 
-        btnLogOut.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnLogOut.setText("LogOut");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,7 +164,7 @@ public class managerMaintenance extends javax.swing.JFrame {
         lblMaintenanceList.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
         lblMaintenanceList.setText("Maintenance Operations List");
 
-        TbMaintenance.setFont(new java.awt.Font("Helvetica", 0, 12)); // NOI18N
+        TbMaintenance.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         TbMaintenance.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -187,7 +186,7 @@ public class managerMaintenance extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(TbMaintenance);
 
-        btnAssignScheduler.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnAssignScheduler.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnAssignScheduler.setText("Assign Scheduler");
         btnAssignScheduler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,16 +194,15 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
-        btnEditStatus.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnEditStatus.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnEditStatus.setText("Edit Status");
-        btnEditStatus.setSize(new java.awt.Dimension(78, 21));
         btnEditStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditStatusActionPerformed(evt);
             }
         });
 
-        btnMainMenu.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnMainMenu.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMainMenu.setText("Main Menu");
         btnMainMenu.setPreferredSize(new java.awt.Dimension(80, 23));
         btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +211,7 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
-        btnSales.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnSales.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnSales.setText("Sales Dashboard");
         btnSales.setPreferredSize(new java.awt.Dimension(80, 23));
         btnSales.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +220,7 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
-        btnMaintenance.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnMaintenance.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMaintenance.setText("Maintenance Operations");
         btnMaintenance.setPreferredSize(new java.awt.Dimension(80, 23));
         btnMaintenance.addActionListener(new java.awt.event.ActionListener() {
@@ -255,15 +253,17 @@ public class managerMaintenance extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        CBStatus.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Done", "Closed", "Cancelled", " " }));
 
+        CBSchedular.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         CBSchedular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBSchedularActionPerformed(evt);
             }
         });
 
-        BtnAll.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnAll.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         BtnAll.setText("All");
         BtnAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,7 +271,7 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
-        BtnIP.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnIP.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         BtnIP.setText("In Progress");
         BtnIP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +279,7 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
-        BtnDone.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnDone.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         BtnDone.setText("Done");
         BtnDone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +287,7 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
-        BtnClosed.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnClosed.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         BtnClosed.setText("Closed");
         BtnClosed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,7 +295,7 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
-        BtnCancelled.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnCancelled.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         BtnCancelled.setText("Cancelled");
         BtnCancelled.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,7 +303,7 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
-        BtnOpen.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnOpen.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         BtnOpen.setText("Open");
         BtnOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,7 +311,7 @@ public class managerMaintenance extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblUsername.setText("jLabel4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -393,7 +393,7 @@ public class managerMaintenance extends javax.swing.JFrame {
                             .addComponent(CBSchedular, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAssignScheduler)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();

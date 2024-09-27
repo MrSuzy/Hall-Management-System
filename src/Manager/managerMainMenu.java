@@ -64,10 +64,10 @@ public class managerMainMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(213, 248, 249));
 
-        lblCompanyName.setFont(new java.awt.Font("Bradley Hand", 0, 36)); // NOI18N
+        lblCompanyName.setFont(new java.awt.Font("Bradley Hand ITC", 0, 36)); // NOI18N
         lblCompanyName.setText("Hall Symphony Inc.");
 
-        btnLogOut.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnLogOut.setText("LogOut");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,10 +75,10 @@ public class managerMainMenu extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblUsername.setText("jLabel4");
 
-        btnSales.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnSales.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnSales.setText("Sales Dashboard");
         btnSales.setPreferredSize(new java.awt.Dimension(80, 23));
         btnSales.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +87,7 @@ public class managerMainMenu extends javax.swing.JFrame {
             }
         });
 
-        btnMaintenance.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnMaintenance.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMaintenance.setText("Maintenance Operations");
         btnMaintenance.setPreferredSize(new java.awt.Dimension(80, 23));
         btnMaintenance.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +159,7 @@ public class managerMainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
