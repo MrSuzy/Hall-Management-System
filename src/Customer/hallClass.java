@@ -350,25 +350,25 @@ public class hallClass {
                     Date startTime = details[4].equals("N/A") ? null : time.parse(details[4]);
                     Date endTime = details[5].equals("N/A") ? null : time.parse(details[5]);
                     
+                    if (availability.equals("Maintenance")) {
+                        continue;
+                    }
+                    
                     // debug
-                    System.out.println("Hall ID" + hallID);
-                    System.out.println("Type" + type + "Availability" + availability);
+                    System.out.println("Hall ID " + hallID);
+                    System.out.println("Type " + type + "Availability " + availability);
                     System.out.println("Date " + bookingDate + "Start time " + startTime + "End time " + endTime);
                     
                     // check hall type
                     if (type.equals(hallType)) {
-                        if (availability.equals("Booked") || availability.equals("Maintenance")) {
+                        
                         // check date first
-                            if (bookingDate != null && bookingDate.equals(selectedDate)) {
+                            if (bookingDate != null && bookingDate.equals(selectedDate ) && availability.equals("Booked")) {
                                 // check time clash
                                 if (!(selectedEndTime.before(startTime) || selectedStartTime.after(endTime))) {
                                 continue;
                             }
-
-                        } else if (bookingDate == null) {
-                            continue;
-                        }
-                    }    
+                        } 
                         available.add(hallID);
                 }
             }
