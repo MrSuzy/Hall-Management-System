@@ -358,20 +358,20 @@ public class hallClass {
                     
                     // check hall type
                     if (type.equals(hallType)) {
+                        if (availability.equals("Booked") || availability.equals("Maintenance")) {
                         // check date first
-                        if (bookingDate != null && bookingDate.equals(selectedDate) && availability.equals("Booked")) {
-                            
-                            // check time clash
-                            if (!(selectedEndTime.before(startTime) || selectedStartTime.after(endTime))) {
+                            if (bookingDate != null && bookingDate.equals(selectedDate)) {
+                                // check time clash
+                                if (!(selectedEndTime.before(startTime) || selectedStartTime.after(endTime))) {
                                 continue;
                             }
 
-                        }
-                        
+                        } 
+                    }    
                         available.add(hallID);
-                    }
                 }
             }
+        }
             br.close();
         } catch (IOException | ParseException e) {
             System.out.println("Error" + e.getMessage());
