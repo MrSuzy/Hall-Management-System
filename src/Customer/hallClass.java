@@ -438,7 +438,7 @@ public class hallClass {
                     Date startTime = details[4].equals("N/A") ? null : time.parse(details[4]);
                     Date endTime = details[5].equals("N/A") ? null : time.parse(details[5]);
                     
-                    if (!availability.equals("Available") && !availability.equals("Booked")) {
+                    if (!availability.equals("Maintenance")) {
                         continue;
                     }
                     
@@ -449,18 +449,20 @@ public class hallClass {
                     
                     // check hall type
                     if (type.equals(hallType)) {
+                        if (bookingDate == null) {
+                            available.add(hallID);
+                            continue;
+                        }
                         
-                        // check date first
-                            if (bookingDate == null) {
-                                available.add(hallID);
-                                continue;
-                            }
-
+                        if (bookingDate.equals(selectedDate)) {
                             if (selectedEndTime.before(startTime) || selectedStartTime.after(endTime)) {
-                                available.add(hallID); // time conflict
-                        } else {
+                                available.add(hallID);
+                            } else {
                                 continue;
                             }
+                        } else {
+                            available.add(hallID);
+                        }
                 }
             }
         }
