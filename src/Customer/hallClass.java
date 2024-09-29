@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -439,27 +438,29 @@ public class hallClass {
                     Date startTime = details[4].equals("N/A") ? null : time.parse(details[4]);
                     Date endTime = details[5].equals("N/A") ? null : time.parse(details[5]);
                     
+                    if (availability.equals("Maintenance")) {
+                        continue;
+                    }
+                    
                     // debug
-                    System.out.println("Hall ID" + hallID);
-                    System.out.println("Type" + type + "Availability" + availability);
+                    System.out.println("Hall ID " + hallID);
+                    System.out.println("Type " + type + "Availability " + availability);
                     System.out.println("Date " + bookingDate + "Start time " + startTime + "End time " + endTime);
                     
                     // check hall type
                     if (type.equals(hallType)) {
+                        
                         // check date first
-                        if (bookingDate != null && bookingDate.equals(selectedDate) && availability.equals("Booked")) {
-                            
-                            // check time clash
-                            if (!(selectedEndTime.before(startTime) || selectedStartTime.after(endTime))) {
+                            if (bookingDate != null && bookingDate.equals(selectedDate ) && availability.equals("Booked")) {
+                                // check time clash
+                                if (!(selectedEndTime.before(startTime) || selectedStartTime.after(endTime))) {
                                 continue;
                             }
-
-                        }
-                        
+                        } 
                         available.add(hallID);
-                    }
                 }
             }
+        }
             br.close();
         } catch (IOException | ParseException e) {
             System.out.println("Error" + e.getMessage());

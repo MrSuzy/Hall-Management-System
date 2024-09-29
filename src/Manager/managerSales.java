@@ -112,16 +112,16 @@ public class managerSales extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblCompanyName.setFont(new java.awt.Font("Bradley Hand", 0, 36)); // NOI18N
+        lblCompanyName.setFont(new java.awt.Font("Bradley Hand ITC", 0, 36)); // NOI18N
         lblCompanyName.setText("Hall Symphony Inc.");
 
-        lblSalesDashboard.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblSalesDashboard.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblSalesDashboard.setText("Sales Dashboard");
 
-        lblY.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblY.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblY.setText("Year : ");
 
-        CBYear.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBYear.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         CBYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", " " }));
         CBYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +129,7 @@ public class managerSales extends javax.swing.JFrame {
             }
         });
 
-        btnLogOut.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnLogOut.setText("LogOut");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,11 +137,11 @@ public class managerSales extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblUsername.setText("jLabel4");
 
         btnMainMenu.setBackground(new java.awt.Color(222, 225, 232));
-        btnMainMenu.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnMainMenu.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMainMenu.setText("Main Menu");
         btnMainMenu.setPreferredSize(new java.awt.Dimension(80, 23));
         btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +150,7 @@ public class managerSales extends javax.swing.JFrame {
             }
         });
 
-        btnSales.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnSales.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnSales.setText("Sales Dashboard");
         btnSales.setPreferredSize(new java.awt.Dimension(80, 23));
         btnSales.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +159,7 @@ public class managerSales extends javax.swing.JFrame {
             }
         });
 
-        btnMaintenance.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        btnMaintenance.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMaintenance.setText("Maintenance Operations");
         btnMaintenance.setPreferredSize(new java.awt.Dimension(80, 23));
         btnMaintenance.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +193,7 @@ public class managerSales extends javax.swing.JFrame {
                 .addGap(28, 28, 28))
         );
 
-        BtnViewBooking.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        BtnViewBooking.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         BtnViewBooking.setText("View Booking");
         BtnViewBooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,20 +201,22 @@ public class managerSales extends javax.swing.JFrame {
             }
         });
 
-        lblBooked.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblBooked.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblBooked.setText("Total Hall Booked: ");
 
+        txtBooked.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         txtBooked.setText("jTextField1");
 
-        lblAmount.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblAmount.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblAmount.setText("Total Amount:");
 
+        txtAmount.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         txtAmount.setText("jTextField1");
 
-        lblM.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblM.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblM.setText("Month :");
 
-        CBMonth.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBMonth.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         CBMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", " " }));
         CBMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,10 +224,10 @@ public class managerSales extends javax.swing.JFrame {
             }
         });
 
-        lblD.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        lblD.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblD.setText("Day : ");
 
-        CBDay.setFont(new java.awt.Font("Gill Sans", 0, 18)); // NOI18N
+        CBDay.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         CBDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", " " }));
         CBDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,6 +235,7 @@ public class managerSales extends javax.swing.JFrame {
             }
         });
 
+        TbBooking.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         TbBooking.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
@@ -271,7 +274,7 @@ public class managerSales extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblCompanyName)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnLogOut))
@@ -318,7 +321,7 @@ public class managerSales extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(28, Short.MAX_VALUE))
+                        .addContainerGap(31, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
