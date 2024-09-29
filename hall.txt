@@ -1,5 +1,5 @@
 A001;Auditorium;1000.00;2024-09-30;09:22;10:22;500;Booked
-A002;Auditorium;1500.00;N/A;N/A;N/A;600;Available
+A002;Auditorium;1500.00;2024-10-16;10:00;12:00;600;Booked
 B001;Banquet Hall;1000.00;2024-09-27;15:00;16:00;400;Maintenance
 B002;Banquet Hall;1200.0;2024-10-05;12:00;22:00;500;Booked
 M001;Meeting Room;300.00;2024-09-25;10:06;12:06;50;Booked

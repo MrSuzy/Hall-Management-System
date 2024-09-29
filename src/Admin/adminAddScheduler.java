@@ -290,6 +290,7 @@ public class adminAddScheduler extends javax.swing.JFrame {
         
         if (password.length() < 8) {
             JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         // Validate email
