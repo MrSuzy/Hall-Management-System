@@ -438,7 +438,7 @@ public class hallClass {
                     Date startTime = details[4].equals("N/A") ? null : time.parse(details[4]);
                     Date endTime = details[5].equals("N/A") ? null : time.parse(details[5]);
                     
-                    if (availability.equals("Maintenance")) {
+                    if (availability.equals("Maintenance") || availability.equals("Booked")) {
                         continue;
                     }
                     
