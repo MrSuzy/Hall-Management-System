@@ -116,7 +116,95 @@ public class hallClass {
     public void setAvailabiliy(String availability) {
         this.availability = availability;
     }
- 
+    
+    public Object[] getHallExactDetails(String hallID) {
+        String hallFileName = "hall.txt";
+        String bookingFileName = "booking.txt";
+        List<String> hallDetails = new ArrayList<>();
+        List<String> futureBookings = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            // Read hall details
+            try (BufferedReader br = new BufferedReader(new FileReader(hallFileName))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] hallInfo = line.split(";");
+                    if (hallInfo[0].equals(hallID)) {
+                        hallDetails.add(line); // Save hall details if hallID matches
+                    }
+                }
+            }
+
+            // Read booking details
+            try (BufferedReader br = new BufferedReader(new FileReader(bookingFileName))) {
+                String line;
+                Date today = new Date(); // Get today's date
+                while ((line = br.readLine()) != null) {
+                    String[] bookingInfo = line.split(";");
+                    String bookingHallID = bookingInfo[2]; // The hall ID for the booking
+                    String bookingDateStr = bookingInfo[3]; // The date of the booking
+
+                    // Check if the hall ID matches and if the booking date is in the future
+                    if (bookingHallID.equals(hallID)) {
+                        Date bookingDate = dateFormat.parse(bookingDateStr);
+                        if (bookingDate.after(today)) {
+                            futureBookings.add(line); // Add future bookings
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace(); // Handle exceptions
+        }
+
+        // Combine hall details and future bookings into an array
+        Object[] result = new Object[2];
+        result[0] = hallDetails.toArray(new String[0]); // Hall details
+        result[1] = futureBookings.toArray(new String[0]); // Future bookings
+
+        return result; // Return both hall details and future bookings
+    }
+    
+    public String getLastHallTypeID(char hallPrefix) {
+        String fileName = "hall.txt";
+        int maxNumber = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            // Check if the line starts with the specified hall prefix
+            if (line.startsWith(String.valueOf(hallPrefix))) {
+                // Extract the hall ID (first part of the line)
+                String hallID = line.split(";")[0].trim();
+
+                // Ensure the ID starts with the hallPrefix and is long enough
+                if (hallID.length() > 1 && hallID.charAt(0) == hallPrefix) {
+                    // Extract the numeric part and parse it
+                    try {
+                        int currentNumber = Integer.parseInt(hallID.substring(1)); // Parse the numeric part
+
+                        // Update maxNumber if the current number is greater
+                        if (currentNumber > maxNumber) {
+                            maxNumber = currentNumber;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid number format in ID: " + hallID);
+                    }
+                }
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+        return null;
+    }
+
+    // Generate the new hall ID
+    int newNumber = maxNumber + 1;
+    return String.valueOf(hallPrefix) + String.format("%03d", newNumber);
+}
+    
     public List<String> getAllHallIDs() {
        String fileName = "hall.txt";
        List<String> hallIDs = new ArrayList<>();
@@ -424,6 +512,8 @@ public class hallClass {
             System.out.println("Error" + e.getMessage());
         }
     }
+    
+    // public Object[] getBl
     
     /*public static void main(String[] args) {
         hallClass hall = new hallClass();

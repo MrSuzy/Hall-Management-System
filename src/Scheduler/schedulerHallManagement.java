@@ -31,17 +31,22 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         populateTable();
     }
     
-        private void populateTable() {
-    DefaultTableModel model = (DefaultTableModel) tableHallManagement.getModel();
-    model.setRowCount(0);
+    private void openViewHallDetails(String hallID) {
+        this.dispose();
+        new schedulerViewHallDetails(hallID, loggedInEmail).setVisible(true);
+    }
 
-    hallClass hall = new hallClass();
-    Object[][] halls = hall.getHallDetails(); // Get the hall details as a 2D array
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tableHallManagement.getModel();
+        model.setRowCount(0);
 
-    for (Object[] hallDetails : halls) {
-        model.addRow(hallDetails); // Add each row of details directly to the table
-    
-}
+        hallClass hall = new hallClass();
+        Object[][] halls = hall.getHallDetails(); // Get the hall details as a 2D array
+
+        for (Object[] hallDetails : halls) {
+            model.addRow(hallDetails); // Add each row of details directly to the table
+        
+    }
     }
     
     /**
@@ -69,6 +74,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         txtSearchField = new javax.swing.JTextField();
         btnSearchInHallTable = new javax.swing.JButton();
         btnResetSearch = new javax.swing.JButton();
+        btnViewHallDetails = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(227, 242, 253));
@@ -185,6 +191,13 @@ public class schedulerHallManagement extends javax.swing.JFrame {
             }
         });
 
+        btnViewHallDetails.setText("View");
+        btnViewHallDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewHallDetailsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -193,22 +206,23 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 30, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnViewHallDetails, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(83, 83, 83)
+                                .addGap(67, 67, 67)
                                 .addComponent(txtSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnResetSearch)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSearchInHallTable))))
+                                .addComponent(btnResetSearch)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearchInHallTable))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,19 +245,23 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAdd)
                             .addComponent(btnSearchInHallTable)
                             .addComponent(txtSearchField)
                             .addComponent(btnResetSearch))
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAdd)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnEdit)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnDelete))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnDelete)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnViewHallDetails)
+                                .addGap(19, 19, 19)))))
                 .addGap(16, 16, 16))
         );
 
@@ -253,8 +271,8 @@ public class schedulerHallManagement extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(46, 46, 46))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,6 +371,19 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         sorter.setRowFilter(RowFilter.regexFilter(""));
     }//GEN-LAST:event_btnResetSearchActionPerformed
 
+    private void btnViewHallDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewHallDetailsActionPerformed
+        int selectedRow = tableHallManagement.getSelectedRow();
+        
+        if (selectedRow > 0 ) {
+            String hallID = tableHallManagement.getValueAt(selectedRow, 0).toString();
+            
+            this.dispose();
+            new schedulerViewHallDetails(hallID, loggedInEmail).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "No hall selected. Please select a hall to view details.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnViewHallDetailsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -367,6 +398,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnResetSearch;
     private javax.swing.JButton btnSearchInHallTable;
+    private javax.swing.JButton btnViewHallDetails;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

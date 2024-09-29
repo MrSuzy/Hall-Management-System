@@ -5,7 +5,6 @@
 package Scheduler;
 
 import Customer.hallClass;
-import java.io.IOException;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -14,15 +13,86 @@ import javax.swing.JOptionPane;
  * @author Huawei
  */
 public class schedulerAddHall extends javax.swing.JFrame {
-    private String loggedInEmail;
+    private final String loggedInEmail;
+    private boolean isComboBoxReadyForSelection = false;
     /**
      * Creates new form schedulerAddHall
+     * @param loggedInEmail
      */
     public schedulerAddHall(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
         initComponents();
+        populateComBoxHallType();
     }
 
+    private void handleHallTypeSelection() {
+        // Check if the comboBox is ready for user selection
+        if (!isComboBoxReadyForSelection) {
+            return; // Exit the method if not ready
+        }
+
+        // Retrieve the selected item
+        String hallType = (String) comBoxHallType.getSelectedItem();
+
+        // Check if hallType is null
+        if (hallType == null) {
+            // Handle the null case (e.g., log, show an error, or return)
+            System.err.println("No hall type selected!");
+            return; // Exit the method if hallType is null
+        }
+
+        char hallPrefix = '\0';
+
+        switch (hallType) {
+            case "Auditorium" -> hallPrefix = 'A';
+            case "Banquet Hall" -> hallPrefix = 'B';
+            case "Meeting Room" -> hallPrefix = 'M';
+            default -> {
+                // Handle unexpected hall types, if needed
+                System.err.println("Unknown hall type: " + hallType);
+                return;
+            }
+        }
+
+        hallClass hall = new hallClass();
+        String result = hall.getLastHallTypeID(hallPrefix);
+
+        lblAddHallID.setText(result);
+
+        // Populate capacity and price fields based on the hall type
+        switch (hallType) {
+            case "Auditorium" -> {
+                txtAddCapacity.setText("1000");
+                txtAddPrice.setText("300");
+            }
+            case "Banquet Hall" -> {
+                txtAddCapacity.setText("300");
+                txtAddPrice.setText("100");
+            }
+            case "Meeting Room" -> {
+                txtAddCapacity.setText("30");
+                txtAddPrice.setText("50");
+            }
+        }
+    }
+
+    private void populateComBoxHallType() {
+        String[] hallTypes = {"Auditorium", "Banquet Hall", "Meeting Room"};
+
+        // Remove any existing items
+        comBoxHallType.removeAllItems();
+
+        // Temporarily disable selection handling
+        isComboBoxReadyForSelection = false;
+
+        // Add each hall type to the combo box
+        for (String hallType : hallTypes) {
+            comBoxHallType.addItem(hallType);
+        }
+
+        // Enable selection handling after population is complete
+        isComboBoxReadyForSelection = true;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,14 +108,19 @@ public class schedulerAddHall extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtHallID = new javax.swing.JTextField();
-        txtCapacity = new javax.swing.JTextField();
-        txtPrice = new javax.swing.JTextField();
+        txtAddCapacity = new javax.swing.JTextField();
+        txtAddPrice = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        cbHallType = new javax.swing.JComboBox<>();
+        comBoxHallType = new javax.swing.JComboBox<>();
+        lblAddHallID = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(227, 242, 253));
 
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         jLabel1.setText("Add New Hall");
@@ -57,12 +132,6 @@ public class schedulerAddHall extends javax.swing.JFrame {
         jLabel4.setText("Capacity");
 
         jLabel5.setText("Price (RM/per hour)");
-
-        txtHallID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHallIDActionPerformed(evt);
-            }
-        });
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -78,70 +147,91 @@ public class schedulerAddHall extends javax.swing.JFrame {
             }
         });
 
-        cbHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auditorium ", "Banquet Hall", "Meeting Room" }));
-        cbHallType.addActionListener(new java.awt.event.ActionListener() {
+        comBoxHallType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auditorium ", "Banquet Hall", "Meeting Room" }));
+        comBoxHallType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbHallTypeActionPerformed(evt);
+                comBoxHallTypeActionPerformed(evt);
             }
         });
+
+        lblAddHallID.setText("Auditorium X");
+
+        jLabel6.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
+        jLabel6.setText("Hall Symphony Inc");
+
+        btnLogout.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btnLogout.setText("logout");
+        btnLogout.setActionCommand("Log Out");
+
+        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblUsername.setText("username");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtAddCapacity)
+                            .addComponent(comBoxHallType, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblAddHallID, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtHallID)
-                                    .addComponent(txtCapacity)
-                                    .addComponent(cbHallType, javax.swing.GroupLayout.Alignment.LEADING, 0, 124, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(txtPrice))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addComponent(btnAdd)
-                        .addGap(62, 62, 62)
-                        .addComponent(btnCancel)))
-                .addContainerGap(427, Short.MAX_VALUE))
+                        .addComponent(txtAddPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addComponent(lblUsername)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogout)
+                .addGap(56, 56, 56))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(btnAdd)
+                .addGap(62, 62, 62)
+                .addComponent(btnCancel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogout)
+                    .addComponent(lblUsername)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cbHallType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(comBoxHallType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtHallID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(lblAddHallID))
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAddCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
+                    .addComponent(txtAddPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnCancel))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(38, 38, 38))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,29 +248,29 @@ public class schedulerAddHall extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtHallIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHallIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtHallIDActionPerformed
+    private void comBoxHallTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comBoxHallTypeActionPerformed
+        handleHallTypeSelection();
+    }//GEN-LAST:event_comBoxHallTypeActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-            this.dispose();
+        this.dispose();
 
         // Create a new scheduler management window
-            schedulerHallManagement scheduler = new schedulerHallManagement(loggedInEmail);
-            scheduler.setVisible(true);  // Display the new scheduler window
+        schedulerHallManagement scheduler = new schedulerHallManagement(loggedInEmail);
+        scheduler.setVisible(true);  // Display the new scheduler window
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        String hallID = txtHallID.getText();
-        String hallType = (String) cbHallType.getSelectedItem();
-        String capacityStr = txtCapacity.getText();
-        String priceStr = txtPrice.getText();
+        String hallID = lblAddHallID.getText();
+        String hallType = (String) comBoxHallType.getSelectedItem();
+        String capacityStr = txtAddCapacity.getText();
+        String priceStr = txtAddPrice.getText();
         Date bookingDate = null;
         Date startTime = null;
         Date endTime = null;
         String availability = "Available";
-        
+
         // Field authentication
         if (hallID.isEmpty() || hallType.isEmpty() || capacityStr.isEmpty() || priceStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all the fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -193,26 +283,22 @@ public class schedulerAddHall extends javax.swing.JFrame {
 
         hallClass hall = new hallClass(hallID, hallType, price, bookingDate, startTime, endTime, capacity, availability);
         String result = hall.addHall(hallID, hallType, price, bookingDate, startTime, endTime, capacity, availability);
-    
+
         // Display results of adding hall
         if (result.equals("success")) {
             JOptionPane.showMessageDialog(this, "Hall details successfully added!");
-        } else { 
+        } else {
             JOptionPane.showMessageDialog(this, "Error saving the data. Please try again.", "File Error", JOptionPane.ERROR_MESSAGE);
         }
 
         // Close the current window
-        this.dispose();  
+        this.dispose();
 
         // Create a new scheduler management window
-        schedulerHallManagement scheduler = new schedulerHallManagement(loggedInEmail);  
+        schedulerHallManagement scheduler = new schedulerHallManagement(loggedInEmail);
         scheduler.setVisible(true);  // Display the new scheduler window
-        
-    }//GEN-LAST:event_btnAddActionPerformed
 
-    private void cbHallTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbHallTypeActionPerformed
-       // TODO add your handling code here:
-    }//GEN-LAST:event_cbHallTypeActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
         
     /**
@@ -223,15 +309,18 @@ public class schedulerAddHall extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JComboBox<String> cbHallType;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JComboBox<String> comBoxHallType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtCapacity;
-    private javax.swing.JTextField txtHallID;
-    private javax.swing.JTextField txtPrice;
+    private javax.swing.JLabel lblAddHallID;
+    private javax.swing.JLabel lblUsername;
+    private javax.swing.JTextField txtAddCapacity;
+    private javax.swing.JTextField txtAddPrice;
     // End of variables declaration//GEN-END:variables
 }
