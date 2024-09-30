@@ -416,6 +416,31 @@ public class hallClass {
         return "Hall not found.";
     }
 }
+    
+    // view all past halls details for scheduler
+    public List<Object[]> viewPastHalls() {
+        List<Object[]> past = new ArrayList<>();
+        Date currentDate = new Date();
+        
+        try{
+            FileReader fr = new FileReader("hall.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            while ((read = br.readLine()) != null) {
+                String[] details = read.split(";");
+                
+                Date bookingDate = details[3].equals("N/A") ? null : date.parse(details[3]);
+                
+                if (bookingDate != null && bookingDate.before(currentDate)) {
+                    past.add(new Object[]{details[0], details[1], Integer.parseInt(details[6]), Double.parseDouble(details[2]), details[7]});
+                }
+            }
+        } catch (IOException | ParseException e) {
+            System.out.println("Error reading file/parsing dateTime" + e.getMessage());
+        }
+        return past;
+    }
 
     // check hall availabilty before booking method 
     public static List<String> hallAvailability(Date selectedDate, Date selectedStartTime, Date selectedEndTime, String hallType) {
