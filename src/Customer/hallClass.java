@@ -417,10 +417,9 @@ public class hallClass {
     }
 }
     
-    // view all past halls details for scheduler
+    // view detailed past halls for scheduler
     public List<Object[]> viewPastHalls() {
         List<Object[]> past = new ArrayList<>();
-        Date currentDate = new Date();
         
         try{
             FileReader fr = new FileReader("hall.txt");
@@ -430,13 +429,17 @@ public class hallClass {
             while ((read = br.readLine()) != null) {
                 String[] details = read.split(";");
                 
-                Date bookingDate = details[3].equals("N/A") ? null : date.parse(details[3]);
+                String hallID = details[0];
+                String hallType = details[1];
+                String bookingDate = details[3];
+                String startTime = details[4];
+                String endTime = details[5];
+                String availability = details[7];
                 
-                if (bookingDate != null && bookingDate.before(currentDate)) {
-                    past.add(new Object[]{details[0], details[1], Integer.parseInt(details[6]), Double.parseDouble(details[2]), details[7]});
-                }
+                past.add(new Object[]{hallID, hallType, bookingDate, startTime, endTime, availability});
             }
-        } catch (IOException | ParseException e) {
+    
+        } catch (IOException e) {
             System.out.println("Error reading file/parsing dateTime" + e.getMessage());
         }
         return past;

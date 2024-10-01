@@ -5,6 +5,7 @@
 package Scheduler;
 
 import Customer.hallClass;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,46 +25,64 @@ public class schedulerViewHallDetails extends javax.swing.JFrame {
         this.loggedInEmail = loggedInEmail;
         this.hallID = hallID;
         initComponents();
-        populateHallDetailsTable(hallID);
+        loadHallDetails();
     }
     
-    private void populateHallDetailsTable(String hallID) {
-    hallClass hall = new hallClass();
-    Object[] hallDetailsAndBookings = hall.getHallExactDetails(hallID);
+    private void loadHallDetails() {
+        hallClass hall = new hallClass();
+        
+        List<Object[]> hallDetails = hall.viewPastHalls();
+        
+        DefaultTableModel table = (DefaultTableModel) tblDetails.getModel();
+        
+        table.setRowCount(0);
+        
+       for (Object[] halls : hallDetails) {
+           if (halls[0].toString().equals(hallID)) {
+               table.addRow(new Object[]{halls[0], halls[1], halls[3], halls[4], halls[5], halls[7]});
+           }
+       }
+    }
     
-    String[] hallDetails = (String[]) hallDetailsAndBookings[0]; // Get hall details
-    String[] futureBookings = (String[]) hallDetailsAndBookings[1]; // Get future bookings
-
-    // Clear existing rows in the table (if any)
-    DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-    tableModel.setRowCount(0); // Clear previous data
-
-    // Add hall details to the table
-    for (String hallDetail : hallDetails) {
-        String[] hallInfo = hallDetail.split(";"); // Split by semicolon
-        tableModel.addRow(new Object[]{
-            hallInfo[0], // Hall ID
-            hallInfo[1], // Hall Type
-            hallInfo[2], // Price
-            hallInfo[3].equals("N/A") ? "" : hallInfo[3], // Date (if applicable)
-            hallInfo[4].equals("N/A") ? "" : hallInfo[4], // Start Time (if applicable)
-            hallInfo[5].equals("N/A") ? "" : hallInfo[5]  // End Time (if applicable)
-        });
-    }
-
-    // Add future bookings to the table
-    for (String futureBooking : futureBookings) {
-        String[] bookingInfo = futureBooking.split(";"); // Split by semicolon
-        tableModel.addRow(new Object[]{
-            bookingInfo[2], // Hall ID (from booking)
-            "Booking",      // Hall Type (you may adjust this)
-            "",             // Price (not available for bookings)
-            bookingInfo[3], // Booking Date
-            bookingInfo[4], // Start Time
-            bookingInfo[7]  // Status
-        });
-    }
-}
+    
+    
+//    private void populateHallDetailsTable(String hallID) {
+//    hallClass hall = new hallClass();
+//    Object[] hallDetailsAndBookings = hall.getHallExactDetails(hallID);
+//    
+//    String[] hallDetails = (String[]) hallDetailsAndBookings[0]; // Get hall details
+//    String[] futureBookings = (String[]) hallDetailsAndBookings[1]; // Get future bookings
+//
+//    // Clear existing rows in the table (if any)
+//    DefaultTableModel tableModel = (DefaultTableModel) tblDetails.getModel();
+//    tableModel.setRowCount(0); // Clear previous data
+//
+//    // Add hall details to the table
+//    for (String hallDetail : hallDetails) {
+//        String[] hallInfo = hallDetail.split(";"); // Split by semicolon
+//        tableModel.addRow(new Object[]{
+//            hallInfo[0], // Hall ID
+//            hallInfo[1], // Hall Type
+//            hallInfo[2], // Price
+//            hallInfo[3].equals("N/A") ? "" : hallInfo[3], // Date (if applicable)
+//            hallInfo[4].equals("N/A") ? "" : hallInfo[4], // Start Time (if applicable)
+//            hallInfo[5].equals("N/A") ? "" : hallInfo[5]  // End Time (if applicable)
+//        });
+//    }
+//
+//    // Add future bookings to the table
+//    for (String futureBooking : futureBookings) {
+//        String[] bookingInfo = futureBooking.split(";"); // Split by semicolon
+//        tableModel.addRow(new Object[]{
+//            bookingInfo[2], // Hall ID (from booking)
+//            "Booking",      // Hall Type (you may adjust this)
+//            "",             // Price (not available for bookings)
+//            bookingInfo[3], // Booking Date
+//            bookingInfo[4], // Start Time
+//            bookingInfo[7]  // Status
+//        });
+//    }
+//}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,12 +94,12 @@ public class schedulerViewHallDetails extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDetails = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -99,7 +118,7 @@ public class schedulerViewHallDetails extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblDetails);
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -143,41 +162,11 @@ public class schedulerViewHallDetails extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(schedulerViewHallDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(schedulerViewHallDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(schedulerViewHallDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(schedulerViewHallDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new schedulerViewHallDetails("A001", "ben@gmail.com").setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblDetails;
     // End of variables declaration//GEN-END:variables
 }

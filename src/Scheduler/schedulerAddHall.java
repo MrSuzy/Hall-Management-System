@@ -22,6 +22,7 @@ public class schedulerAddHall extends javax.swing.JFrame {
     public schedulerAddHall(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
         initComponents();
+        lblUsername.setText(loggedInEmail);
         populateComBoxHallType();
     }
 
