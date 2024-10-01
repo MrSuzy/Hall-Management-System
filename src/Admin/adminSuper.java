@@ -393,7 +393,7 @@ public class adminSuper extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new adminAddScheduler(loggedInEmail).setVisible(true);
+        new superAddAdmin(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
