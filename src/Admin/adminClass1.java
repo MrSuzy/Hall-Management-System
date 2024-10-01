@@ -358,8 +358,7 @@ public class adminClass1 {
     // define user status 
     public enum userStatus {
         ACTIVE("active"),
-        BLOCKED("blocked"),
-        INACTIVE("inactive");
+        BLOCKED("blocked");
         
         private final String status;
         

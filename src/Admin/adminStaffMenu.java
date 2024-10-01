@@ -196,7 +196,7 @@ public class adminStaffMenu extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(StaffTbl);
 
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "inactive", "blocked" }));
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "blocked" }));
 
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);

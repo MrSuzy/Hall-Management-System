@@ -158,7 +158,7 @@ public class adminSuper extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbUser);
 
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "inactive", "blocked", "all" }));
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "blocked", "all" }));
 
         btnDelete.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnDelete.setText("Delete");
