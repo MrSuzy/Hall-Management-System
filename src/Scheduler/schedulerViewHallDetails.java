@@ -39,7 +39,7 @@ public class schedulerViewHallDetails extends javax.swing.JFrame {
         
        for (Object[] halls : hallDetails) {
            if (halls[0].toString().equals(hallID)) {
-               table.addRow(new Object[]{halls[0], halls[1], halls[3], halls[4], halls[5], halls[7]});
+               table.addRow(new Object[]{halls[0], halls[1], halls[2], halls[3], halls[4], halls[5]});
            }
        }
     }
