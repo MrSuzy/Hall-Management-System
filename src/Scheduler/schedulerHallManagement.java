@@ -128,7 +128,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Hall ID", "Type", "Capacity", "Price (RM/per hour)", "Availability"
+                "Hall ID", "Hall Type", "Capacity", "Price (RM/per hour)", "Availability"
             }
         ));
         jScrollPane1.setViewportView(tableHallManagement);
