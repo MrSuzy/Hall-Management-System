@@ -390,8 +390,7 @@ public class customerBooking extends javax.swing.JFrame {
         Date selectedDate = datePicker.getDate();
         Date startTime = (Date) startTimePicker.getValue();
         Date endTime = (Date) endTimePicker.getValue();
-        String hallType = (String) cbHallType.getSelectedItem();
-        
+        String hallType = (String) cbHallType.getSelectedItem();        
         // debug
         System.out.println("Selected Date: " + selectedDate);
         System.out.println("Start Time: " + startTime);

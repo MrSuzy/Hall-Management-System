@@ -1,25 +1,25 @@
 package Scheduler;
 
 import Customer.hallClass;
-import Login.LoginPage;
-import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import javax.swing.JSpinner;
 
 /**
  *
  * @author Huawei
  */
 public class schedulerHallMaintenance extends javax.swing.JFrame {
+
     private String loggedInEmail;
+    private JSpinner startTimePicker;
+    private JSpinner endTimePicker;
+    // private javax.swing.JComboBox<String> cbHallType;
+
     /**
      * Creates new form schedulerHallMaintenance
      */
@@ -29,45 +29,83 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
         lblUsername.setText(loggedInEmail);
         populateIDComboBox();
         populateDateComboBox();
+        populateMaintenanceTimeCombox();
     }
-    
-    
+
+    private schedulerHallMaintenance() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+//    schedulerHallMaintenance(String loggedInEmail) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+    private void populateMaintenanceTimeCombox() {
+        comBoxSelectStartTime.removeAllItems();
+        comBoxSelectEndTime.removeAllItems();
+
+        int startHour = 8;  // Start at 8:00 AM
+        int endHour = 18;   // End at 6:00 PM
+
+        for (int hour = startHour; hour <= endHour; hour++) {
+            // Add the hour option
+            String timeHour = formatTime(hour, 0); // :00
+            comBoxSelectStartTime.addItem(timeHour);
+            comBoxSelectEndTime.addItem(timeHour);
+
+            // Add the half-hour option
+            if (hour != endHour) {  // To ensure 6:30 PM is not included
+                String timeHalfHour = formatTime(hour, 30); // :30
+                comBoxSelectStartTime.addItem(timeHalfHour);
+                comBoxSelectEndTime.addItem(timeHalfHour);
+            }
+        }
+    }
+
+    private String formatTime(int hour, int minutes) {
+        String amPm = (hour < 12) ? "AM" : "PM";
+        int displayHour = (hour == 0) ? 12 : (hour > 12) ? hour - 12 : hour;
+
+        return String.format("%02d:%02d %s", displayHour, minutes, amPm);
+    }
+
+
     private void populateDateComboBox() {
         dateComboBox.removeAllItems();
-        
+
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
-        
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         for (int i = 0; i < 14; i++) {
             Date date = calendar.getTime();
             dateComboBox.addItem(dateFormat.format(date));
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
     }
-    
+
     private void populateIDComboBox() {
         hallClass hall = new hallClass();
         List<String> hallIDs = hall.getAllHallIDs();
-        
+
         comBoxHallID.removeAllItems();
-        
-        for (String hallID: hallIDs) {
+
+        for (String hallID : hallIDs) {
             comBoxHallID.addItem(hallID);
         }
     }
-    
+
     private void handleSelectedHallID(String hallID) {
         hallClass hall = new hallClass();
         Object[] item = hall.getSpecificHallDetails(hallID);
-        
+
         if (item != null) {
-        hallTypeLabel.setText(item[1].toString());  // Assuming item[1] holds the hall type
-    } else {
-        hallTypeLabel.setText("No details available");  // Handle case where no hall is found
+            hallTypeLabel.setText(item[1].toString());  // Assuming item[1] holds the hall type
+        } else {
+            hallTypeLabel.setText("No details available");  // Handle case where no hall is found
+        }
     }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,28 +115,26 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jProgressBar1 = new javax.swing.JProgressBar();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
-        txtRemarks = new javax.swing.JTextField();
+        btnMainMenu = new javax.swing.JButton();
+        btnHallManagement = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnScheduleMaintenance = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         comBoxHallID = new javax.swing.JComboBox<>();
-        dateComboBox = new javax.swing.JComboBox<>();
         hallTypeLabel = new javax.swing.JLabel();
-        txtStartTime = new javax.swing.JTextField();
-        txtEndTime = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        btnMainMenu = new javax.swing.JButton();
-        btnHallManagement = new javax.swing.JButton();
+        comBoxSelectStartTime = new javax.swing.JComboBox<>();
+        comBoxSelectEndTime = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        txtRemarks = new javax.swing.JTextField();
+        btnScheduleMaintenance = new javax.swing.JButton();
+        dateComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,69 +154,6 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
         lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblUsername.setText("username");
 
-        txtRemarks.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRemarksActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
-        jLabel3.setText("Remarks:");
-
-        btnScheduleMaintenance.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        btnScheduleMaintenance.setText("Schedule Maintenance");
-        btnScheduleMaintenance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnScheduleMaintenanceActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
-        jLabel4.setText("Hall Maintenance");
-
-        jLabel5.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jLabel5.setText("Hall ID:");
-
-        jLabel6.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jLabel6.setText("Hall Type:");
-
-        jLabel7.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jLabel7.setText("Date:");
-
-        jLabel8.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jLabel8.setText("Start Time:");
-
-        jLabel9.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jLabel9.setText("End Time:");
-
-        comBoxHallID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comBoxHallID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comBoxHallIDActionPerformed(evt);
-            }
-        });
-
-        dateComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        dateComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateComboBoxActionPerformed(evt);
-            }
-        });
-
-        hallTypeLabel.setText("placeholder");
-
-        txtStartTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtStartTimeActionPerformed(evt);
-            }
-        });
-
-        txtEndTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEndTimeActionPerformed(evt);
-            }
-        });
-
         btnMainMenu.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btnMainMenu.setText("Main Menu");
         btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -197,123 +170,154 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnHallManagement)
-                    .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnHallManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(163, 163, 163))
-        );
+        jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
+        jLabel2.setText("Hall Maintenance");
+
+        jLabel3.setText("Hall ID:");
+
+        jLabel4.setText("Hall Type:");
+
+        jLabel5.setText("Date:");
+
+        jLabel6.setText("Start Time:");
+
+        jLabel7.setText("End Time:");
+
+        comBoxHallID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comBoxHallID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comBoxHallIDActionPerformed(evt);
+            }
+        });
+
+        hallTypeLabel.setText("placeholder");
+
+        comBoxSelectStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comBoxSelectStartTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comBoxSelectStartTimeActionPerformed(evt);
+            }
+        });
+
+        comBoxSelectEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comBoxSelectEndTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comBoxSelectEndTimeActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Remarks:");
+
+        txtRemarks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRemarksActionPerformed(evt);
+            }
+        });
+
+        btnScheduleMaintenance.setText("Schedule Maintenance");
+        btnScheduleMaintenance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScheduleMaintenanceActionPerformed(evt);
+            }
+        });
+
+        dateComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dateComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnHallManagement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addGap(26, 26, 26)
-                                    .addComponent(txtEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(comBoxSelectEndTime, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(comBoxSelectStartTime, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(dateComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(comBoxHallID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(hallTypeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comBoxHallID, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(26, 26, 26)
-                                .addComponent(hallTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
+                                    .addComponent(btnScheduleMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtRemarks, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                         .addComponent(lblUsername)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLogout)
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtRemarks, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(16, 16, 16))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnScheduleMaintenance)
-                                .addGap(55, 55, 55))))))
+                        .addComponent(btnLogout)))
+                .addGap(47, 47, 47))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLogout)
                     .addComponent(lblUsername))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(comBoxHallID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
+                                .addComponent(btnHallManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
-                                    .addComponent(comBoxHallID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(hallTypeLabel))
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
                                     .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(txtStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(txtEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(txtRemarks, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnScheduleMaintenance)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(comBoxSelectStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel8)
+                            .addComponent(hallTypeLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRemarks)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(comBoxSelectEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnScheduleMaintenance))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -330,17 +334,11 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comBoxHallIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comBoxHallIDActionPerformed
-        String selectedHallID = (String) comBoxHallID.getSelectedItem();
-        
-        if (selectedHallID != null) {
-            handleSelectedHallID(selectedHallID);
-        }
-    }//GEN-LAST:event_comBoxHallIDActionPerformed
-
-    private void txtRemarksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRemarksActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtRemarksActionPerformed
+        this.dispose();
+        new Login.LoginPage().setVisible(true);
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
@@ -348,80 +346,125 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
         new schedulerMainMenu(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new Login.LoginPage().setVisible(true);
-    }//GEN-LAST:event_btnLogoutActionPerformed
-
     private void btnHallManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallManagementActionPerformed
         // TODO add your handling code here:
         this.dispose();
         new schedulerHallManagement(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnHallManagementActionPerformed
 
+    private void comBoxSelectStartTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comBoxSelectStartTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comBoxSelectStartTimeActionPerformed
+
+    private void txtRemarksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRemarksActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRemarksActionPerformed
+
     private void btnScheduleMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleMaintenanceActionPerformed
         String hallID = comBoxHallID.getSelectedItem().toString();
         String hallType = hallTypeLabel.getText();
         String dateStr = dateComboBox.getSelectedItem().toString();
-        String startTimeStr = txtStartTime.getText();
-        String endTimeStr = txtEndTime.getText();
+        String startTimeStr = comBoxSelectStartTime.getSelectedItem().toString(); // Updated to combo box
+        String endTimeStr = comBoxSelectEndTime.getSelectedItem().toString();     // Updated to combo box
         String remarks = txtRemarks.getText();
-        
+
+        // Check if any fields are empty
         if (hallID.isEmpty() || hallType.isEmpty() || dateStr.isEmpty() || startTimeStr.isEmpty() || endTimeStr.isEmpty() || remarks.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all the fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit if there is an empty field
         }
-        
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust according to your date format
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm"); // Format for time
-        
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a"); // Format for time (12-hour format with AM/PM)
+
         try {
             Date date = dateFormat.parse(dateStr);
             Date startTime = timeFormat.parse(startTimeStr);
             Date endTime = timeFormat.parse(endTimeStr);
             
+            // Validate: End time must be after start time and they must not be equal
+            if (!endTime.after(startTime)) {
+                JOptionPane.showMessageDialog(this, "End time must be later than start time. Please select a valid time range.", "Time Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit if the validation fails
+            }
+
             hallClass hall = new hallClass();
             String result1 = hall.updateMaintenanceRecord(hallID, date, startTime, endTime);
-            
+
             maintenanceClass maintenance = new maintenanceClass();
             String result2 = maintenance.createMaintenanceRecord(hallID, date, startTime, endTime, remarks);
-            
+
             if (result1.equals("success") && result2.equals("success")) {
                 JOptionPane.showMessageDialog(this, "Maintenance scheduled successfully!");
                 comBoxHallID.removeAllItems();
                 dateComboBox.removeAllItems();
-                txtStartTime.setText("");
-                txtEndTime.setText("");
+                comBoxSelectStartTime.removeAllItems();
+                comBoxSelectEndTime.removeAllItems();
                 txtRemarks.setText("");
             } else {
                 JOptionPane.showMessageDialog(this, "Error scheduling maintenance", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (ParseException ex) {
-            ex.printStackTrace();   
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Invalid date or time format.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         this.dispose();
-        
+
         schedulerHallManagement scheduler = new schedulerHallManagement(loggedInEmail);  
         scheduler.setVisible(true);  // Display the new scheduler window
     }//GEN-LAST:event_btnScheduleMaintenanceActionPerformed
+
+    private void comBoxSelectEndTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comBoxSelectEndTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comBoxSelectEndTimeActionPerformed
+
+    private void comBoxHallIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comBoxHallIDActionPerformed
+        String selectedHallID = (String) comBoxHallID.getSelectedItem();
+
+        if (selectedHallID != null) {
+            handleSelectedHallID(selectedHallID);
+        }
+    }//GEN-LAST:event_comBoxHallIDActionPerformed
 
     private void dateComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dateComboBoxActionPerformed
 
-    private void txtStartTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtStartTimeActionPerformed
-
-    private void txtEndTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEndTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEndTimeActionPerformed
-
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(schedulerHallMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(schedulerHallMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(schedulerHallMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(schedulerHallMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new schedulerHallMaintenance().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHallManagement;
@@ -429,22 +472,32 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnScheduleMaintenance;
     private javax.swing.JComboBox<String> comBoxHallID;
+    private javax.swing.JComboBox<String> comBoxSelectEndTime;
+    private javax.swing.JComboBox<String> comBoxSelectStartTime;
     private javax.swing.JComboBox<String> dateComboBox;
     private javax.swing.JLabel hallTypeLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JTextField txtEndTime;
     private javax.swing.JTextField txtRemarks;
-    private javax.swing.JTextField txtStartTime;
     // End of variables declaration//GEN-END:variables
+
+//    private String formatTime(int hour) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+//
+//    private void initCustomComponents() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+//
+//    private void populateIDComboBox() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
 }

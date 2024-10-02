@@ -300,7 +300,8 @@ public class hallClass {
     }
 
     return hallDetails; // Returns null if not found
-}
+    }
+   
    public Object[][] getHallDetails() {
     List<Object[]> hallList = new ArrayList<>();
     
