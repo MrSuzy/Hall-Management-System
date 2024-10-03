@@ -31,10 +31,6 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         populateTable();
     }
     
-    private void openViewHallDetails(String hallID) {
-        this.dispose();
-        new schedulerViewHallDetails(hallID, loggedInEmail).setVisible(true);
-    }
 
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tableHallManagement.getModel();
@@ -349,16 +345,8 @@ public class schedulerHallManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetSearchActionPerformed
 
     private void btnViewHallDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewHallDetailsActionPerformed
-        int selectedRow = tableHallManagement.getSelectedRow();
-        
-        if (selectedRow >= 0 ) {
-            String hallID = tableHallManagement.getValueAt(selectedRow, 0).toString();
-            
-            this.dispose();
-            new schedulerViewHallDetails(hallID, loggedInEmail).setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "No hall selected. Please select a hall to view details.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        this.dispose();
+        new Scheduler.schedulerViewHallDetails(loggedInEmail).setVisible(true);
     }//GEN-LAST:event_btnViewHallDetailsActionPerformed
 
     private void btnHallMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallMaintenanceActionPerformed

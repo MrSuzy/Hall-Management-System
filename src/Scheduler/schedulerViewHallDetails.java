@@ -14,16 +14,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class schedulerViewHallDetails extends javax.swing.JFrame {
 
-    private String hallID;
     private String loggedInEmail;
     /**
      * Creates new form schedulerViewHallDetails
-     * @param hallID
      * @param loggedInEmail
      */
-    public schedulerViewHallDetails(String hallID, String loggedInEmail) {
+    public schedulerViewHallDetails(String loggedInEmail) {
         this.loggedInEmail = loggedInEmail;
-        this.hallID = hallID;
         initComponents();
         loadHallDetails();
     }
@@ -38,51 +35,11 @@ public class schedulerViewHallDetails extends javax.swing.JFrame {
         table.setRowCount(0);
         
        for (Object[] halls : hallDetails) {
-           if (halls[0].toString().equals(hallID)) {
                table.addRow(new Object[]{halls[0], halls[1], halls[2], halls[3], halls[4], halls[5]});
-           }
        }
     }
     
     
-    
-//    private void populateHallDetailsTable(String hallID) {
-//    hallClass hall = new hallClass();
-//    Object[] hallDetailsAndBookings = hall.getHallExactDetails(hallID);
-//    
-//    String[] hallDetails = (String[]) hallDetailsAndBookings[0]; // Get hall details
-//    String[] futureBookings = (String[]) hallDetailsAndBookings[1]; // Get future bookings
-//
-//    // Clear existing rows in the table (if any)
-//    DefaultTableModel tableModel = (DefaultTableModel) tblDetails.getModel();
-//    tableModel.setRowCount(0); // Clear previous data
-//
-//    // Add hall details to the table
-//    for (String hallDetail : hallDetails) {
-//        String[] hallInfo = hallDetail.split(";"); // Split by semicolon
-//        tableModel.addRow(new Object[]{
-//            hallInfo[0], // Hall ID
-//            hallInfo[1], // Hall Type
-//            hallInfo[2], // Price
-//            hallInfo[3].equals("N/A") ? "" : hallInfo[3], // Date (if applicable)
-//            hallInfo[4].equals("N/A") ? "" : hallInfo[4], // Start Time (if applicable)
-//            hallInfo[5].equals("N/A") ? "" : hallInfo[5]  // End Time (if applicable)
-//        });
-//    }
-//
-//    // Add future bookings to the table
-//    for (String futureBooking : futureBookings) {
-//        String[] bookingInfo = futureBooking.split(";"); // Split by semicolon
-//        tableModel.addRow(new Object[]{
-//            bookingInfo[2], // Hall ID (from booking)
-//            "Booking",      // Hall Type (you may adjust this)
-//            "",             // Price (not available for bookings)
-//            bookingInfo[3], // Booking Date
-//            bookingInfo[4], // Start Time
-//            bookingInfo[7]  // Status
-//        });
-//    }
-//}
     
     /**
      * This method is called from within the constructor to initialize the form.

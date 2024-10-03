@@ -437,7 +437,9 @@ public class hallClass {
                 String endTime = details[5];
                 String availability = details[7];
                 
-                past.add(new Object[]{hallID, hallType, bookingDate, startTime, endTime, availability});
+                if (availability.equalsIgnoreCase("Booked") || availability.equalsIgnoreCase("Maintenance")) {
+                    past.add(new Object[]{hallID, hallType, bookingDate, startTime, endTime, availability});
+                }     
             }
     
         } catch (IOException e) {
