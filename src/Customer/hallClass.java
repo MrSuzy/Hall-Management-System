@@ -441,7 +441,7 @@ public class hallClass {
                 if (availability.equalsIgnoreCase("Booked") || availability.equalsIgnoreCase("Maintenance")) {
                     try {
                         Date date = format.parse(bookingDate);
-                        past.add(new Object[]{hallID, hallType, bookingDate, startTime, endTime, availability});
+                        past.add(new Object[]{hallID, hallType, date, startTime, endTime, availability});
                     } catch (ParseException e) {
                         System.out.println("Error parsing date" + e.getMessage());
                     }
@@ -458,13 +458,7 @@ public class hallClass {
             Date date2 = (Date) h2[2];
             return date1.compareTo(date2);
         });
-        
-        List<Object[]> Past = new ArrayList<>();
-        for (Object[] halls : past) {
-            String dateStr = format.format((Date) halls[2]);
-            Past.add(new Object[]{halls[0], halls[1], dateStr, halls[3], halls[4], halls[5]});
-        }
-        return Past;
+        return past;
     }
 
     // check hall availabilty before booking method 
