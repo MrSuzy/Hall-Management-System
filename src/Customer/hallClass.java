@@ -458,7 +458,13 @@ public class hallClass {
             Date date2 = (Date) h2[2];
             return date1.compareTo(date2);
         });
-        return past;
+        
+        List<Object[]> Past = new ArrayList<>();
+        for (Object[] halls : past) {
+            String dateStr = format.format((Date) halls[2]);
+            Past.add(new Object[]{halls[0], halls[1], dateStr, halls[3], halls[4], halls[5]});
+        }
+        return Past;
     }
 
     // check hall availabilty before booking method 
