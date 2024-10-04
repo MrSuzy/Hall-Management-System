@@ -421,6 +421,7 @@ public class hallClass {
     // view detailed past halls for scheduler
     public List<Object[]> viewPastHalls() {
         List<Object[]> past = new ArrayList<>();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         
         try{
             FileReader fr = new FileReader("hall.txt");
@@ -438,13 +439,25 @@ public class hallClass {
                 String availability = details[7];
                 
                 if (availability.equalsIgnoreCase("Booked") || availability.equalsIgnoreCase("Maintenance")) {
-                    past.add(new Object[]{hallID, hallType, bookingDate, startTime, endTime, availability});
+                    try {
+                        Date date = format.parse(bookingDate);
+                        past.add(new Object[]{hallID, hallType, bookingDate, startTime, endTime, availability});
+                    } catch (ParseException e) {
+                        System.out.println("Error parsing date" + e.getMessage());
+                    }
+                    
                 }     
             }
     
         } catch (IOException e) {
             System.out.println("Error reading file/parsing dateTime" + e.getMessage());
         }
+        
+        past.sort((h1, h2) -> {
+            Date date1 = (Date) h1[2];
+            Date date2 = (Date) h2[2];
+            return date1.compareTo(date2);
+        });
         return past;
     }
 
