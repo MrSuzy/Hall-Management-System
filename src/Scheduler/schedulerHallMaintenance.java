@@ -489,15 +489,4 @@ public class schedulerHallMaintenance extends javax.swing.JFrame {
     private javax.swing.JTextField txtRemarks;
     // End of variables declaration//GEN-END:variables
 
-//    private String formatTime(int hour) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    private void initCustomComponents() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    private void populateIDComboBox() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
 }

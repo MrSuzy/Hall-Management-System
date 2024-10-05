@@ -117,14 +117,14 @@ public class schedulerHallManagement extends javax.swing.JFrame {
 
         tableHallManagement.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Hall ID", "Hall Type", "Capacity", "Price (RM/per hour)", "Availability"
+                "Hall ID", "Hall Type", "Capacity", "Price (RM/per hr)"
             }
         ));
         jScrollPane1.setViewportView(tableHallManagement);
@@ -275,7 +275,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         // Check if a row is selected
         if (selectedRow < 0) {
             // Show error message if no row is selected
-            JOptionPane.showMessageDialog(this, "No hall selected. Please select a hall to view details.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No hall selected. Please select a hall to edit.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Exit the method early
         }
 
@@ -291,7 +291,7 @@ public class schedulerHallManagement extends javax.swing.JFrame {
         // Check if a row is selected
         if (selectedRow < 0) {
             // Show error message if no row is selected
-            JOptionPane.showMessageDialog(this, "No hall selected. Please select a hall to view details.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No hall selected. Please select a hall to delete.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Exit the method early
         }
 

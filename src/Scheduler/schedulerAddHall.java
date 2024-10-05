@@ -124,11 +124,11 @@ public class schedulerAddHall extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
-        jLabel1.setText("Add Hall");
+        jLabel1.setText("Add New Hall");
 
-        jLabel2.setText("Hall ID");
+        jLabel2.setText("Hall Type");
 
-        jLabel3.setText("Hall Type");
+        jLabel3.setText("Hall ID");
 
         jLabel4.setText("Capacity");
 

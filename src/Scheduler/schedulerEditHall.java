@@ -78,7 +78,7 @@ public class schedulerEditHall extends javax.swing.JFrame {
 
         jLabel4.setText("Capacity");
 
-        jLabel5.setText("Price (RM/per hour)");
+        jLabel5.setText("Price (RM/per hr)");
 
         txtEditHallID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

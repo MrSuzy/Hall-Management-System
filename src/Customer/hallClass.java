@@ -422,44 +422,51 @@ public class hallClass {
     public List<Object[]> viewPastHalls() {
         List<Object[]> past = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        
-        try{
+        Date today = new Date();  // Get today's date
+
+        try {
             FileReader fr = new FileReader("hall.txt");
             BufferedReader br = new BufferedReader(fr);
             String read;
-            
+
             while ((read = br.readLine()) != null) {
                 String[] details = read.split(";");
-                
+
                 String hallID = details[0];
                 String hallType = details[1];
-                String bookingDate = details[3];
+                String bookingDate = details[3];  // Extract date
                 String startTime = details[4];
                 String endTime = details[5];
                 String availability = details[7];
-                
+
+                // Only include booked or maintenance halls
                 if (availability.equalsIgnoreCase("Booked") || availability.equalsIgnoreCase("Maintenance")) {
                     try {
-                        Date date = format.parse(bookingDate);
-                        past.add(new Object[]{hallID, hallType, date, startTime, endTime, availability});
+                        Date date = format.parse(bookingDate);  // Parse booking date
+                        // Check if the date is today or in the future
+                        if (!date.before(today)) { 
+                            past.add(new Object[]{hallID, hallType, date, startTime, endTime, availability});
+                        }
                     } catch (ParseException e) {
-                        System.out.println("Error parsing date" + e.getMessage());
+                        System.out.println("Error parsing date: " + e.getMessage());
                     }
-                    
-                }     
+                }
             }
-    
+            br.close();  // Always close the reader after use
         } catch (IOException e) {
-            System.out.println("Error reading file/parsing dateTime" + e.getMessage());
+            System.out.println("Error reading file: " + e.getMessage());
         }
-        
+
+        // Sort halls by date, ascending
         past.sort((h1, h2) -> {
             Date date1 = (Date) h1[2];
             Date date2 = (Date) h2[2];
             return date1.compareTo(date2);
         });
+
         return past;
     }
+
 
     // check hall availabilty before booking method 
     public static List<String> hallAvailability(Date selectedDate, Date selectedStartTime, Date selectedEndTime, String hallType) {
